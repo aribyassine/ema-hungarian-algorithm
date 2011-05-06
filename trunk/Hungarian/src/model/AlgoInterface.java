@@ -11,8 +11,8 @@ package model;
  */
 public interface AlgoInterface {
 	public void init(int tab[][], boolean preference);
-	public void step1SubstractRow();
-	public void step2SubstractCol();
+	public void step1SubstractAllRow();
+	public void step2SubstractAllCol();
 	public void step3MarkRow();
 	public void step4MarkCol();
 	public void step5MarkRowCol();
