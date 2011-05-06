@@ -82,7 +82,7 @@ public class Algo implements AlgoInterface{
 	private int chercheMin(int row)
 	{
 		int min=Integer.MAX_VALUE;
-
+                //coucou
 		return min;
 	}
 
