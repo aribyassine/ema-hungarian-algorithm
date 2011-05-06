@@ -27,11 +27,22 @@ public class Algo implements AlgoInterface{
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
-	public void step1SubstractRow() {
+	public void step1SubstractAllRow() {
+            for(int i=0;i<this.tab[0].length; i++)
+            {
+                
+            }
+	}
+
+        public void step1SubstractRow(int row) {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
-	public void step2SubstractCol() {
+	public void step2SubstractAllCol() {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+        public void step2SubstractCol(int col) {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
