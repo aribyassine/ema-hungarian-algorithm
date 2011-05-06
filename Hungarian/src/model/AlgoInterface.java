@@ -21,4 +21,15 @@ public interface AlgoInterface {
 	public void step8SubstractNoMark();
 	public void step9AddMarkTwice();
 	public void step10Affect0();
+
+        /*
+         * Call up the step in the right order
+         */
+        public void resolveMatrix();
+
+        /*
+         * Return the resolved matrix
+         * TODO: not too sure about the signature
+         */
+        public int[][] getResolvedMatrix();
 }
