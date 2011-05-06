@@ -22,6 +22,29 @@ public class MatrixPanel extends javax.swing.JPanel {
         initComponents();
     }
 
+    /*
+     * returns an int matrix from the JTable values
+     */
+    public int[][] getIntMatrix()
+    {
+        int rowCount = jTable1.getModel().getRowCount();
+        int columnCount = jTable1.getModel().getColumnCount();
+        
+        int matrix[][] = new int[columnCount][rowCount];
+        // Object matrix[][] = new Object[columnCount][rowCount];
+
+        for(int row_index=0; row_index<rowCount; row_index++)
+        {
+            for(int col_index=0; col_index<columnCount; col_index++)
+            {
+                // matrix[row_index][col_index] =
+                        jTable1.getModel().getValueAt(row_index, col_index);
+            }
+        }
+
+        return matrix;
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is

@@ -4,6 +4,7 @@
 
 package hungarian;
 
+import controller.MainController;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
 
@@ -15,8 +16,11 @@ public class HungarianApp extends SingleFrameApplication {
     /**
      * At startup create and show the main frame of the application.
      */
-    @Override protected void startup() {
-        show(new HungarianView(this));
+    @Override protected void startup()
+    {
+        HungarianView hungarianView = new HungarianView(this);
+        MainController mainController = new MainController(hungarianView);
+        show(hungarianView);
     }
 
     /**
