@@ -9,6 +9,12 @@ package controller;
  *
  * @author andre
  */
-public class HungarianAlgorithmController {
+public class HungarianAlgorithmController
+{
+    // private AlgoInterface algo;
 
+    public int[][] resolve()
+    {
+        return null;
+    }
 }
