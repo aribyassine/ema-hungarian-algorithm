@@ -86,4 +86,19 @@ public class Algo implements AlgoInterface{
 		return min;
 	}
 
+    public void resolveMatrix()
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    /*
+     * TODO: finish this up
+     */
+    public int[][] getResolvedMatrix()
+    {
+        resolveMatrix();
+        
+        return null;
+    }
+
 }
