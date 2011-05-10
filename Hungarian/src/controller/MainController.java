@@ -38,8 +38,9 @@ public class MainController
 
         public void actionPerformed(ActionEvent e)
         {
+            int matrix[][] = matrixController.getIntMatrix();
             HungarianAlgorithmController hungarianAlgorithmController =
-                    new HungarianAlgorithmController();
+                    new HungarianAlgorithmController(matrix);
             System.out.println("Running hungarianAlgorithmController TODO");
         }
     }
