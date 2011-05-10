@@ -11,6 +11,9 @@
 
 package view;
 
+import javax.swing.JOptionPane;
+import javax.swing.event.ChangeEvent;
+
 /**
  *
  * @author andre
@@ -39,6 +42,20 @@ public class MatrixPanel extends javax.swing.JPanel {
         int matrix[][] = new int[columnCount][rowCount];
         // Object matrix[][] = new Object[columnCount][rowCount];
 
+        /*
+         * Si l'utilisateur est en cours d'edition un probleme de pointer
+         * a null peut se produire
+         */
+        if (jTable1.isEditing())
+        {
+            // JOptionPane.showMessageDialog(this, "Finish your editing first.");
+            // on force la fin de l'edition
+            if (jTable1.getCellEditor() != null)
+            {
+             jTable1.getCellEditor().stopCellEditing();
+            }
+        }
+        
         for(int row_index=0; row_index<rowCount; row_index++)
         {
             for(int col_index=0; col_index<columnCount; col_index++)
@@ -53,7 +70,7 @@ public class MatrixPanel extends javax.swing.JPanel {
     }
 
     /*
-     * Set the JTable Matrix to zero
+     * Set la matrice a zero
      */
     private void clearTableMatrix(javax.swing.JTable jTableMatrix)
     {
