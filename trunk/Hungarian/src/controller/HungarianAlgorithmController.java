@@ -21,7 +21,7 @@ public class HungarianAlgorithmController
     HungarianAlgorithmController(int[][] matrix)
     {
         this.matrix = matrix;
-        algo = new Algo(matrix, true); // TODO: fix hardcoded value
+        algo = new Algo(matrix, true, matrix.length); // TODO: fix hardcoded value
     }
     // private AlgoInterface algo;
 
