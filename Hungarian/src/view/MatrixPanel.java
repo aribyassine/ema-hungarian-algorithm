@@ -20,6 +20,8 @@ public class MatrixPanel extends javax.swing.JPanel {
     /** Creates new form MatrixPanel */
     public MatrixPanel() {
         initComponents();
+
+        setTableModel(3); // TODO: hardcoded value
     }
 
     /*
@@ -37,13 +39,28 @@ public class MatrixPanel extends javax.swing.JPanel {
         {
             for(int col_index=0; col_index<columnCount; col_index++)
             {
-                // TODO: return integer somehow or use the appropriated table model
-                // matrix[row_index][col_index] =
-                        jTable1.getModel().getValueAt(row_index, col_index);
+                matrix[row_index][col_index] =
+                        ((Integer)jTable1.getModel().getValueAt(row_index, col_index)).intValue();
             }
         }
 
         return matrix;
+    }
+
+    // TODO: use the matrixOrder (size n) for creating the matrix
+    private void setTableModel(int matrixOrder)
+    {
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Integer [][] {
+                {1, 2, 3, 4},
+                {5, 6, 7, 8},
+                {9, 10, 11, 12},
+                {13, 14, 15, 16}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
     }
 
     /** This method is called from within the constructor to
