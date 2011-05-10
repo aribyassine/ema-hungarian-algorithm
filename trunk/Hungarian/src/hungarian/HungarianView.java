@@ -15,6 +15,7 @@ import javax.swing.Timer;
 import javax.swing.Icon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import view.MatrixPanel;
 
 /**
  * The application's main frame.
@@ -89,6 +90,11 @@ public class HungarianView extends FrameView {
             aboutBox.setLocationRelativeTo(mainFrame);
         }
         HungarianApp.getApplication().show(aboutBox);
+    }
+
+    public MatrixPanel getMatrixPanel()
+    {
+        return matrixPanel1;
     }
 
     public void addResolveButtonListener(ActionListener al)

@@ -2,12 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package controller;
 
 import hungarian.HungarianView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import view.MatrixPanel;
 
 /**
  *
@@ -15,12 +15,16 @@ import java.awt.event.ActionListener;
  */
 public class MainController
 {
+
     private HungarianView hungarianView;
+    private MatrixController matrixController;
 
     public MainController(HungarianView hungarianView)
     {
         this.hungarianView = hungarianView;
-      addListeners();
+        MatrixPanel matrixPanel = hungarianView.getMatrixPanel();
+        this.matrixController = new MatrixController(matrixPanel);
+        addListeners();
     }
 
     private void addListeners()
@@ -31,6 +35,7 @@ public class MainController
 
     class ResolveButtonListener implements ActionListener
     {
+
         public void actionPerformed(ActionEvent e)
         {
             HungarianAlgorithmController hungarianAlgorithmController =
@@ -38,5 +43,4 @@ public class MainController
             System.out.println("Running hungarianAlgorithmController TODO");
         }
     }
-
 }
