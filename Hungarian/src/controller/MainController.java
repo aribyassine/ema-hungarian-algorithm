@@ -41,7 +41,8 @@ public class MainController
             int matrix[][] = matrixController.getIntMatrix();
             HungarianAlgorithmController hungarianAlgorithmController =
                     new HungarianAlgorithmController(matrix);
-            System.out.println("Running hungarianAlgorithmController TODO");
+            hungarianAlgorithmController.resolve();
+            System.out.println("Running hungarianAlgorithmController.resolve()");
         }
     }
 }
