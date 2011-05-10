@@ -37,6 +37,7 @@ public class MatrixPanel extends javax.swing.JPanel {
         {
             for(int col_index=0; col_index<columnCount; col_index++)
             {
+                // TODO: return integer somehow or use the appropriated table model
                 // matrix[row_index][col_index] =
                         jTable1.getModel().getValueAt(row_index, col_index);
             }
