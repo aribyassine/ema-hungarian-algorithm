@@ -6,6 +6,8 @@
 package controller;
 
 import hungarian.HungarianView;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  *
@@ -18,6 +20,23 @@ public class MainController
     public MainController(HungarianView hungarianView)
     {
         this.hungarianView = hungarianView;
+      addListeners();
+    }
+
+    private void addListeners()
+    {
+        hungarianView.addResolveButtonListener(
+                new ResolveButtonListener());
+    }
+
+    class ResolveButtonListener implements ActionListener
+    {
+        public void actionPerformed(ActionEvent e)
+        {
+            HungarianAlgorithmController hungarianAlgorithmController =
+                    new HungarianAlgorithmController();
+            System.out.println("Running hungarianAlgorithmController TODO");
+        }
     }
 
 }
