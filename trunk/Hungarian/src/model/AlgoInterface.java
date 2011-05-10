@@ -10,17 +10,18 @@ package model;
  * @author laurent
  */
 public interface AlgoInterface {
-	public void init(int tab[][], boolean preference);
+	public void init(int tab[][], boolean preference, int taille);
 	public void step1SubstractAllRow();
 	public void step2SubstractAllCol();
-	public void step3MarkRow();
-	public void step4MarkCol();
-	public void step5MarkRowCol();
-	public void step6Iterate();
-	public void step7StrikeRowCol();
-	public void step8SubstractNoMark();
-	public void step9AddMarkTwice();
-	public void step10Affect0();
+        public void step3SelectMarkZero();
+	public void step4MarkRow();
+	public void step5MarkCol();
+	public void step6MarkRowCol();
+	public void step7Iterate();
+	public void step8StrikeRowCol();
+	public void step9SubstractNoMark();
+	public void step10AddMarkTwice();
+	public void step11Affect0();
 
         /*
          * Call up the step in the right order

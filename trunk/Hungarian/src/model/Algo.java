@@ -4,38 +4,55 @@
  */
 
 package model;
-
 /**
  *
  * @author laurent
  */
 public class Algo implements AlgoInterface{
 
-	private int tab[][]={{0,0,0,0,0,0},{0,1,2,3,4,5},{0,1,4,2,5,3},{0,3,2,1,5,4},{0,1,2,3,5,4},{0,2,1,4,3,5}};
-        private boolean  tabMarkedZero[][]=new boolean[5][5];
+	private int tab[][]={{1,2,3,4,5},{1,4,2,5,3},{3,2,1,5,4},{1,2,3,5,4},{2,1,4,3,5}};
+        private boolean  tabMarkedZero[][];
 	private boolean preference;
-        private final static int MARKED=1;
-        private final static int NOT_MARKED=0;
+        private boolean  markRow[];
+        private boolean  markCol[];
 
-	
-	public Algo(int[][] tab, boolean preference) {
-		init(tab, preference);
+
+	public Algo(int[][] tab, boolean preference, int taille) {
+            init(tab, preference, taille);
 	}
 
-	public void init(int[][] tab, boolean preference) {
-		this.tab = tab;
-		this.preference = preference;
-                for(int i=0;i<tabMarkedZero.length;i++)
+        public Algo(boolean preference, int taille) {
+            this.preference = preference;
+            this.tabMarkedZero=new boolean[taille][taille];
+            markCol = new boolean[taille];
+            markRow = new boolean[taille];
+            for(int i=0;i<tabMarkedZero.length;i++)
+            {
+                for(int j=0;j<tabMarkedZero.length;j++)
                 {
-                    for(int j=0;j<tabMarkedZero.length;j++)
-                    {
-                        tabMarkedZero[i][j]=false;
-                    }
+                    tabMarkedZero[i][j]=false;
                 }
+            }
+        }
+        
+	public void init(int[][] tab, boolean preference, int taille) {
+            this.tab = tab;
+            this.preference = preference;
+            this.tabMarkedZero=new boolean[taille][taille];
+            markCol = new boolean[taille];
+            markRow = new boolean[taille];
+
+            for(int i=0;i<tabMarkedZero.length;i++)
+            {
+                for(int j=0;j<tabMarkedZero.length;j++)
+                {
+                    tabMarkedZero[i][j]=false;
+                }
+            }
 	}
 
         //selection de zeros encadrées
-	public void step10Affect0() {
+	public void step11Affect0() {
             step10AffectZeroByRow();
             step10AffectZeroByCol();
 	}
@@ -44,14 +61,14 @@ public class Algo implements AlgoInterface{
         public void step10AffectZeroByRow(){
             Integer nbZero=0, xZero=null, yZero=null;
 
-            for(int row=1;row<tab.length;row++)
+            for(int row=0;row<tab.length;row++)
             {
-                for(int col=1;col<tab.length;col++)
+                for(int col=0;col<tab.length;col++)
                 {
                     if(tab[row][col]==0)
                     {
-                        xZero=row-1;
-                        yZero=col-1;
+                        xZero=row;
+                        yZero=col;
                         nbZero++;
                     }
                 }
@@ -63,20 +80,18 @@ public class Algo implements AlgoInterface{
                 nbZero=0;
             }
         }
-//L'accummulation de l'information ne fait pas plus de connaissance que l'acummulation de brique ne fait un mur
 
-        /* selection de zeros encadrees par colonnes */
-        public void step10AffectZeroByCol(){
-            Integer nbZero=0, xZero=null, yZero=null;
+    public void step3SelectMarkZero() {
+        Integer nbZero=0, xZero=null, yZero=null;
 
-            for(int col=1;col<tab.length;col++)
+            for(int col=0;col<tab.length;col++)
             {
-                for(int row=1;row<tab.length;row++)
+                for(int row=0;row<tab.length;row++)
                 {
                     if(tab[row][col]==0)
                     {
-                        xZero=row-1;
-                        yZero=col-1;
+                        xZero=row;
+                        yZero=col;
                         nbZero++;
                     }
                 }
@@ -87,11 +102,17 @@ public class Algo implements AlgoInterface{
                 }
                 nbZero=0;
             }
+    }
+//L'accummulation de l'information ne fait pas plus de connaissance que l'acummulation de brique ne fait un mur
+
+        /* selection de zeros encadrees par colonnes */
+        public void step10AffectZeroByCol(){
+            throw new UnsupportedOperationException("Not supported yet.");
         }
 
         /*on creer un zero par ligne par soustraction*/
 	public void step1SubstractAllRow() {
-            for(int i=1;i<this.tab[0].length; i++)
+            for(int i=0;i<this.tab[0].length; i++)
             {
                 step1SubstractRow(i);
             }
@@ -107,7 +128,7 @@ public class Algo implements AlgoInterface{
                 valueToSobstract=chercheMaxRow(row);
             }
             /*on soustrait ensuite cette valeur à chaque élément de la ligne*/
-            for(int i=1;i<this.tab[row].length;i++)
+            for(int i=0;i<this.tab[row].length;i++)
             {
                 tab[row][i]=tab[row][i]-valueToSobstract;
             }
@@ -115,7 +136,7 @@ public class Algo implements AlgoInterface{
 
         /*pour chaque colonne, on creer un zero par soustraction*/
 	public void step2SubstractAllCol() {
-            for(int i=1;i<this.tab[0].length; i++)
+            for(int i=0;i<this.tab[0].length; i++)
             {
                 step2SubstractCol(i);
             }
@@ -132,35 +153,35 @@ public class Algo implements AlgoInterface{
                 valueToSobstract=chercheMaxCol(col);
             }
             /*on soustrait ensuite cette valeur à chaque élément de la ligne*/
-            for(int i=1;i<this.tab[col].length;i++)
+            for(int i=0;i<this.tab[col].length;i++)
             {
                 tab[i][col]=tab[i][col]-valueToSobstract;
             }
 	}
 
         /*on marque toute ligne n'ayant pas de zero encadrer*/
-	public void step3MarkRow() {
+	public void step4MarkRow() {
             for(int row=0;row<tabMarkedZero.length;row++)
             {
                 if(!isMarkedZeroRow(row))
-                    tab[row+1][0]=MARKED;
+                    markRow[row]=true;
             }
 	}
 
         /*on marque toute colonne ayant un 0 barré sur une ligne marqué*/
-	public void step4MarkCol() {
+	public void step5MarkCol() {
             //recherche de ligne marqué
             for(int row=0;row<tab.length;row++)
             {
-                for(int col=1;col<tab.length;col++)
+                for(int col=0;col<tab.length;col++)
                 {
                     //si on trouve une marqué,
-                    if(tab[row][0]==MARKED)
+                    if(markRow[row]==true)
                     {
                         //ATTENTION, IL FAUDRAIT RECHERCHER UN ZERO NON ENCADRER
                         if(nbZeroCol(col)>1)
                         {
-                            tab[0][col]=MARKED;
+                            markCol[col]=true;
                         }
                     }
                 }
@@ -168,36 +189,36 @@ public class Algo implements AlgoInterface{
 	}
 
         /*on marque toute ligne ayant un 0 encadré sur une colonne marqué*/
-	public void step5MarkRowCol() {
-            for(int col=1;col<tab.length;col++)
+	public void step6MarkRowCol() {
+            for(int col=0;col<tab.length;col++)
             {
-                if(tab[0][col]==MARKED)
+                if(markCol[col]==true)
                 {
-                    if(isMarkedZeroCol(col-1))
+                    if(isMarkedZeroCol(col))
                     {
                         for(int row=0;row<tabMarkedZero.length;row++)
                         {
-                            if(tabMarkedZero[row][col-1]==true)
-                                tab[row+1][0]=MARKED;
+                            if(tabMarkedZero[row][col]==true)
+                                markRow[row]=true;
                         }
                     }
                 }
             }
 	}
 
-	public void step6Iterate() {
+	public void step7Iterate() {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
-	public void step7StrikeRowCol() {
+	public void step8StrikeRowCol() {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
-	public void step8SubstractNoMark() {
+	public void step9SubstractNoMark() {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
-	public void step9AddMarkTwice() {
+	public void step10AddMarkTwice() {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
@@ -220,7 +241,7 @@ public class Algo implements AlgoInterface{
 	private int chercheMinRow(int row)
 	{
             int min=Integer.MAX_VALUE;
-            for(int i=1;i<tab[0].length;i++)
+            for(int i=0;i<tab[0].length;i++)
             {
                 if(tab[row][i]<min)
                 min=tab[row][i];
@@ -246,7 +267,7 @@ public class Algo implements AlgoInterface{
     private int chercheMaxRow(int row)
     {
         int max=Integer.MIN_VALUE;
-        for(int i=1;i<tab[0].length;i++)
+        for(int i=0;i<tab[0].length;i++)
         {
             if(tab[row][i]>max)
                 max=tab[row][i];
@@ -256,7 +277,7 @@ public class Algo implements AlgoInterface{
 
     private int chercheMinCol(int col) {
         int min=Integer.MAX_VALUE;
-        for(int i=1;i<tab[0].length;i++)
+        for(int i=0;i<tab[0].length;i++)
         {
             if(tab[i][col]<min)
                 min=tab[i][col];
@@ -266,7 +287,7 @@ public class Algo implements AlgoInterface{
 
     private int chercheMaxCol(int col) {
         int max=Integer.MIN_VALUE;
-        for(int i=1;i<tab[0].length;i++)
+        for(int i=0;i<tab[0].length;i++)
         {
             if(tab[i][col]>max)
                 max=tab[i][col];
@@ -298,7 +319,7 @@ public class Algo implements AlgoInterface{
 
     private int nbZeroRow(int row){
         int nbZero=0;
-        for(int col=1;col<tab.length;col++)
+        for(int col=0;col<tab.length;col++)
         {
             if(tab[row][col]==0)
                 nbZero++;
@@ -308,7 +329,7 @@ public class Algo implements AlgoInterface{
 
     private int nbZeroCol(int col){
         int nbZero=0;
-        for(int row=1;row<tab.length;row++)
+        for(int row=0;row<tab.length;row++)
         {
             if(tab[row][col]==0)
                 nbZero++;
@@ -316,19 +337,19 @@ public class Algo implements AlgoInterface{
         return nbZero;
     }
 
-    public Algo(boolean preference) {
-        this.preference = preference;
-        for(int i=0;i<tabMarkedZero.length;i++)
-        {
-            for(int j=0;j<tabMarkedZero.length;j++)
-            {
-                tabMarkedZero[i][j]=false;
-            }
-        }
-    }
 
     public boolean[][] getTabMarkedZero() {
         return tabMarkedZero;
+    }
+
+    private void affiche(boolean  []tab)
+    {
+        String sortie = new String();
+        for(int row=0;row<tab.length;row++)
+        {
+            sortie +=tab[row]+" ";
+        }
+        System.out.println(sortie);
     }
 
     private void affiche(boolean  [][]tab)
@@ -360,26 +381,35 @@ public class Algo implements AlgoInterface{
     }
 
     public static void main(String[] args) {
-        Algo algo = new Algo(true);
+        Algo algo = new Algo(true,5);
         algo.step1SubstractAllRow();
         System.out.println("soustraction ligne");
         algo.affiche(algo.getTab());
         algo.step2SubstractAllCol();
         System.out.println("soustraction colonne");
         algo.affiche(algo.getTab());
-        algo.step10Affect0();
+        algo.step3SelectMarkZero();
         System.out.println("zeros encadre");
         algo.affiche(algo.getTabMarkedZero());
-        algo.step3MarkRow();
+        algo.step4MarkRow();
         System.out.println("marquage ligne");
-        algo.affiche(algo.getTab());
+        algo.affiche(algo.getMarkRow());
         //algo.affiche(algo.getTabMarkedZero());
-        algo.step4MarkCol();
+        algo.step5MarkCol();
         System.out.println("marqage colonne");
-        algo.affiche(algo.getTab());
+        algo.affiche(algo.getMarkCol());
         //algo.affiche(algo.getTabMarkedZero());
-        algo.step5MarkRowCol();
+        algo.step6MarkRowCol();
         System.out.println("marquage ligne/colonne");
-        algo.affiche(algo.getTab());
+        algo.affiche(algo.getMarkRow());
+        algo.affiche(algo.getMarkCol());
+    }
+
+    public boolean[] getMarkCol() {
+        return markCol;
+    }
+
+    public boolean[] getMarkRow() {
+        return markRow;
     }
 }
