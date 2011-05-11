@@ -12,6 +12,7 @@
 package view;
 
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.event.ChangeEvent;
 
 /**
@@ -118,6 +119,11 @@ public class MatrixPanel extends javax.swing.JPanel {
             matrix,
             new String [matrix.length]
         ));
+        
+        /*
+         * Ajout des numeraux de lignes
+         */
+        // see: http://www.java2s.com/Code/Java/Swing-Components/TableRowHeaderExample.htm
     }
 
     /*

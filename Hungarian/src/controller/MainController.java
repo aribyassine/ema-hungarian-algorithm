@@ -8,6 +8,7 @@ import hungarian.HungarianView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import view.MatrixPanel;
+import view.SolutionPanel;
 
 /**
  *
@@ -18,12 +19,21 @@ public class MainController
 
     private HungarianView hungarianView;
     private MatrixController matrixController;
+    private SolutionController solutionxController;
 
     public MainController(HungarianView hungarianView)
     {
         this.hungarianView = hungarianView;
+
+        /*
+         * Ressource/Job Matrix View and controller
+         */
         MatrixPanel matrixPanel = hungarianView.getMatrixPanel();
         this.matrixController = new MatrixController(matrixPanel);
+
+        SolutionPanel solutionPanel = hungarianView.getSolutionPanel();
+        this.solutionxController = new SolutionController(solutionPanel);
+        
         addListeners();
     }
 
@@ -44,6 +54,7 @@ public class MainController
             boolean resolvedMatrix[][] = hungarianAlgorithmController.resolve();
             System.out.println("Running hungarianAlgorithmController.resolve()");
             hungarianAlgorithmController.affiche(resolvedMatrix);
+            solutionxController.setSolutionMatrix(resolvedMatrix);
         }
     }
 }
