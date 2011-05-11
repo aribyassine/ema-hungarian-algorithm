@@ -29,4 +29,20 @@ public class HungarianAlgorithmController
     {
         return algo.getResolvedMatrix();
     }
+
+    // for testing purpose only, but will be later removed
+    public void affiche(boolean  [][]tab)
+    {
+        String sortie = new String();
+        for(int row=0;row<tab.length;row++)
+        {
+            for(int col=0;col<tab[row].length;col++)
+            {
+                sortie +=tab[row][col]+" ";
+            }
+            sortie+="\n";
+        }
+        System.out.println(sortie);
+    }
+
 }

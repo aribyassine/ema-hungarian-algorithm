@@ -43,6 +43,7 @@ public class MainController
                     new HungarianAlgorithmController(matrix);
             boolean resolvedMatrix[][] = hungarianAlgorithmController.resolve();
             System.out.println("Running hungarianAlgorithmController.resolve()");
+            hungarianAlgorithmController.affiche(resolvedMatrix);
         }
     }
 }
