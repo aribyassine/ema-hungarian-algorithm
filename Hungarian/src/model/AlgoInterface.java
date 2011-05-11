@@ -32,5 +32,5 @@ public interface AlgoInterface {
          * Return the resolved matrix
          * TODO: not too sure about the signature
          */
-        public int[][] getResolvedMatrix();
+        public boolean[][] getResolvedMatrix();
 }

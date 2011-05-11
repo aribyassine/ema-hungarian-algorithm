@@ -304,17 +304,37 @@ public class Algo implements AlgoInterface{
 
     public void resolveMatrix()
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        step1SubstractAllRow();
+        System.out.println("soustraction ligne");
+        affiche(getTab());
+        step2SubstractAllCol();
+        System.out.println("soustraction colonne");
+        affiche(getTab());
+        step3SelectMarkZero();
+        System.out.println("zeros encadre");
+        affiche(getTabMarkedZero());
+        step4MarkRow();
+        System.out.println("marquage ligne");
+        affiche(getMarkRow());
+        //algo.affiche(algo.getTabMarkedZero());
+        step5MarkCol();
+        System.out.println("marqage colonne");
+        affiche(getMarkCol());
+        //algo.affiche(algo.getTabMarkedZero());
+        step6MarkRowCol();
+        System.out.println("marquage ligne/colonne");
+        affiche(getMarkRow());
+        affiche(getMarkCol());
     }
 
     /*
      * TODO: finish this up
      */
-    public int[][] getResolvedMatrix()
+    public boolean[][] getResolvedMatrix()
     {
         resolveMatrix();
         
-        return null;
+        return tabMarkedZero;
     }
     private int chercheMinRow(int row, int [][]tab)
     {
