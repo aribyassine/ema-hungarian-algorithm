@@ -25,7 +25,7 @@ public class HungarianAlgorithmController
     }
     // private AlgoInterface algo;
 
-    public int[][] resolve()
+    public boolean[][] resolve()
     {
         return algo.getResolvedMatrix();
     }
