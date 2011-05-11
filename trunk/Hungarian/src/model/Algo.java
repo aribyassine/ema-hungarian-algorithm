@@ -10,7 +10,8 @@ package model;
  */
 public class Algo implements AlgoInterface{
 
-    private int tab[][]={{1,2,3,4,5},{1,4,2,5,3},{3,2,1,5,4},{1,2,3,5,4},{2,1,4,3,5}};
+    //private int tab[][]={{1,2,3,4,5},{1,4,2,5,3},{3,2,1,5,4},{1,2,3,5,4},{2,1,4,3,5}};
+    private int tab[][]={{14,5,8,7},{2,12,6,5},{7,8,3,9},{2,4,6,10}};
     private boolean  tabMarkedZero[][];
     private boolean preference;
     private boolean  markRow[];
@@ -135,24 +136,44 @@ public class Algo implements AlgoInterface{
     public void step3SelectMarkZero() {
         Integer nbZero=0, xZero=null, yZero=null;
 
+        for(int col=0;col<tab.length;col++)
+        {
+            for(int row=0;row<tab.length;row++)
+            {
+                if(tab[row][col]==0)
+                {
+                    xZero=row;
+                    yZero=col;
+                    nbZero++;
+                }
+            }
+            /* on selectionne si il n'y a qu'un seul zero sur la colonne et
+             qu'il n'y pas de zero encadres sur la ligne */
+            if(nbZero==1 && !isMarkedZeroRow(xZero)){
+                tabMarkedZero[xZero][yZero]=true;
+            }
+            nbZero=0;
+        }
+
+        nbZero=0;
+        for(int row=0;row<tab.length;row++)
+        {
             for(int col=0;col<tab.length;col++)
             {
-                for(int row=0;row<tab.length;row++)
+                if(tab[row][col]==0)
                 {
-                    if(tab[row][col]==0)
-                    {
-                        xZero=row;
-                        yZero=col;
-                        nbZero++;
-                    }
+                    xZero=row;
+                    yZero=col;
+                    nbZero++;
                 }
-                /* on selectionne si il n'y a qu'un seul zero sur la colonne et
-                 qu'il n'y pas de zero encadres sur la ligne */
-                if(nbZero==1 && !isMarkedZeroRow(xZero)){
-                    tabMarkedZero[xZero][yZero]=true;
-                }
-                nbZero=0;
             }
+            /* on selectionne si il n'y a qu'un seul zero sur la ligne et
+             qu'il n'y pas de zero encadres sur la colonne*/
+            if(nbZero==1 && !isMarkedZeroCol(yZero)){
+                tabMarkedZero[xZero][yZero]=true;
+            }
+            nbZero=0;
+        }
     }
 
     /*on marque toute ligne n'ayant pas de zero encadrer*/
@@ -275,6 +296,7 @@ public class Algo implements AlgoInterface{
 
     public void step11Affect0() {
         initTabTemp(false);
+        step3SelectMarkZero();
         for(int row=0; row<tab.length;row++)
         {
             for(int col=0;col<tab.length;col++)
@@ -520,7 +542,7 @@ public class Algo implements AlgoInterface{
     }
 
     public static void main(String[] args) {
-        Algo algo = new Algo(true,5);
+        Algo algo = new Algo(true,4);
         algo.step1SubstractAllRow();
         System.out.println("soustraction ligne");
         algo.affiche(algo.getTab());
