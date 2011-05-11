@@ -24,11 +24,23 @@ public class MatrixPanel extends javax.swing.JPanel {
     private static final int DEFAULT_MATRIX_ORDER = 5;
     private int matrixOrder = DEFAULT_MATRIX_ORDER;
 
+    /* default matrix for tests */
+    private Integer[][] DEFAULT_MATRIX = {
+        {1, 2, 3, 4, 5},
+        {1, 4, 2, 5, 3},
+        {3, 2, 1, 5, 4},
+        {1, 2, 3, 5, 4},
+        {2, 1, 4, 3, 5}
+    };
+
+
     /** Creates new form MatrixPanel */
     public MatrixPanel() {
         initComponents();
 
-        setTableModel(matrixOrder); // TODO: hardcoded value
+        // setTableModel(matrixOrder);
+
+        setTableModel(DEFAULT_MATRIX); // this is for testing purpose only
     }
 
     /*
@@ -93,6 +105,19 @@ public class MatrixPanel extends javax.swing.JPanel {
             new String [matrixOrder]
         ));
         // clearTableMatrix(jTable1);
+    }
+
+    /*
+     * Set jTable a partir de la matrice passee en param et update les vues concernees
+     * 
+     */
+
+    private void setTableModel(Integer[][] matrix)
+    {
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            matrix,
+            new String [matrix.length]
+        ));
     }
 
     /*
