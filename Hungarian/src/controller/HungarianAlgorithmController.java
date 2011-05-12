@@ -7,6 +7,7 @@ package controller;
 
 import model.Algo;
 import model.AlgoInterface;
+import model.SimpleHungarian;
 
 /**
  *
@@ -21,7 +22,7 @@ public class HungarianAlgorithmController
     HungarianAlgorithmController(int[][] matrix)
     {
         this.matrix = matrix;
-        algo = new Algo(matrix, true, matrix.length); // TODO: fix hardcoded value
+        algo = new SimpleHungarian(matrix, true, matrix.length); // TODO: fix hardcoded value
     }
     // private AlgoInterface algo;
 
