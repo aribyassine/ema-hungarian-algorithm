@@ -110,14 +110,21 @@ public class MatrixPanel extends javax.swing.JPanel {
 
     /*
      * Set jTable a partir de la matrice passee en param et update les vues concernees
-     * 
+     * TODO: give task-n as header
      */
 
     private void setTableModel(Integer[][] matrix)
     {
+        String colHeader[] = new String [matrix.length];
+
+        for(int i=0; i<matrix.length; i++)
+        {
+            colHeader[i] = "Task-" + (i+1);
+        }
+
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             matrix,
-            new String [matrix.length]
+            colHeader
         ));
         
         /*
