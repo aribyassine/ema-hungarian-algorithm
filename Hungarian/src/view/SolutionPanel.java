@@ -22,6 +22,11 @@ public class SolutionPanel extends javax.swing.JPanel
      */
     String tasks[];
 
+    /*
+     * Liste de nom de taches
+     */
+    String resources[];
+
     /** Creates new form SolutionPanel */
     public SolutionPanel() {
         initComponents();
@@ -33,6 +38,8 @@ public class SolutionPanel extends javax.swing.JPanel
         this.tasks = tasks;
     }
 
+
+    // TODO: setup some tasks/resources by default if none where specified
     public void displaySolutionFromBooleanSolutionMatrix(Boolean[][] solutionMatrix)
     {
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -48,6 +55,20 @@ public class SolutionPanel extends javax.swing.JPanel
     {
         return tasks[i];
     }
+
+
+
+    public void setResources(String[] resources)
+    {
+        this.resources = resources;
+    }
+
+    public void setTasks(String[] tasks)
+    {
+        this.tasks = tasks;
+    }
+
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
