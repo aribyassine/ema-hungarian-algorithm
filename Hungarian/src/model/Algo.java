@@ -4,20 +4,26 @@
  */
 
 package model;
+
+import java.util.Vector;
+
 /**
  *
  * @author laurent
  */
 public class Algo implements AlgoInterface{
 
-    //private int tab[][]={{1,2,3,4,5},{1,4,2,5,3},{3,2,1,5,4},{1,2,3,5,4},{2,1,4,3,5}};
-    private int tab[][]={{14,5,8,7},{2,12,6,5},{7,8,3,9},{2,4,6,10}};
+    private int tab[][]={{1,2,3,4,5},{1,4,2,5,3},{3,2,1,5,4},{1,2,3,5,4},{2,1,4,3,5}};
+    //private int tab[][]={{14,5,8,7},{2,12,6,5},{7,8,3,9},{2,4,6,10}};
+    //private int tab[][]={{0,0,0,1,0},{0,0,2,0,3},{4,5,0,0,6},{0,7,0,8,0},{9,0,10,0,0}};
     private boolean  tabMarkedZero[][];
     private boolean preference;
     private boolean  markRow[];
     private boolean  markCol[];
     private int tabTemp[][];
     private ArbreNAire<Integer> arbre;
+    private Vector<boolean[][]> soluce = new Vector<boolean[][]>();
+    boolean oneSoluce[][]= new boolean[tab.length][tab.length];
 
     public Algo(int[][] tab, boolean preference, int taille) {
         init(tab, preference, taille);
@@ -45,17 +51,17 @@ public class Algo implements AlgoInterface{
         this.tabMarkedZero=new boolean[taille][taille];
         markCol = new boolean[taille];
         markRow = new boolean[taille];
-        initTabTemp(false);
+        initTab(false,this.tabMarkedZero);
         
     }
 
-    private void initTabTemp(boolean marked)
+    private void initTab(boolean marked, boolean tab[][])
     {
-        for(int i=0;i<tabMarkedZero.length;i++)
+        for(int i=0;i<tab.length;i++)
         {
-            for(int j=0;j<tabMarkedZero.length;j++)
+            for(int j=0;j<tab.length;j++)
             {
-                tabMarkedZero[i][j]=marked;
+                tab[i][j]=marked;
             }
         }
     }
@@ -296,8 +302,9 @@ public class Algo implements AlgoInterface{
             throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public void step11Affect0() {
-        initTabTemp(false);
+    public boolean  step11Affect0() {
+        /* avant utilisatin d'un arbre
+         initTabTemp(false, this.tabMarkedZero);
         step3SelectMarkZero();
         for(int row=0; row<tab.length;row++)
         {
@@ -306,7 +313,16 @@ public class Algo implements AlgoInterface{
                 if(tab[row][col]==0 && !isMarkedZeroRow(row) && !isMarkedZeroCol(col))
                     tabMarkedZero[row][col]=true;
             }
-        }
+        }*/
+        arbre = new ArbreNAire<Integer>();
+        arbre.initRacine(Integer.MIN_VALUE, Integer.MIN_VALUE);
+        buildArbreZero(0, 0);
+        initTab(false, oneSoluce);
+        searchSoluce(arbre, oneSoluce);
+        if(soluce.isEmpty())
+            return false;
+        else
+            return true;
     }
 
     public boolean isPreference() {
@@ -349,16 +365,24 @@ public class Algo implements AlgoInterface{
         System.out.println("marquage ligne/colonne");
         affiche(getMarkRow());
         affiche(getMarkCol());
+        step7Iterate();
+        affiche(getTab());
+        System.out.println("nouveau tableau");
+        step8StrikeRowCol();
+        affiche(getTabTemp());
+        step9SubstractNoMark();
+        affiche(getTab());
+        while(!step11Affect0()){
+            resolveMatrix();
+        }
     }
 
     /*
      * TODO: finish this up
      */
-    public boolean[][] getResolvedMatrix()
-    {
-        resolveMatrix();
-        
-        return tabMarkedZero;
+    public Vector<boolean[][]> getResolvedMatrix()
+    {   
+        return soluce;
     }
     private int chercheMinRow(int row, int [][]tab)
     {
@@ -548,25 +572,65 @@ public class Algo implements AlgoInterface{
         return tabTemp;
     }
 
-    public static String deapthSearch(ArbreNAire arbre, String sortie){
-        if(!arbre.isNoeudFeuille()){
-           sortie = arbre.getVue().getRow() + " " + arbre.getVue().getCol() +"\n";
-           for(int i=0; i<arbre.getNbFils(); i++)
+    public ArbreNAire<Integer> getArbre() {
+        return arbre;
+    }
+
+    public Vector<boolean[][]> getSoluce() {
+        return soluce;
+    }
+
+    public boolean[][] getOneSoluce() {
+        return oneSoluce;
+    }
+
+
+    private boolean searchSoluce(ArbreNAire arbre, boolean oneSoluce[][]){
+        if(!arbre.isNoeudFeuille())
+        {
+            for(int i=0; i<arbre.getNbFils(); i++)
             {
+                if(!arbre.isRacine())
+                {
+                    for(int k=0;k<tab.length;k++)
+                    {
+                        oneSoluce[(Integer)(arbre.getVue().getRow())][k]=false;
+                    }
+                    oneSoluce[(Integer)(arbre.getVue().getRow())][(Integer)(arbre.getVue().getCol())]=true;
+                }
+                else{
+
+                }
                 arbre.goToFils(i);
-                sortie += deapthSearch(arbre, sortie);
+                searchSoluce(arbre, oneSoluce);
                 arbre.goToPere();
             }
 
         }
         if(arbre.isNoeudFeuille())
         {
-            sortie = arbre.getVue().getRow() + " " + arbre.getVue().getCol() +"\n";
+            for(int k=0;k<tab.length;k++)
+            {
+                oneSoluce[(Integer)(arbre.getVue().getRow())][k]=false;
+            }
+            oneSoluce[(Integer)(arbre.getVue().getRow())][(Integer)(arbre.getVue().getCol())]=true;
+            if((Integer)(arbre.getVue().getRow())==(tab.length-1))
+            {
+                boolean tmp[][] = new boolean[tab.length][tab.length];
+                for(int i=0;i<tab.length;i++)
+                {
+                    for(int j=0;j<tab.length;j++)
+                    {
+                        tmp[i][j]=oneSoluce[i][j];
+                    }
+                }
+                this.soluce.add(tmp);
+            }
         }
-        return sortie;
+        return true;
     }
 
-    private void buildArbreInteger(int row, int col, int taille){
+    private void buildArbreZero(int row, int col){
         if(row<tab.length)
         {
             for(int i=col;i<tab.length;i++)
@@ -580,7 +644,7 @@ public class Algo implements AlgoInterface{
                         int fils = arbre.addFils(row, i);
                         arbre.goToFils(fils);
                         row++;
-                        buildArbreInteger(row, 0, taille);
+                        buildArbreZero(row, 0);
                         row--;
                         arbre.goToPere();
                     }else{
@@ -607,44 +671,10 @@ public class Algo implements AlgoInterface{
     }
 
     public static void main(String[] args) {
-        Algo algo = new Algo(true,4);
-        algo.step1SubstractAllRow();
-        System.out.println("soustraction ligne");
-        algo.affiche(algo.getTab());
-        algo.step2SubstractAllCol();
-        System.out.println("soustraction colonne");
-        algo.affiche(algo.getTab());
-        algo.step3SelectMarkZero();
-        System.out.println("zeros encadre");
-        algo.affiche(algo.getTabMarkedZero());
-        algo.step4MarkRow();
-        System.out.println("marquage ligne");
-        algo.affiche(algo.getMarkRow());
-        //algo.affiche(algo.getTabMarkedZero());
-        algo.step5MarkCol();
-        System.out.println("marqage colonne");
-        algo.affiche(algo.getMarkCol());
-        //algo.affiche(algo.getTabMarkedZero());
-        algo.step6MarkRowCol();
-        System.out.println("marquage ligne/colonne");
-        algo.affiche(algo.getMarkRow());
-        algo.affiche(algo.getMarkCol());
-        System.out.println("iteration");
-        algo.step7Iterate();
-        algo.affiche(algo.getTab());
-        System.out.println("nouveau tableau");
-        algo.step8StrikeRowCol();
-        algo.affiche(algo.getTabTemp());
-        algo.step9SubstractNoMark();
-        algo.affiche(algo.getTab());
-        System.out.println("affectation 0");
-        algo.step11Affect0();
-        algo.affiche(algo.getTab());
-        algo.affiche(algo.getTabMarkedZero());
-
-        algo.buildArbreInteger(0,0,5);
-        String sortie = new String();
-        algo.deapthSearch(algo.arbre, sortie);
-        System.out.println(sortie);
+        Algo algo = new Algo(true,5);
+        
+        algo.resolveMatrix();
+        
+        System.out.println("");
     }
 }
