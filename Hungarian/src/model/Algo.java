@@ -17,7 +17,7 @@ public class Algo implements AlgoInterface{
     private boolean  markRow[];
     private boolean  markCol[];
     private int tabTemp[][];
-
+    private ArbreNAire<Integer> arbre;
 
     public Algo(int[][] tab, boolean preference, int taille) {
         init(tab, preference, taille);
@@ -28,6 +28,8 @@ public class Algo implements AlgoInterface{
         this.tabMarkedZero=new boolean[taille][taille];
         markCol = new boolean[taille];
         markRow = new boolean[taille];
+        arbre = new ArbreNAire<Integer>();
+        arbre.initRacine(Integer.MIN_VALUE, Integer.MIN_VALUE);
         for(int i=0;i<tabMarkedZero.length;i++)
         {
             for(int j=0;j<tabMarkedZero.length;j++)
@@ -541,6 +543,69 @@ public class Algo implements AlgoInterface{
         System.out.println(sortie);
     }
 
+
+    public int[][] getTabTemp() {
+        return tabTemp;
+    }
+
+    public static String deapthSearch(ArbreNAire arbre, String sortie){
+        if(!arbre.isNoeudFeuille()){
+           sortie = arbre.getVue().getRow() + " " + arbre.getVue().getCol() +"\n";
+           for(int i=0; i<arbre.getNbFils(); i++)
+            {
+                arbre.goToFils(i);
+                sortie += deapthSearch(arbre, sortie);
+                arbre.goToPere();
+            }
+
+        }
+        if(arbre.isNoeudFeuille())
+        {
+            sortie = arbre.getVue().getRow() + " " + arbre.getVue().getCol() +"\n";
+        }
+        return sortie;
+    }
+
+    private void buildArbreInteger(int row, int col, int taille){
+        if(row<tab.length)
+        {
+            for(int i=col;i<tab.length;i++)
+            {
+                if(tab[row][i]==0)
+                {
+                    Noeud<Integer> vue = arbre.getVue();
+                    if(isPossibleToCreate(arbre, row, i))
+                    {
+                        arbre.setVue(vue);
+                        int fils = arbre.addFils(row, i);
+                        arbre.goToFils(fils);
+                        row++;
+                        buildArbreInteger(row, 0, taille);
+                        row--;
+                        arbre.goToPere();
+                    }else{
+                        arbre.setVue(vue);
+                    }
+                }
+            }
+        }
+    }
+
+    private boolean isPossibleToCreate(ArbreNAire<Integer> arbre, Integer row, Integer col)
+    {
+        boolean result=true;
+        if(arbre.getVue().getRow()!=row && arbre.getVue().getCol()!=col && !arbre.isRacine() && result==true)
+        {
+            arbre.goToPere();
+            result=isPossibleToCreate(arbre, row, col);
+        }else if(arbre.isRacine()){
+            result=true;
+        }else{
+            return false;
+        }
+        return result;
+    }
+
     public static void main(String[] args) {
         Algo algo = new Algo(true,4);
         algo.step1SubstractAllRow();
@@ -576,10 +641,10 @@ public class Algo implements AlgoInterface{
         algo.step11Affect0();
         algo.affiche(algo.getTab());
         algo.affiche(algo.getTabMarkedZero());
-    }
 
-    public int[][] getTabTemp() {
-        return tabTemp;
+        algo.buildArbreInteger(0,0,5);
+        String sortie = new String();
+        algo.deapthSearch(algo.arbre, sortie);
+        System.out.println(sortie);
     }
-
 }
