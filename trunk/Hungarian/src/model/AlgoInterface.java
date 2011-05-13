@@ -5,6 +5,8 @@
 
 package model;
 
+import java.util.Vector;
+
 /**
  *
  * @author laurent
@@ -21,7 +23,7 @@ public interface AlgoInterface {
 	public void step8StrikeRowCol();
 	public void step9SubstractNoMark();
 	public void step10AddMarkTwice();
-	public void step11Affect0();
+	public boolean  step11Affect0();
 
         /*
          * Call up the step in the right order
@@ -32,5 +34,5 @@ public interface AlgoInterface {
          * Return the resolved matrix
          * TODO: not too sure about the signature
          */
-        public boolean[][] getResolvedMatrix();
+        public Vector<boolean[][]> getResolvedMatrix();
 }
