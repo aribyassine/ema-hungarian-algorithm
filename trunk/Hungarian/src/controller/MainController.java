@@ -49,11 +49,15 @@ public class MainController
         public void actionPerformed(ActionEvent e)
         {
             int matrix[][] = matrixController.getIntMatrix();
+            
             HungarianAlgorithmController hungarianAlgorithmController =
                     new HungarianAlgorithmController(matrix);
             boolean resolvedMatrix[][] = hungarianAlgorithmController.resolve();
-            System.out.println("Running hungarianAlgorithmController.resolve()");
+
+            
             hungarianAlgorithmController.affiche(resolvedMatrix);
+
+            solutionxController.setTasks(matrixController.getTasks());
             solutionxController.setSolutionMatrix(resolvedMatrix);
         }
     }

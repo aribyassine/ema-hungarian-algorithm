@@ -25,4 +25,14 @@ public class MatrixController
     {
         return matrixPanel.getIntMatrix();
     }
+
+    public String[] getTasks()
+    {
+        return matrixPanel.getTasks();
+    }
+
+    public String[] getResources()
+    {
+        return matrixPanel.getResources();
+    }
 }

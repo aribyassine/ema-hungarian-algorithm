@@ -50,4 +50,14 @@ class SolutionController
         }
         setSolutionMatrix(solutionMatrixBoolean);
     }
+
+    public void setResources(String[] resources)
+    {
+        solutionPanel.setResources(resources);
+    }
+
+    public void setTasks(String[] tasks)
+    {
+        solutionPanel.setTasks(tasks);
+    }
 }

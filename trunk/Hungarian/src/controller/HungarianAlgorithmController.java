@@ -45,5 +45,6 @@ public class HungarianAlgorithmController
         }
         System.out.println(sortie);
     }
+    
 
 }
