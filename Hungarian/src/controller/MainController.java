@@ -54,7 +54,7 @@ public class MainController
                     new HungarianAlgorithmController(matrix);
             boolean resolvedMatrix[][] = hungarianAlgorithmController.resolve();
 
-            System.out.println("resoved:");
+            System.out.println("resolved:");
             hungarianAlgorithmController.affiche(resolvedMatrix);
 
             solutionxController.setTasks(matrixController.getTasks());
