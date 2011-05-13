@@ -37,13 +37,36 @@ public class SolutionPanel extends javax.swing.JPanel
         this();
         this.tasks = tasks;
     }
-
+    
 
     // TODO: setup some tasks/resources by default if none where specified
     public void displaySolutionFromBooleanSolutionMatrix(Boolean[][] solutionMatrix)
     {
+        // 3 pour ressource, tache, cout total
+        String[][] solutionMatrixForDisplay =
+                new String[solutionMatrix.length][3];
+        // TODO: finish up
+        for(int i=0; i<solutionMatrix.length; i++)
+        {
+          for(int j=0; j<solutionMatrix.length; j++)
+          {
+              if(solutionMatrix[i][j])
+              {
+                  solutionMatrixForDisplay[i][0] = "ressource"+i;
+                  solutionMatrixForDisplay[i][1] = getTaskNameFromIndex(j);
+                  solutionMatrixForDisplay[i][2] = "total cost";
+              }
+          }
+        }
+        /*
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             solutionMatrix,
+            new String [solutionMatrix.length]
+        ));
+         * 
+         */
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            solutionMatrixForDisplay,
             new String [solutionMatrix.length]
         ));
     }
