@@ -18,11 +18,21 @@ class SolutionController
     public SolutionController(SolutionPanel solutionPanel)
     {
         this.solutionPanel = solutionPanel;
+
+        /*
+         * Ne pas afficher le widget de solution tant qu'il n'y a pas de solution
+         */
+        solutionPanel.setVisible(false);
     }
 
     public void setSolutionMatrix(Boolean[][] solutionMatrix)
     {
         solutionPanel.displaySolutionFromBooleanSolutionMatrix(solutionMatrix);
+
+        /*
+         * N'afficher le widget que lorsque la solution a ete trouvee
+         */
+        solutionPanel.setVisible(true);
     }
 
     
@@ -38,6 +48,6 @@ class SolutionController
                 solutionMatrixBoolean[i][j] = solutionMatrix[i][j];
             }
         }
-        solutionPanel.displaySolutionFromBooleanSolutionMatrix(solutionMatrixBoolean);
+        setSolutionMatrix(solutionMatrixBoolean);
     }
 }

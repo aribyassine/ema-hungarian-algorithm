@@ -15,11 +15,22 @@ package view;
  *
  * @author andre
  */
-public class SolutionPanel extends javax.swing.JPanel {
+public class SolutionPanel extends javax.swing.JPanel
+{
+    /*
+     * Liste de nom de taches
+     */
+    String tasks[];
 
     /** Creates new form SolutionPanel */
     public SolutionPanel() {
         initComponents();
+    }
+
+    public SolutionPanel(String tasks[])
+    {
+        this();
+        this.tasks = tasks;
     }
 
     public void displaySolutionFromBooleanSolutionMatrix(Boolean[][] solutionMatrix)
@@ -30,6 +41,13 @@ public class SolutionPanel extends javax.swing.JPanel {
         ));
     }
 
+    /*
+     * Retourne le nom de la tache pour un index donne
+     */
+    private String getTaskNameFromIndex(int i)
+    {
+        return tasks[i];
+    }
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is

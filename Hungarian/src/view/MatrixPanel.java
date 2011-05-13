@@ -25,6 +25,16 @@ public class MatrixPanel extends javax.swing.JPanel {
     private static final int DEFAULT_MATRIX_ORDER = 5;
     private int matrixOrder = DEFAULT_MATRIX_ORDER;
 
+    /*
+     * Liste de noms des taches
+     */
+    private String tasks[];
+
+    /*
+     * Liste des ressources
+     */
+    String resources[];
+
     /* default matrix for tests */
     private Integer[][] DEFAULT_MATRIX = {
         {1, 2, 3, 4, 5},
@@ -115,16 +125,18 @@ public class MatrixPanel extends javax.swing.JPanel {
 
     private void setTableModel(Integer[][] matrix)
     {
-        String colHeader[] = new String [matrix.length];
+        tasks = new String[matrix.length];
+        resources = new String[matrix.length];
 
         for(int i=0; i<matrix.length; i++)
         {
-            colHeader[i] = "Task-" + (i+1);
+            tasks[i] = "Task-" + (i+1);
+            resources[i] = String.valueOf(i+1);
         }
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             matrix,
-            colHeader
+            tasks
         ));
         
         /*
@@ -140,6 +152,16 @@ public class MatrixPanel extends javax.swing.JPanel {
     {
         this.matrixOrder = matrixOrder;
         setTableModel(matrixOrder);
+    }
+
+    public String[] getTasks()
+    {
+        return tasks;
+    }
+
+    public String[] getResources()
+    {
+        return resources;
     }
 
     /** This method is called from within the constructor to
