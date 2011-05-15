@@ -5,6 +5,7 @@
 
 package controller;
 
+import java.util.Vector;
 import model.Algo;
 import model.AlgoInterface;
 import model.SimpleHungarian;
@@ -26,7 +27,7 @@ public class HungarianAlgorithmController
     }
     // private AlgoInterface algo;
 
-    public boolean[][] resolve()
+    public Vector<boolean[][]> resolve()
     {
         return algo.getResolvedMatrix();
     }

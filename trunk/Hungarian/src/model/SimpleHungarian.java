@@ -4,6 +4,9 @@
  */
 
 package model;
+
+import java.util.Vector;
+
 /**
  *
  * @author laurent
@@ -311,7 +314,7 @@ public class SimpleHungarian implements AlgoInterface{
             }
         }
         
-        return zeroAffected
+        return zeroAffected;
     }
 
     public boolean isPreference() {
@@ -359,12 +362,15 @@ public class SimpleHungarian implements AlgoInterface{
     /*
      * TODO: finish this up
      */
-    public boolean[][] getResolvedMatrix()
+    public Vector<boolean[][]> getResolvedMatrix()
     {
         resolveMatrix();
+        Vector<boolean[][]> oneSolutionVector = new Vector<boolean[][]>();
+        oneSolutionVector.add(tabMarkedZero);
         
-        return tabMarkedZero;
+        return oneSolutionVector;
     }
+    
     private int chercheMinRow(int row, int [][]tab)
     {
         int min=Integer.MAX_VALUE;
