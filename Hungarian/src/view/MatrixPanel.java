@@ -134,6 +134,11 @@ public class MatrixPanel extends javax.swing.JPanel {
             resources[i] = String.valueOf(i+1);
         }
 
+        javax.swing.JTable rowTable = new RowNumberTable(jTable1);
+        jScrollPane1.setRowHeaderView(rowTable);
+        jScrollPane1.setCorner(JScrollPane.UPPER_LEFT_CORNER,
+            rowTable.getTableHeader());
+
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             matrix,
             tasks
