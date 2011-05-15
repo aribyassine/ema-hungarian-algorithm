@@ -294,7 +294,9 @@ public class SimpleHungarian implements AlgoInterface{
             throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public void step11Affect0() {
+    public boolean step11Affect0()
+    {
+        boolean zeroAffected = false;
         initTabTemp(false);
         step3SelectMarkZero();
         for(int row=0; row<tab.length;row++)
@@ -302,9 +304,14 @@ public class SimpleHungarian implements AlgoInterface{
             for(int col=0;col<tab.length;col++)
             {
                 if(tab[row][col]==0 && !isMarkedZeroRow(row) && !isMarkedZeroCol(col))
-                    tabMarkedZero[row][col]=true;
+                {
+                    tabMarkedZero[row][col] = true;
+                    zeroAffected = true;
+                }
             }
         }
+        
+        return zeroAffected
     }
 
     public boolean isPreference() {
