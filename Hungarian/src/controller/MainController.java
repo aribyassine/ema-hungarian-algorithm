@@ -52,7 +52,10 @@ public class MainController
             
             HungarianAlgorithmController hungarianAlgorithmController =
                     new HungarianAlgorithmController(matrix);
-            boolean resolvedMatrix[][] = hungarianAlgorithmController.resolve();
+
+            // Getting the first solution for testing
+            boolean resolvedMatrix[][] =
+                    hungarianAlgorithmController.resolve().firstElement();
 
             System.out.println("resolved:");
             hungarianAlgorithmController.affiche(resolvedMatrix);
