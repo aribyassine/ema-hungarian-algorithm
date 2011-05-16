@@ -17,6 +17,8 @@ package view;
  */
 public class SolutionPanel extends javax.swing.JPanel
 {
+    int[][] costMatrix;
+    
     /*
      * Liste de nom de taches
      */
@@ -32,7 +34,7 @@ public class SolutionPanel extends javax.swing.JPanel
         initComponents();
     }
 
-    public SolutionPanel(String tasks[])
+    public SolutionPanel(Integer[][] costMatrix, String tasks[])
     {
         this();
         this.tasks = tasks;
@@ -59,9 +61,10 @@ public class SolutionPanel extends javax.swing.JPanel
           {
               if(solutionMatrix[i][j])
               {
-                  solutionMatrixForDisplay[i][0] = "ressource"+i;
+                  solutionMatrixForDisplay[i][0] = "ressource" + (i+1);
                   solutionMatrixForDisplay[i][1] = getTaskNameFromIndex(j);
-                  solutionMatrixForDisplay[i][2] = "total cost";
+                  solutionMatrixForDisplay[i][2] =
+                          String.valueOf(costMatrix[i][j]);
               }
           }
         }
@@ -96,6 +99,11 @@ public class SolutionPanel extends javax.swing.JPanel
     public void setTasks(String[] tasks)
     {
         this.tasks = tasks;
+    }
+
+    public void setCostMatrix(int[][] costMatrix)
+    {
+        this.costMatrix = costMatrix;
     }
 
     
