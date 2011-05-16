@@ -45,7 +45,14 @@ public class SolutionPanel extends javax.swing.JPanel
         // 3 pour ressource, tache, cout total
         String[][] solutionMatrixForDisplay =
                 new String[solutionMatrix.length][3];
-        // TODO: finish up
+
+        javax.swing.JTable rowTable = new RowNumberTable(jTable1);
+        jScrollPane1.setRowHeaderView(rowTable);
+        jScrollPane1.setCorner(javax.swing.JScrollPane.UPPER_LEFT_CORNER,
+            rowTable.getTableHeader());
+
+        
+        // TODO: add total cost
         for(int i=0; i<solutionMatrix.length; i++)
         {
           for(int j=0; j<solutionMatrix.length; j++)
@@ -67,7 +74,7 @@ public class SolutionPanel extends javax.swing.JPanel
          */
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             solutionMatrixForDisplay,
-            new String [solutionMatrix.length]
+            new String [3]
         ));
     }
 
