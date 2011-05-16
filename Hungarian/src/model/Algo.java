@@ -13,7 +13,9 @@ import java.util.Vector;
  */
 public class Algo implements AlgoInterface{
 
-    private int tab[][]={{1,2,3,4,5},{1,4,2,5,3},{3,2,1,5,4},{1,2,3,5,4},{2,1,4,3,5}};
+    //private int tab[][]={{1,2,3,4,5},{1,4,2,5,3},{3,2,1,5,4},{1,2,3,5,4},{2,1,4,3,5}};
+    //private int tab[][]={{4,5,3,2,3},{3,2,4,3,4},{3,3,4,4,3},{2,4,3,2,4},{2,1,3,4,3}};
+    private int tab[][]={{3,4,5,6,2,1},{3,0,1,2,3,4},{7,6,0,2,1,1},{4,4,5,0,1,2},{0,1,0,1,0,0},{0,3,2,2,2,0}};
     //private int tab[][]={{14,5,8,7},{2,12,6,5},{7,8,3,9},{2,4,6,10}};
     //private int tab[][]={{0,0,0,1,0},{0,0,2,0,3},{4,5,0,0,6},{0,7,0,8,0},{9,0,10,0,0}};
     private boolean  tabMarkedZero[][];
@@ -55,6 +57,13 @@ public class Algo implements AlgoInterface{
         
     }
 
+    private void initTab(boolean b, boolean[] markRow) {
+        for(int j=0;j<tab.length;j++)
+        {
+            markRow[j]=b;
+        }
+    }
+    
     private void initTab(boolean marked, boolean tab[][])
     {
         for(int i=0;i<tab.length;i++)
@@ -186,6 +195,7 @@ public class Algo implements AlgoInterface{
 
     /*on marque toute ligne n'ayant pas de zero encadrer*/
     public void step4MarkRow() {
+        initTab(false, markRow);
         for(int row=0;row<tabMarkedZero.length;row++)
         {
             if(!isMarkedZeroRow(row))
@@ -195,6 +205,7 @@ public class Algo implements AlgoInterface{
 
     /*on marque toute colonne ayant un 0 barré sur une ligne marqué*/
     public void step5MarkCol() {
+        initTab(false, markCol);
         //recherche de ligne marqué
         for(int row=0;row<tab.length;row++)
         {
@@ -317,6 +328,7 @@ public class Algo implements AlgoInterface{
         arbre = new ArbreNAire<Integer>();
         arbre.initRacine(Integer.MIN_VALUE, Integer.MIN_VALUE);
         buildArbreZero(0, 0);
+        soluce.clear();
         initTab(false, oneSoluce);
         searchSoluce(arbre, oneSoluce);
         if(soluce.isEmpty())
@@ -566,6 +578,13 @@ public class Algo implements AlgoInterface{
         }
         System.out.println(sortie);
     }
+    private void afficheSoluce()
+    {
+        for(int i=0; i<soluce.size();i++)
+        {
+            affiche(soluce.get(i));
+        }
+    }
 
 
     public int[][] getTabTemp() {
@@ -671,10 +690,13 @@ public class Algo implements AlgoInterface{
     }
 
     public static void main(String[] args) {
-        Algo algo = new Algo(true,5);
+        Algo algo = new Algo(true,6);
         
         algo.resolveMatrix();
         
+        System.out.println("solutions");
+        algo.afficheSoluce();
         System.out.println("");
     }
+
 }
