@@ -60,4 +60,9 @@ class SolutionController
     {
         solutionPanel.setTasks(tasks);
     }
+
+    public void setCostMatrix(int[][] costMatrix)
+    {
+        solutionPanel.setCostMatrix(costMatrix);
+    }
 }

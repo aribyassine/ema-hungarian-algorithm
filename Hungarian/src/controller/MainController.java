@@ -60,7 +60,14 @@ public class MainController
             System.out.println("resolved:");
             hungarianAlgorithmController.affiche(resolvedMatrix);
 
+            /*
+             * After resolving the matrix[][] had been altered by the Algorithm
+             * Reinit one.
+             */
+            matrix = matrixController.getIntMatrix();
+
             solutionxController.setTasks(matrixController.getTasks());
+            solutionxController.setCostMatrix(matrix);
             solutionxController.setSolutionMatrix(resolvedMatrix);
         }
     }

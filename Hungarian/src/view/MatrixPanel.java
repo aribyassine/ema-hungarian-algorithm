@@ -11,9 +11,7 @@
 
 package view;
 
-import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
-import javax.swing.event.ChangeEvent;
 
 /**
  *
