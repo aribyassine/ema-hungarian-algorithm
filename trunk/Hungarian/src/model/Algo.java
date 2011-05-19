@@ -393,7 +393,11 @@ public class Algo implements AlgoInterface{
      * TODO: finish this up
      */
     public Vector<boolean[][]> getResolvedMatrix()
-    {   
+    {
+       if ((soluce == null) || (soluce.isEmpty()))
+       {
+           resolveMatrix();
+       }
         return soluce;
     }
     private int chercheMinRow(int row, int [][]tab)
