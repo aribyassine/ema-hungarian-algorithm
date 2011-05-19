@@ -7,6 +7,8 @@ package controller;
 import hungarian.HungarianView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import model.AlgoInterface;
+import model.SimpleHungarian;
 import view.MatrixPanel;
 import view.SolutionPanel;
 
@@ -20,6 +22,7 @@ public class MainController
     private HungarianView hungarianView;
     private MatrixController matrixController;
     private SolutionController solutionxController;
+    private AlgoInterface algorithm;
 
     public MainController(HungarianView hungarianView)
     {
@@ -49,16 +52,12 @@ public class MainController
         public void actionPerformed(ActionEvent e)
         {
             int matrix[][] = matrixController.getIntMatrix();
-            
-            HungarianAlgorithmController hungarianAlgorithmController =
-                    new HungarianAlgorithmController(matrix);
+
+            algorithm = new SimpleHungarian(matrix, true, matrix.length); // TODO: fix hardcoded value
 
             // Getting the first solution for testing
             boolean resolvedMatrix[][] =
-                    hungarianAlgorithmController.resolve().firstElement();
-
-            System.out.println("resolved:");
-            hungarianAlgorithmController.affiche(resolvedMatrix);
+                    algorithm.getResolvedMatrix().firstElement();
 
             /*
              * After resolving the matrix[][] had been altered by the Algorithm
