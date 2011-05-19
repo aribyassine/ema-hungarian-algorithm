@@ -11,7 +11,7 @@ import java.util.Vector;
  *
  * @author laurent
  */
-public class SimpleHungarian implements AlgoInterface{
+public class SimpleHungarianAlgo implements AlgoInterface{
 
     //private int tab[][]={{1,2,3,4,5},{1,4,2,5,3},{3,2,1,5,4},{1,2,3,5,4},{2,1,4,3,5}};
     private int tab[][]={{14,5,8,7},{2,12,6,5},{7,8,3,9},{2,4,6,10}};
@@ -22,11 +22,11 @@ public class SimpleHungarian implements AlgoInterface{
     private int tabTemp[][];
 
 
-    public SimpleHungarian(int[][] tab, boolean preference, int taille) {
+    public SimpleHungarianAlgo(int[][] tab, boolean preference, int taille) {
         init(tab, preference, taille);
     }
 
-    public SimpleHungarian(boolean preference, int taille) {
+    public SimpleHungarianAlgo(boolean preference, int taille) {
         this.preference = preference;
         this.tabMarkedZero=new boolean[taille][taille];
         markCol = new boolean[taille];
