@@ -559,4 +559,14 @@ public class SimpleHungarian implements AlgoInterface{
         return tabTemp;
     }
 
+    public void goToNextStep()
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public String getStepName()
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }
