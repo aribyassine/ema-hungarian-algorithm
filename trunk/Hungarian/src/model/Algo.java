@@ -92,7 +92,64 @@ public class Algo implements AlgoInterface{
 
     public void goToNextStep()
     {
-
+        switch (this.step)
+        {
+         case 0:
+            step1SubstractAllRow();
+            System.out.println("soustraction ligne");
+            affiche(getTab());
+            break;
+          case 1:
+            // doSomething1();
+            break;
+          case 2:
+            step2SubstractAllCol();
+            System.out.println("soustraction colonne");
+            affiche(getTab());
+            break;
+          case 3:
+            step3SelectMarkZero();
+            System.out.println("zeros encadre");
+            affiche(getTabMarkedZero());
+            break;
+          case 4:
+            step4MarkRow();
+            System.out.println("marquage ligne");
+            affiche(getMarkRow());
+            //algo.affiche(algo.getTabMarkedZero());
+            break;
+          case 5:
+            step5MarkCol();
+            System.out.println("marqage colonne");
+            affiche(getMarkCol());
+            //algo.affiche(algo.getTabMarkedZero());
+            break;
+          case 6:
+            step6MarkRowCol();
+            System.out.println("marquage ligne/colonne");
+            affiche(getMarkRow());
+            affiche(getMarkCol());
+            break;
+          case 7:
+            step7Iterate();
+            affiche(getTab());
+            System.out.println("nouveau tableau");
+            break;
+          case 8:
+            step8StrikeRowCol();
+            affiche(getTabTemp());
+            break;
+          case 9:
+            step9SubstractNoMark();
+            affiche(getTab());
+            while(!step11Affect0Soluce()){
+                resolveMatrix();
+            }
+            break;
+          default:
+            // doSomethingElse();
+        }
+        
     }
 
     public String getStepName()
