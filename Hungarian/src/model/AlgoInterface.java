@@ -13,6 +13,8 @@ import java.util.Vector;
  */
 public interface AlgoInterface {
 	public void init(int tab[][], boolean preference, int taille);
+        public void goToNextStep();
+        public String getStepName();
 	public void step1SubstractAllRow();
 	public void step2SubstractAllCol();
         public void step3SelectMarkZero();

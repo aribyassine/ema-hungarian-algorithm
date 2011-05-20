@@ -22,6 +22,12 @@ public class Algo implements AlgoInterface{
     private boolean  tabMarkedZero[][];
 
     /*
+     * Garde en memoire l'etape de l'algorithme
+     * TODO: changer le type int pour un type custom (int stepN, String name, String description?)
+     */
+    private int step;
+
+    /*
      * minimise ou maximise
      */
     private boolean minimize;
@@ -82,6 +88,16 @@ public class Algo implements AlgoInterface{
                 tab[i][j]=marked;
             }
         }
+    }
+
+    public void goToNextStep()
+    {
+
+    }
+
+    public String getStepName()
+    {
+        return null;
     }
 
     /*
