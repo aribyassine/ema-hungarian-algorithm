@@ -136,7 +136,7 @@ public class SimpleHungarianAlgo implements AlgoInterface{
         }
     }
 
-    public void step3SelectMarkZero() {
+    public boolean step3SelectMarkZero() {
         Integer nbZero=0, xZero=null, yZero=null;
 
         for(int col=0;col<tab.length;col++)
@@ -177,6 +177,8 @@ public class SimpleHungarianAlgo implements AlgoInterface{
             }
             nbZero=0;
         }
+
+        return true; // for testing
     }
 
     /*on marque toute ligne n'ayant pas de zero encadrer*/
