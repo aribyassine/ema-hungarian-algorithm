@@ -19,8 +19,11 @@ public class Algo implements AlgoInterface{
     //private int tab[][]={{14,5,8,7},{2,12,6,5},{7,8,3,9},{2,4,6,10}};
     //private int tab[][]={{0,0,0,1,0},{0,0,2,0,3},{4,5,0,0,6},{0,7,0,8,0},{9,0,10,0,0}};
     private boolean  tabMarkedZero[][];
-    // TODO: find a more relevant name than "preference", e.g. maximize/minimize
-    private boolean preference;
+
+    /*
+     * minimise ou maximise
+     */
+    private boolean minimize;
     private boolean  markRow[];
     private boolean  markCol[];
     private int tabTemp[][];
@@ -36,7 +39,7 @@ public class Algo implements AlgoInterface{
     }
 
     public Algo(boolean preference, int taille) {
-        this.preference = preference;
+        this.minimize = preference;
         this.tabMarkedZero=new boolean[taille][taille];
         markCol = new boolean[taille];
         markRow = new boolean[taille];
@@ -53,7 +56,7 @@ public class Algo implements AlgoInterface{
 
     public final void init(int[][] tab, boolean preference, int taille) {
         this.tab = tab;
-        this.preference = preference;
+        this.minimize = preference;
         this.tabMarkedZero=new boolean[taille][taille];
         markCol = new boolean[taille];
         markRow = new boolean[taille];
@@ -119,7 +122,7 @@ public class Algo implements AlgoInterface{
         int valueToSobstract;
         /*si la "meilleur valeurs" est la plus petite, on recherche le mini
          sinon le maxi*/
-        if(this.preference){
+        if(this.minimize){
             valueToSobstract=chercheMinRow(row,tab);
         }else{
             valueToSobstract=chercheMaxRow(row,tab);
@@ -143,7 +146,7 @@ public class Algo implements AlgoInterface{
         int valueToSobstract;
         /*si la "meilleur valeurs" est la plus petite, on recherche le mini
          sinon le maxi*/
-        if(this.preference){
+        if(this.minimize){
             valueToSobstract=chercheMinCol(col, tab);
 
         }else{
@@ -291,7 +294,7 @@ public class Algo implements AlgoInterface{
 
     public void step9SubstractNoMark() {
         int value;
-        if(preference)
+        if(minimize)
         {
              value = chercheMinTab(tabTemp);
         }else{
@@ -344,11 +347,11 @@ public class Algo implements AlgoInterface{
     }
 
     public boolean isPreference() {
-            return preference;
+            return minimize;
     }
 
     public void setPreference(boolean preference) {
-            this.preference = preference;
+            this.minimize = preference;
     }
 
     public int[][] getTab() {
