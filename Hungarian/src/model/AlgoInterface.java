@@ -22,8 +22,8 @@ public interface AlgoInterface {
 	public void step7Iterate();
 	public void step8StrikeRowCol();
 	public void step9SubstractNoMark();
-	public void step10AddMarkTwice();
-	public boolean  step11Affect0();
+	public boolean step10Affect0Mark();
+	public boolean  step11Affect0Soluce();
 
         /*
          * Call up the step in the right order
