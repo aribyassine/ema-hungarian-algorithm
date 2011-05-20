@@ -119,7 +119,7 @@ public class Algo implements AlgoInterface{
         int valueToSobstract;
         /*si la "meilleur valeurs" est la plus petite, on recherche le mini
          sinon le maxi*/
-        if(this.preference==true){
+        if(this.preference){
             valueToSobstract=chercheMinRow(row,tab);
         }else{
             valueToSobstract=chercheMaxRow(row,tab);
@@ -143,7 +143,7 @@ public class Algo implements AlgoInterface{
         int valueToSobstract;
         /*si la "meilleur valeurs" est la plus petite, on recherche le mini
          sinon le maxi*/
-        if(this.preference==true){
+        if(this.preference){
             valueToSobstract=chercheMinCol(col, tab);
 
         }else{
@@ -218,7 +218,7 @@ public class Algo implements AlgoInterface{
             for(int col=0;col<tab.length;col++)
             {
                 //si on trouve une marqué,
-                if(markRow[row]==true)
+                if(markRow[row])
                 {
                     //ATTENTION, IL FAUDRAIT RECHERCHER UN ZERO NON ENCADRER
                     if(nbZeroCol(col)>1)
@@ -234,13 +234,13 @@ public class Algo implements AlgoInterface{
     public void step6MarkRowCol() {
         for(int col=0;col<tab.length;col++)
         {
-            if(markCol[col]==true)
+            if(markCol[col])
             {
                 if(isMarkedZeroCol(col))
                 {
                     for(int row=0;row<tabMarkedZero.length;row++)
                     {
-                        if(tabMarkedZero[row][col]==true)
+                        if(tabMarkedZero[row][col])
                             markRow[row]=true;
                     }
                 }
@@ -291,7 +291,7 @@ public class Algo implements AlgoInterface{
 
     public void step9SubstractNoMark() {
         int value;
-        if(preference==true)
+        if(preference)
         {
              value = chercheMinTab(tabTemp);
         }else{
@@ -544,7 +544,7 @@ public class Algo implements AlgoInterface{
         int nbMarkedCol=0;
         for(int i=0;i<markCol.length;i++)
         {
-            if(markCol[i]==true)
+            if(markCol[i])
                 nbMarkedCol++;
         }
         return nbMarkedCol;
@@ -555,7 +555,7 @@ public class Algo implements AlgoInterface{
         int nbMarkedRow=0;
         for(int i=0;i<markRow.length;i++)
         {
-            if(markRow[i]==true)
+            if(markRow[i])
                 nbMarkedRow++;
         }
         return nbMarkedRow;
