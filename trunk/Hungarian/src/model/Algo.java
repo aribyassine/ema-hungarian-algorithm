@@ -24,6 +24,7 @@ public class Algo implements AlgoInterface{
     private boolean  markRow[];
     private boolean  markCol[];
     private int tabTemp[][];
+
     private ArbreNAire<Integer> arbre;
     
     // vecteur de solutions
@@ -673,6 +674,7 @@ public class Algo implements AlgoInterface{
                     if(isPossibleToCreate(arbre, row, i))
                     {
                         arbre.setVue(vue);
+                        // equivalent a un marquage ligne/colonne
                         fils = arbre.addFils(row, i);
                         arbre.goToFils(fils);
                         row++;
