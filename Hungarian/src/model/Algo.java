@@ -13,8 +13,8 @@ import java.util.Vector;
  */
 public class Algo implements AlgoInterface{
 
-    private int tab[][]={{1,2,3,4,5},{1,4,2,5,3},{3,2,1,5,4},{1,2,3,5,4},{2,1,4,3,5}};
-    //private int tab[][]={{4,5,3,2,3},{3,2,4,3,4},{3,3,4,4,3},{2,4,3,2,4},{2,1,3,4,3}};
+    //private int tab[][]={{1,2,3,4,5},{1,4,2,5,3},{3,2,1,5,4},{1,2,3,5,4},{2,1,4,3,5}};
+    private int tab[][]={{4,5,3,2,3},{3,2,4,3,4},{3,3,4,4,3},{2,4,3,2,4},{2,1,3,4,3}};
     //private int tab[][]={{13,4,25,6,2,68 107,-12,11,216},{22,-5,0,2,31,54,37,3,24,11},{7,6,0,2,1,1},{4,4,5,0,1,2},{0,1,0,1,0,0},{0,3,2,2,2,0}};
     //private int tab[][]={{3,4,5,6,2,1},{3,0,1,2,3,4},{7,6,0,2,1,1},{4,4,5,0,1,2},{0,1,0,1,0,0},{0,3,2,2,2,0}};
     //private int tab[][]={{14,5,8,7},{2,12,6,5},{7,8,3,9},{2,4,6,10}};
@@ -177,7 +177,7 @@ public class Algo implements AlgoInterface{
         }
     }
 
-    public void step3SelectMarkZero() {
+    public boolean step3SelectMarkZero() {
 //        Integer nbZero=0, xZero=null, yZero=null;
 //
 //        for(int col=0;col<tab.length;col++)
@@ -218,8 +218,10 @@ public class Algo implements AlgoInterface{
 //            }
 //            nbZero=0;
 //        }
-        
-        if(!step10Affect0Mark())
+        if(step11Affect0Soluce())
+            return true;
+
+        step10Affect0Mark();
         {
             Vector<Integer> vectNbMarkedZero = new Vector<Integer>();
             for(int nbPartielSoluce=0;nbPartielSoluce<partialSoluce.size();nbPartielSoluce++)
@@ -247,6 +249,7 @@ public class Algo implements AlgoInterface{
             }
             
         }
+        return false;
     }
 
     /*on marque toute ligne n'ayant pas de zero encadrer*/
@@ -427,30 +430,32 @@ public class Algo implements AlgoInterface{
         step2SubstractAllCol();
         System.out.println("soustraction colonne");
         affiche(getTab());
-        step3SelectMarkZero();
-        System.out.println("zeros encadre");
-        affiche(getTabMarkedZero());
-        step4MarkRow();
-        System.out.println("marquage ligne");
-        affiche(getMarkRow());
-        //algo.affiche(algo.getTabMarkedZero());
-        step5MarkCol();
-        System.out.println("marqage colonne");
-        affiche(getMarkCol());
-        //algo.affiche(algo.getTabMarkedZero());
-        step6MarkRowCol();
-        System.out.println("marquage ligne/colonne");
-        affiche(getMarkRow());
-        affiche(getMarkCol());
-        step7Iterate();
-        affiche(getTab());
-        System.out.println("nouveau tableau");
-        step8StrikeRowCol();
-        affiche(getTabTemp());
-        step9SubstractNoMark();
-        affiche(getTab());
-        while(!step11Affect0Soluce()){
-            resolveMatrix();
+        if(!step3SelectMarkZero())
+        {
+            System.out.println("zeros encadre");
+            affiche(getTabMarkedZero());
+            step4MarkRow();
+            System.out.println("marquage ligne");
+            affiche(getMarkRow());
+            //algo.affiche(algo.getTabMarkedZero());
+            step5MarkCol();
+            System.out.println("marqage colonne");
+            affiche(getMarkCol());
+            //algo.affiche(algo.getTabMarkedZero());
+            step6MarkRowCol();
+            System.out.println("marquage ligne/colonne");
+            affiche(getMarkRow());
+            affiche(getMarkCol());
+            step7Iterate();
+            affiche(getTab());
+            System.out.println("nouveau tableau");
+            step8StrikeRowCol();
+            affiche(getTabTemp());
+            step9SubstractNoMark();
+            affiche(getTab());
+            while(!step11Affect0Soluce()){
+                resolveMatrix();
+            }
         }
     }
 
@@ -747,12 +752,22 @@ public class Algo implements AlgoInterface{
     private void buildArbreZero(int row, int col){
         int fils;
         Noeud<Integer> vue;
-        
+        boolean temp = false;
         if(row<tab.length)
         {
             for(int i=col;i<tab.length;i++)
             {
-                if(tab[row][i]==0)
+                if(arbre.getNbFils()>0)
+                {
+                    for(int k=0;k<arbre.getNbFils();k++)
+                    {
+                        if(!arbre.getVue().getFils().get(k).getCol().equals(k))
+                            temp=true;
+
+                    }
+
+                }
+                if(tab[row][i]==0 && !temp)
                 {
                     // Save de la vue pour ne pas la perdre pendant le parcours
                     vue = arbre.getVue();
@@ -773,7 +788,7 @@ public class Algo implements AlgoInterface{
                 }
             }
             row++;
-            buildArbreSoluce(row, 0);
+            buildArbreZero(row, 0);
         }
     }
 
