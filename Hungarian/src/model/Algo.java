@@ -19,11 +19,14 @@ public class Algo implements AlgoInterface{
     //private int tab[][]={{14,5,8,7},{2,12,6,5},{7,8,3,9},{2,4,6,10}};
     //private int tab[][]={{0,0,0,1,0},{0,0,2,0,3},{4,5,0,0,6},{0,7,0,8,0},{9,0,10,0,0}};
     private boolean  tabMarkedZero[][];
+    // TODO: find a more relevant name than "preference", e.g. maximize/minimize
     private boolean preference;
     private boolean  markRow[];
     private boolean  markCol[];
     private int tabTemp[][];
     private ArbreNAire<Integer> arbre;
+    
+    // vecteur de solutions
     private Vector<boolean[][]> soluce = new Vector<boolean[][]>();
     boolean oneSoluce[][]= new boolean[tab.length][tab.length];
 
@@ -75,7 +78,9 @@ public class Algo implements AlgoInterface{
         }
     }
 
-    //selection de zeros encadres par ligne
+    /*
+     * selection de zeros encadres par ligne
+     */
     public void step10AffectZeroByRow(){
         Integer nbZero=0, xZero=null, yZero=null;
 
@@ -654,23 +659,28 @@ public class Algo implements AlgoInterface{
     }
 
     private void buildArbreZero(int row, int col){
+        int fils;
+        Noeud<Integer> vue;
+        
         if(row<tab.length)
         {
             for(int i=col;i<tab.length;i++)
             {
                 if(tab[row][i]==0)
                 {
-                    Noeud<Integer> vue = arbre.getVue();
+                    // Save de la vue pour ne pas la perdre pendant le parcours
+                    vue = arbre.getVue();
                     if(isPossibleToCreate(arbre, row, i))
                     {
                         arbre.setVue(vue);
-                        int fils = arbre.addFils(row, i);
+                        fils = arbre.addFils(row, i);
                         arbre.goToFils(fils);
                         row++;
                         buildArbreZero(row, 0);
                         row--;
                         arbre.goToPere();
                     }else{
+                        // restore la vue a la sauvegarde
                         arbre.setVue(vue);
                     }
                 }
