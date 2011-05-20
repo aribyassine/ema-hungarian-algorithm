@@ -13,9 +13,10 @@ import java.util.Vector;
  */
 public class Algo implements AlgoInterface{
 
-    //private int tab[][]={{1,2,3,4,5},{1,4,2,5,3},{3,2,1,5,4},{1,2,3,5,4},{2,1,4,3,5}};
+    private int tab[][]={{1,2,3,4,5},{1,4,2,5,3},{3,2,1,5,4},{1,2,3,5,4},{2,1,4,3,5}};
     //private int tab[][]={{4,5,3,2,3},{3,2,4,3,4},{3,3,4,4,3},{2,4,3,2,4},{2,1,3,4,3}};
-    private int tab[][]={{3,4,5,6,2,1},{3,0,1,2,3,4},{7,6,0,2,1,1},{4,4,5,0,1,2},{0,1,0,1,0,0},{0,3,2,2,2,0}};
+    //private int tab[][]={{13,4,25,6,2,68 107,-12,11,216},{22,-5,0,2,31,54,37,3,24,11},{7,6,0,2,1,1},{4,4,5,0,1,2},{0,1,0,1,0,0},{0,3,2,2,2,0}};
+    //private int tab[][]={{3,4,5,6,2,1},{3,0,1,2,3,4},{7,6,0,2,1,1},{4,4,5,0,1,2},{0,1,0,1,0,0},{0,3,2,2,2,0}};
     //private int tab[][]={{14,5,8,7},{2,12,6,5},{7,8,3,9},{2,4,6,10}};
     //private int tab[][]={{0,0,0,1,0},{0,0,2,0,3},{4,5,0,0,6},{0,7,0,8,0},{9,0,10,0,0}};
     private boolean  tabMarkedZero[][];
@@ -32,6 +33,7 @@ public class Algo implements AlgoInterface{
     
     // vecteur de solutions
     private Vector<boolean[][]> soluce = new Vector<boolean[][]>();
+    private Vector<boolean[][]> partialSoluce = new Vector<boolean[][]>();
     boolean oneSoluce[][]= new boolean[tab.length][tab.length];
 
     public Algo(int[][] tab, boolean preference, int taille) {
@@ -160,45 +162,74 @@ public class Algo implements AlgoInterface{
     }
 
     public void step3SelectMarkZero() {
-        Integer nbZero=0, xZero=null, yZero=null;
-
-        for(int col=0;col<tab.length;col++)
+//        Integer nbZero=0, xZero=null, yZero=null;
+//
+//        for(int col=0;col<tab.length;col++)
+//        {
+//            for(int row=0;row<tab.length;row++)
+//            {
+//                if(tab[row][col]==0)
+//                {
+//                    xZero=row;
+//                    yZero=col;
+//                    nbZero++;
+//                }
+//            }
+//            /* on selectionne si il n'y a qu'un seul zero sur la colonne et
+//             qu'il n'y pas de zero encadres sur la ligne */
+//            if(nbZero==1 && !isMarkedZeroRow(tabMarkedZero, xZero)){
+//                tabMarkedZero[xZero][yZero]=true;
+//            }
+//            nbZero=0;
+//        }
+//
+//        nbZero=0;
+//        for(int row=0;row<tab.length;row++)
+//        {
+//            for(int col=0;col<tab.length;col++)
+//            {
+//                if(tab[row][col]==0)
+//                {
+//                    xZero=row;
+//                    yZero=col;
+//                    nbZero++;
+//                }
+//            }
+//            /* on selectionne si il n'y a qu'un seul zero sur la ligne et
+//             qu'il n'y pas de zero encadres sur la colonne*/
+//            if(nbZero==1 && !isMarkedZeroCol(yZero)){
+//                tabMarkedZero[xZero][yZero]=true;
+//            }
+//            nbZero=0;
+//        }
+        
+        if(!step10Affect0Mark())
         {
-            for(int row=0;row<tab.length;row++)
+            Vector<Integer> vectNbMarkedZero = new Vector<Integer>();
+            for(int nbPartielSoluce=0;nbPartielSoluce<partialSoluce.size();nbPartielSoluce++)
             {
-                if(tab[row][col]==0)
+                int nbMarkedZero=0;
+                for(int i=0;i<partialSoluce.get(nbPartielSoluce).length;i++)
                 {
-                    xZero=row;
-                    yZero=col;
-                    nbZero++;
+                    if(isMarkedZeroRow(partialSoluce.get(nbPartielSoluce), i))
+                        nbMarkedZero++;
+                }
+                vectNbMarkedZero.add(nbMarkedZero);
+            }
+            int maxZero = 0;
+            for(int i=0;i<vectNbMarkedZero.size();i++)
+            {
+                if(maxZero<vectNbMarkedZero.get(i))
+                {
+                    maxZero= vectNbMarkedZero.get(i);
                 }
             }
-            /* on selectionne si il n'y a qu'un seul zero sur la colonne et
-             qu'il n'y pas de zero encadres sur la ligne */
-            if(nbZero==1 && !isMarkedZeroRow(xZero)){
-                tabMarkedZero[xZero][yZero]=true;
-            }
-            nbZero=0;
-        }
-
-        nbZero=0;
-        for(int row=0;row<tab.length;row++)
-        {
-            for(int col=0;col<tab.length;col++)
+            for(int i=0; i<vectNbMarkedZero.size();i++)
             {
-                if(tab[row][col]==0)
-                {
-                    xZero=row;
-                    yZero=col;
-                    nbZero++;
-                }
+                if(vectNbMarkedZero.get(i)==maxZero)
+                    tabMarkedZero=partialSoluce.get(i);
             }
-            /* on selectionne si il n'y a qu'un seul zero sur la ligne et
-             qu'il n'y pas de zero encadres sur la colonne*/
-            if(nbZero==1 && !isMarkedZeroCol(yZero)){
-                tabMarkedZero[xZero][yZero]=true;
-            }
-            nbZero=0;
+            
         }
     }
 
@@ -207,7 +238,7 @@ public class Algo implements AlgoInterface{
         initTab(false, markRow);
         for(int row=0;row<tabMarkedZero.length;row++)
         {
-            if(!isMarkedZeroRow(row))
+            if(!isMarkedZeroRow(tabMarkedZero, row))
                 markRow[row]=true;
         }
     }
@@ -218,18 +249,18 @@ public class Algo implements AlgoInterface{
         //recherche de ligne marqué
         for(int row=0;row<tab.length;row++)
         {
-            for(int col=0;col<tab.length;col++)
+            if(markRow[row]==true)
             {
-                //si on trouve une marqué,
-                if(markRow[row])
+                for(int col=0;col<tab.length;col++)
                 {
-                    //ATTENTION, IL FAUDRAIT RECHERCHER UN ZERO NON ENCADRER
-                    if(nbZeroCol(col)>1)
+                    if(tabMarkedZero[row][col]==false && tab[row][col]==0)
                     {
                         markCol[col]=true;
                     }
                 }
+                //ATTENTION, IL FAUDRAIT RECHERCHER UN ZERO NON ENCADRER
             }
+                //si on trouve une marqué,
         }
     }
 
@@ -318,11 +349,20 @@ public class Algo implements AlgoInterface{
         }
     }
 
-    public void step10AddMarkTwice() {
-            throw new UnsupportedOperationException("Not supported yet.");
+    public boolean step10Affect0Mark() {
+        arbre = new ArbreNAire<Integer>();
+        arbre.initRacine(Integer.MIN_VALUE, Integer.MIN_VALUE);
+        buildArbreZero(0, 0);
+        soluce.clear();
+        initTab(false, oneSoluce);
+        searchSoluce(arbre, oneSoluce);
+        if(soluce.isEmpty())
+            return false;
+        else
+            return true;
     }
 
-    public boolean  step11Affect0() {
+    public boolean  step11Affect0Soluce() {
         /* avant utilisatin d'un arbre
          initTabTemp(false, this.tabMarkedZero);
         step3SelectMarkZero();
@@ -336,7 +376,7 @@ public class Algo implements AlgoInterface{
         }*/
         arbre = new ArbreNAire<Integer>();
         arbre.initRacine(Integer.MIN_VALUE, Integer.MIN_VALUE);
-        buildArbreZero(0, 0);
+        buildArbreSoluce(0, 0);
         soluce.clear();
         initTab(false, oneSoluce);
         searchSoluce(arbre, oneSoluce);
@@ -393,7 +433,7 @@ public class Algo implements AlgoInterface{
         affiche(getTabTemp());
         step9SubstractNoMark();
         affiche(getTab());
-        while(!step11Affect0()){
+        while(!step11Affect0Soluce()){
             resolveMatrix();
         }
     }
@@ -477,12 +517,12 @@ public class Algo implements AlgoInterface{
         return min;
     }
 
-    private boolean isMarkedZeroRow(int row)
+    private boolean isMarkedZeroRow(boolean [][]tab, int row)
     {
         boolean retour=false;
-        for(int i=0;i<tabMarkedZero.length;i++)
+        for(int i=0;i<tab.length;i++)
         {
-            if(tabMarkedZero[row][i])
+            if(tab[row][i])
                 retour=true;
         }
         return retour;
@@ -646,20 +686,46 @@ public class Algo implements AlgoInterface{
                 oneSoluce[(Integer)(arbre.getVue().getRow())][k]=false;
             }
             oneSoluce[(Integer)(arbre.getVue().getRow())][(Integer)(arbre.getVue().getCol())]=true;
+            boolean tmp[][] = new boolean[tab.length][tab.length];
+            for(int i=0;i<tab.length;i++)
+            {
+                for(int j=0;j<tab.length;j++)
+                {
+                    tmp[i][j]=oneSoluce[i][j];
+                }
+            }
+            this.partialSoluce.add(tmp);
             if((Integer)(arbre.getVue().getRow())==(tab.length-1))
             {
-                boolean tmp[][] = new boolean[tab.length][tab.length];
-                for(int i=0;i<tab.length;i++)
-                {
-                    for(int j=0;j<tab.length;j++)
-                    {
-                        tmp[i][j]=oneSoluce[i][j];
-                    }
-                }
                 this.soluce.add(tmp);
             }
         }
         return true;
+    }
+
+    private void buildArbreSoluce(int row, int col){
+        if(row<tab.length)
+        {
+            for(int i=col;i<tab.length;i++)
+            {
+                if(tab[row][i]==0)
+                {
+                    Noeud<Integer> vue = arbre.getVue();
+                    if(isPossibleToCreate(arbre, row, i))
+                    {
+                        arbre.setVue(vue);
+                        int fils = arbre.addFils(row, i);
+                        arbre.goToFils(fils);
+                        row++;
+                        buildArbreSoluce(row, 0);
+                        row--;
+                        arbre.goToPere();
+                    }else{
+                        arbre.setVue(vue);
+                    }
+                }
+            }
+        }
     }
 
     private void buildArbreZero(int row, int col){
@@ -690,6 +756,8 @@ public class Algo implements AlgoInterface{
                     }
                 }
             }
+            row++;
+            buildArbreSoluce(row, 0);
         }
     }
 
@@ -709,7 +777,7 @@ public class Algo implements AlgoInterface{
     }
 
     public static void main(String[] args) {
-        Algo algo = new Algo(true,6);
+        Algo algo = new Algo(true,5);
         
         algo.resolveMatrix();
         
