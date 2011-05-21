@@ -14,6 +14,8 @@ import java.util.Vector;
 public interface AlgoInterface {
 	public void init(int tab[][], boolean preference, int taille);
         public void goToNextStep();
+        public boolean isFirstStep();
+        public boolean isLastStep();
         public String getStepName();
 	public void step1SubstractAllRow();
 	public void step2SubstractAllCol();

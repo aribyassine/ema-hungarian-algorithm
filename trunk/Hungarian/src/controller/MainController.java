@@ -45,6 +45,8 @@ public class MainController
     {
         hungarianView.addResolveButtonListener(
                 new ResolveButtonListener());
+        hungarianView.addNextStepButtonListener(
+                new NextStepListener());
     }
 
     class ResolveButtonListener implements ActionListener
@@ -69,6 +71,48 @@ public class MainController
             solutionxController.setTasks(matrixController.getTasks());
             solutionxController.setCostMatrix(matrix);
             solutionxController.setSolutionMatrix(resolvedMatrix);
+        }
+    }
+
+    /*
+     * TODO: last step handling
+     */
+    class NextStepListener implements ActionListener
+    {
+
+        public void actionPerformed(ActionEvent e)
+        {
+            int matrix[][];
+
+
+            // si l'algorithm n'a pas encore ete initialise (step 0)
+            if (algorithm == null)
+            {
+                matrix = matrixController.getIntMatrix();
+                algorithm = new Algo(matrix,
+                    true, // TODO: hardcoded value
+                    matrix.length);
+            }
+            else if (algorithm.isLastStep())
+            {
+                // Getting the first solution for testing
+                boolean resolvedMatrix[][] =
+                    algorithm.getResolvedMatrix().firstElement();
+
+                /*
+                 * After resolving the matrix[][] had been altered by the Algorithm
+                 * Reinit one.
+                 */
+                matrix = matrixController.getIntMatrix();
+
+                solutionxController.setTasks(matrixController.getTasks());
+                solutionxController.setCostMatrix(matrix);
+                solutionxController.setSolutionMatrix(resolvedMatrix);
+            }
+            else
+            {
+                algorithm.goToNextStep();
+            }
         }
     }
 }

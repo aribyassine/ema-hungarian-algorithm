@@ -581,4 +581,14 @@ public class SimpleHungarianAlgo implements AlgoInterface{
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    public boolean isFirstStep()
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public boolean isLastStep()
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }
