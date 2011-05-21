@@ -16,7 +16,7 @@ public interface AlgoInterface {
         public void goToNextStep();
         public boolean isFirstStep();
         public boolean isLastStep();
-        public String getStepName();
+        public String getStepShortDescription();
 	public void step1SubstractAllRow();
 	public void step2SubstractAllCol();
         public boolean step3SelectMarkZero();
