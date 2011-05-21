@@ -103,11 +103,12 @@ public class HungarianView extends FrameView {
     }
 
     /*
-     * Recreates updates the table panels
+     * Updates the table panels
      */
     private void onModelChange()
     {
         System.out.println("Model changes");
+        stepDescLabel.setText(algo.getStepShortDescription());
     }
 
 
@@ -166,7 +167,7 @@ public class HungarianView extends FrameView {
         matrixPanel1 = new view.MatrixPanel();
         solutionPanel1 = new view.SolutionPanel();
         nextStepButton = new javax.swing.JButton();
-        descLabel = new javax.swing.JLabel();
+        stepDescLabel = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
@@ -191,8 +192,8 @@ public class HungarianView extends FrameView {
         nextStepButton.setText(resourceMap.getString("nextStepButton.text")); // NOI18N
         nextStepButton.setName("nextStepButton"); // NOI18N
 
-        descLabel.setText(resourceMap.getString("descLabel.text")); // NOI18N
-        descLabel.setName("descLabel"); // NOI18N
+        stepDescLabel.setText(resourceMap.getString("stepDescLabel.text")); // NOI18N
+        stepDescLabel.setName("stepDescLabel"); // NOI18N
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
@@ -212,7 +213,7 @@ public class HungarianView extends FrameView {
                 .addGap(83, 83, 83))
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addGap(49, 49, 49)
-                .addComponent(descLabel)
+                .addComponent(stepDescLabel)
                 .addContainerGap(324, Short.MAX_VALUE))
         );
         mainPanelLayout.setVerticalGroup(
@@ -223,7 +224,7 @@ public class HungarianView extends FrameView {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(solutionPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(descLabel)
+                .addComponent(stepDescLabel)
                 .addGap(43, 43, 43)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(resolveButton)
@@ -295,7 +296,6 @@ public class HungarianView extends FrameView {
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel descLabel;
     private javax.swing.JPanel mainPanel;
     private view.MatrixPanel matrixPanel1;
     private javax.swing.JMenuBar menuBar;
@@ -306,6 +306,7 @@ public class HungarianView extends FrameView {
     private javax.swing.JLabel statusAnimationLabel;
     private javax.swing.JLabel statusMessageLabel;
     private javax.swing.JPanel statusPanel;
+    private javax.swing.JLabel stepDescLabel;
     // End of variables declaration//GEN-END:variables
 
     private final Timer messageTimer;
