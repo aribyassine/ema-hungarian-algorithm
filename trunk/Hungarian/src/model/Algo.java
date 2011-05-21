@@ -35,6 +35,15 @@ public class Algo implements AlgoInterface {
     private boolean  markCol[];
     private int tabTemp[][];
 
+    private String[] stepsShortDescription = {"tab init",
+            "soustraction ligne",
+            "soustraction colonne",
+            "zeros encadre",
+            "marquage ligne",
+            "marqage colonne",
+            "marquage ligne/colonne",
+            "nouveau tableau"};
+
     private ArbreNAire<Integer> arbre;
     
     // vecteur de solutions
@@ -158,9 +167,9 @@ public class Algo implements AlgoInterface {
         step++;
     }
 
-    public String getStepName()
+    public String getStepShortDescription()
     {
-        return null;
+        return stepsShortDescription[step];
     }
 
     /*
@@ -485,6 +494,7 @@ public class Algo implements AlgoInterface {
     }
 
 
+    // TODO[DRY]: code to be merged with goToNextStep
     public void resolveMatrix()
     {
         System.out.println("tab init");

@@ -566,7 +566,7 @@ public class SimpleHungarianAlgo implements AlgoInterface{
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public String getStepName()
+    public String getStepShortDescription()
     {
         throw new UnsupportedOperationException("Not supported yet.");
     }
