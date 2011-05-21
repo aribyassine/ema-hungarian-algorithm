@@ -16,6 +16,7 @@ import javax.swing.Icon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import model.AlgoInterface;
+import model.AlgoModelListener;
 import view.MatrixPanel;
 import view.SolutionPanel;
 
@@ -101,6 +102,15 @@ public class HungarianView extends FrameView {
         HungarianApp.getApplication().show(aboutBox);
     }
 
+    /*
+     * Recreates updates the table panels
+     */
+    private void onModelChange()
+    {
+        System.out.println("Model changes");
+    }
+
+
     public MatrixPanel getMatrixPanel()
     {
         return matrixPanel1;
@@ -124,6 +134,21 @@ public class HungarianView extends FrameView {
     public void setAlgo(AlgoInterface algo)
     {
         this.algo = algo;
+        addAlgoModelListener(algo);
+    }
+
+    private void addAlgoModelListener(AlgoInterface algo)
+    {
+        if (algo != null)
+        {
+            algo.addAlgoModelListener(new AlgoModelListener()
+            {
+                public void algoModelChanged(final AlgoInterface algo)
+                {
+                    onModelChange();
+                }
+            });
+        }
     }
 
 
