@@ -121,7 +121,7 @@ public class MatrixPanel extends javax.swing.JPanel {
      * TODO: give task-n as header
      */
 
-    private void setTableModel(Integer[][] matrix)
+    public void setTableModel(Integer[][] matrix)
     {
         tasks = new String[matrix.length];
         resources = new String[matrix.length];
@@ -141,11 +141,23 @@ public class MatrixPanel extends javax.swing.JPanel {
             matrix,
             tasks
         ));
-        
-        /*
-         * Ajout des numeraux de lignes
-         */
-        // see: http://www.java2s.com/Code/Java/Swing-Components/TableRowHeaderExample.htm
+    }
+
+    /*
+     * converts int[][] to Integer[][ and call up setTableModel(Integer[][])
+     */
+    public void setTableModel(int[][] matrix)
+    {
+        Integer matrixInteger[][] = new Integer[matrix.length][matrix.length];
+        for(int i=0; i<matrix.length; i++)
+        {
+            for(int j=0; j<matrix.length; j++)
+            {
+                matrixInteger[i][j] = matrix[i][j];
+            }
+        }
+
+        setTableModel(matrixInteger);
     }
 
     /*

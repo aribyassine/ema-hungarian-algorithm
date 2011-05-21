@@ -109,6 +109,7 @@ public class HungarianView extends FrameView {
     {
         System.out.println("Model changes");
         stepDescLabel.setText(algo.getStepShortDescription());
+        matrixPanel1.setTableModel(algo.getTab());
     }
 
 
