@@ -92,6 +92,9 @@ public class Algo implements AlgoInterface{
         }
     }
 
+    /*
+     * Execute l'operation suivante et incremente l'attribut step
+     */
     public void goToNextStep()
     {
         switch (this.step)
@@ -152,6 +155,7 @@ public class Algo implements AlgoInterface{
             // doSomethingElse();
         }
         
+        step++;
     }
 
     public String getStepName()
