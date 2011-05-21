@@ -5,6 +5,8 @@
 
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 /**
@@ -13,7 +15,8 @@ import java.util.Vector;
  */
 public class Algo implements AlgoInterface {
 
-    private int tab[][]={{1,2,3,4,5},{1,4,2,5,3},{3,2,1,5,4},{1,2,3,5,4},{2,1,4,3,5}};
+    
+    private int tab[][]; // ={{1,2,3,4,5},{1,4,2,5,3},{3,2,1,5,4},{1,2,3,5,4},{2,1,4,3,5}};
     //private int tab[][]={{4,5,3,2,3},{3,2,4,3,4},{3,3,4,4,3},{2,4,3,2,4},{2,1,3,4,3}};
     //private int tab[][]={{13,4,25,6,2,68 107,-12,11,216},{22,-5,0,2,31,54,37,3,24,11},{7,6,0,2,1,1},{4,4,5,0,1,2},{0,1,0,1,0,0},{0,3,2,2,2,0}};
     //private int tab[][]={{3,4,5,6,2,1},{3,0,1,2,3,4},{7,6,0,2,1,1},{4,4,5,0,1,2},{0,1,0,1,0,0},{0,3,2,2,2,0}};
@@ -45,30 +48,46 @@ public class Algo implements AlgoInterface {
             "nouveau tableau"};
 
     private ArbreNAire<Integer> arbre;
+
+
+    /*
+     * used for notifying algo changes to the view
+     * we might move that down to a common abstract class later on.
+     */
+    private final List <AlgoModelListener> algoModelListener;
     
     // vecteur de solutions
     private Vector<boolean[][]> soluce = new Vector<boolean[][]>();
     private Vector<boolean[][]> partialSoluce = new Vector<boolean[][]>();
-    boolean oneSoluce[][]= new boolean[tab.length][tab.length];
+    boolean oneSoluce[][];
 
     public Algo(int[][] tab, boolean preference, int taille) {
+        this.algoModelListener = new ArrayList <AlgoModelListener> ();
         init(tab, preference, taille);
     }
 
     public Algo(boolean preference, int taille) {
-        init(
-                this.tab, // default test tabs passed if none were given
+        this(
+                null, // default test tabs passed if none were given
                 preference,
                 taille);
     }
 
     public final void init(int[][] tab, boolean preference, int taille) {
-        this.tab = tab;
+        /*
+         * this is for testing purpose only, if no tab were passed
+         * take the class-defined one
+         */
+        if (tab != null)
+        {
+            this.tab = tab;
+        }
         this.minimize = preference;
         this.tabMarkedZero = new boolean[taille][taille];
         this.markCol = new boolean[taille];
         this.markRow = new boolean[taille];
         this.arbre = new ArbreNAire<Integer>();
+        oneSoluce = new boolean[this.tab.length][this.tab.length];
         this.arbre.initRacine(Integer.MIN_VALUE, Integer.MIN_VALUE);
 
         /*
