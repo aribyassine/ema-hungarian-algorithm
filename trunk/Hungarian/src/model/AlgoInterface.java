@@ -44,4 +44,6 @@ public interface AlgoInterface {
          * TODO: not too sure about the signature
          */
         public Vector<boolean[][]> getResolvedMatrix();
+
+        public int[][] getTab();
 }
