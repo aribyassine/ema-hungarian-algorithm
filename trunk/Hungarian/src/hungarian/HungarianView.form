@@ -27,7 +27,7 @@
               </Group>
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
-                  <Component id="descLabel" min="-2" max="-2" attributes="0"/>
+                  <Component id="stepDescLabel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="324" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -40,7 +40,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="solutionPanel1" min="-2" pref="176" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="descLabel" min="-2" max="-2" attributes="0"/>
+                  <Component id="stepDescLabel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="resolveButton" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -74,10 +74,10 @@
             <Property name="name" type="java.lang.String" value="nextStepButton" noResource="true"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="descLabel">
+        <Component class="javax.swing.JLabel" name="stepDescLabel">
           <Properties>
-            <Property name="text" type="java.lang.String" resourceKey="descLabel.text"/>
-            <Property name="name" type="java.lang.String" value="descLabel" noResource="true"/>
+            <Property name="text" type="java.lang.String" resourceKey="stepDescLabel.text"/>
+            <Property name="name" type="java.lang.String" value="stepDescLabel" noResource="true"/>
           </Properties>
         </Component>
       </SubComponents>
