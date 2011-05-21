@@ -56,18 +56,24 @@ public class Algo implements AlgoInterface {
     }
 
     public Algo(boolean preference, int taille) {
-        this.minimize = preference;
-        this.tabMarkedZero=new boolean[taille][taille];
-        markCol = new boolean[taille];
-        markRow = new boolean[taille];
-        arbre = new ArbreNAire<Integer>();
-        arbre.initRacine(Integer.MIN_VALUE, Integer.MIN_VALUE);
-        init(tab, preference, taille);
+        init(
+                this.tab, // default test tabs passed if none were given
+                preference,
+                taille);
     }
 
     public final void init(int[][] tab, boolean preference, int taille) {
         this.tab = tab;
         this.minimize = preference;
+        this.tabMarkedZero = new boolean[taille][taille];
+        this.markCol = new boolean[taille];
+        this.markRow = new boolean[taille];
+        this.arbre = new ArbreNAire<Integer>();
+        this.arbre.initRacine(Integer.MIN_VALUE, Integer.MIN_VALUE);
+
+        /*
+         * Multiply the tab by -1
+         */
         if(!minimize)
         {
             for(int row=0;row<tab.length;row++)
@@ -76,11 +82,7 @@ public class Algo implements AlgoInterface {
                     this.tab[row][col]= -1*this.tab[row][col];
             }
         }
-        this.tabMarkedZero=new boolean[taille][taille];
-        markCol = new boolean[taille];
-        markRow = new boolean[taille];
-        initTab(false,this.tabMarkedZero);
-        
+        initTab(false, this.tabMarkedZero);
     }
 
     private void initTab(boolean b, boolean[] markRow) {
