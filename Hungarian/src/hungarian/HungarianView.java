@@ -15,6 +15,7 @@ import javax.swing.Timer;
 import javax.swing.Icon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import model.AlgoInterface;
 import view.MatrixPanel;
 import view.SolutionPanel;
 
@@ -22,6 +23,13 @@ import view.SolutionPanel;
  * The application's main frame.
  */
 public class HungarianView extends FrameView {
+    
+    /*
+     * Reference to the algo so we can access current steps
+     * as well as steps descriptions
+     */
+    private AlgoInterface algo;
+    
 
     public HungarianView(SingleFrameApplication app) {
         super(app);
@@ -111,6 +119,11 @@ public class HungarianView extends FrameView {
     public void addNextStepButtonListener(ActionListener al)
     {
         nextStepButton.addActionListener(al);
+    }
+
+    public void setAlgo(AlgoInterface algo)
+    {
+        this.algo = algo;
     }
 
 

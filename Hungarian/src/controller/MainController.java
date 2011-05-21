@@ -92,6 +92,7 @@ public class MainController
                 algorithm = new Algo(matrix,
                     true, // TODO: hardcoded value
                     matrix.length);
+                hungarianView.setAlgo(algorithm);
             }
             else if (algorithm.isLastStep())
             {
