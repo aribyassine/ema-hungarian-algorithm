@@ -11,7 +11,7 @@ import java.util.Vector;
  *
  * @author laurent
  */
-public class Algo implements AlgoInterface{
+public class Algo implements AlgoInterface {
 
     private int tab[][]={{1,2,3,4,5},{1,4,2,5,3},{3,2,1,5,4},{1,2,3,5,4},{2,1,4,3,5}};
     //private int tab[][]={{4,5,3,2,3},{3,2,4,3,4},{3,3,4,4,3},{2,4,3,2,4},{2,1,3,4,3}};
@@ -880,6 +880,18 @@ public class Algo implements AlgoInterface{
         System.out.println("solutions");
         algo.afficheSoluce();
         System.out.println("");
+    }
+
+
+    // TODO[cleaning]: this could really get part of an abstract class Algo
+    public boolean isFirstStep()
+    {
+        return step == 0;
+    }
+
+    public boolean isLastStep()
+    {
+        return step == 9;
     }
 
 }

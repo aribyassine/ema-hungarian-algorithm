@@ -108,6 +108,11 @@ public class HungarianView extends FrameView {
         resolveButton.addActionListener(al);
     }
 
+    public void addNextStepButtonListener(ActionListener al)
+    {
+        nextStepButton.addActionListener(al);
+    }
+
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -122,6 +127,7 @@ public class HungarianView extends FrameView {
         resolveButton = new javax.swing.JButton();
         matrixPanel1 = new view.MatrixPanel();
         solutionPanel1 = new view.SolutionPanel();
+        nextStepButton = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
@@ -143,6 +149,9 @@ public class HungarianView extends FrameView {
 
         solutionPanel1.setName("solutionPanel1"); // NOI18N
 
+        nextStepButton.setText(resourceMap.getString("nextStepButton.text")); // NOI18N
+        nextStepButton.setName("nextStepButton"); // NOI18N
+
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
@@ -154,7 +163,9 @@ public class HungarianView extends FrameView {
                     .addComponent(solutionPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
-                .addContainerGap(307, Short.MAX_VALUE)
+                .addContainerGap(72, Short.MAX_VALUE)
+                .addComponent(nextStepButton)
+                .addGap(44, 44, 44)
                 .addComponent(resolveButton)
                 .addGap(129, 129, 129))
         );
@@ -165,9 +176,11 @@ public class HungarianView extends FrameView {
                 .addComponent(matrixPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(solutionPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(resolveButton)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(resolveButton)
+                    .addComponent(nextStepButton))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         menuBar.setName("menuBar"); // NOI18N
@@ -237,6 +250,7 @@ public class HungarianView extends FrameView {
     private javax.swing.JPanel mainPanel;
     private view.MatrixPanel matrixPanel1;
     private javax.swing.JMenuBar menuBar;
+    private javax.swing.JButton nextStepButton;
     private javax.swing.JProgressBar progressBar;
     private javax.swing.JButton resolveButton;
     private view.SolutionPanel solutionPanel1;
