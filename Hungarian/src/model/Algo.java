@@ -54,7 +54,7 @@ public class Algo implements AlgoInterface {
      * used for notifying algo changes to the view
      * we might move that down to a common abstract class later on.
      */
-    private final List <AlgoModelListener> algoModelListener;
+    private final List <AlgoModelListener> algoModelListeners;
     
     // vecteur de solutions
     private Vector<boolean[][]> soluce = new Vector<boolean[][]>();
@@ -62,7 +62,7 @@ public class Algo implements AlgoInterface {
     boolean oneSoluce[][];
 
     public Algo(int[][] tab, boolean preference, int taille) {
-        this.algoModelListener = new ArrayList <AlgoModelListener> ();
+        this.algoModelListeners = new ArrayList <AlgoModelListener> ();
         init(tab, preference, taille);
     }
 
@@ -923,6 +923,33 @@ public class Algo implements AlgoInterface {
     public boolean isLastStep()
     {
         return step == 9;
+    }
+
+    public void addAlgoModelListener (final AlgoModelListener algoModelListener)
+    {
+        if (!this.algoModelListeners.contains(algoModelListener))
+        {
+            this.algoModelListeners.add(algoModelListener);
+            notifyAlgoModelListener(algoModelListener);
+        }
+    }
+    
+    public void removeAlgoModelListener(final AlgoModelListener algoModelListener)
+    {
+        this.algoModelListeners.remove(algoModelListener);
+    }
+
+    private void notifyAlgoModelListeners()
+    {
+        for (final AlgoModelListener algoModelListener : this.algoModelListeners)
+        {
+            notifyAlgoModelListener(algoModelListener);
+        }
+    }
+
+    private void notifyAlgoModelListener(final AlgoModelListener algoModelListener)
+    {
+        algoModelListener.algoModelChanged(this);
     }
 
 }

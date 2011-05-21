@@ -591,4 +591,14 @@ public class SimpleHungarianAlgo implements AlgoInterface{
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    public void addAlgoModelListener(AlgoModelListener algoModelListener)
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void removeAlgoModelListener(AlgoModelListener algoModelListener)
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }
