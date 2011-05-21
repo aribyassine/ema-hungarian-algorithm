@@ -13,10 +13,15 @@ import java.util.Vector;
  */
 public interface AlgoInterface {
 	public void init(int tab[][], boolean preference, int taille);
+        
         public void goToNextStep();
         public boolean isFirstStep();
         public boolean isLastStep();
         public String getStepShortDescription();
+        
+        public void addAlgoModelListener (final AlgoModelListener algoModelListener);
+        public void removeAlgoModelListener(final AlgoModelListener algoModelListener);
+        
 	public void step1SubstractAllRow();
 	public void step2SubstractAllCol();
         public boolean step3SelectMarkZero();
@@ -27,7 +32,7 @@ public interface AlgoInterface {
 	public void step8StrikeRowCol();
 	public void step9SubstractNoMark();
 	public boolean step10Affect0Mark();
-	public boolean  step11Affect0Soluce();
+	public boolean step11Affect0Soluce();
 
         /*
          * Call up the step in the right order
