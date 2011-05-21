@@ -186,6 +186,10 @@ public class Algo implements AlgoInterface {
         }
         
         step++;
+        /*
+         * Notify listeners for the changes
+         */
+        notifyAlgoModelListeners ();
     }
 
     public String getStepShortDescription()
