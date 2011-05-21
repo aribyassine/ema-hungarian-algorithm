@@ -13,8 +13,8 @@ import java.util.Vector;
  */
 public class Algo implements AlgoInterface{
 
-    //private int tab[][]={{1,2,3,4,5},{1,4,2,5,3},{3,2,1,5,4},{1,2,3,5,4},{2,1,4,3,5}};
-    private int tab[][]={{4,5,3,2,3},{3,2,4,3,4},{3,3,4,4,3},{2,4,3,2,4},{2,1,3,4,3}};
+    private int tab[][]={{1,2,3,4,5},{1,4,2,5,3},{3,2,1,5,4},{1,2,3,5,4},{2,1,4,3,5}};
+    //private int tab[][]={{4,5,3,2,3},{3,2,4,3,4},{3,3,4,4,3},{2,4,3,2,4},{2,1,3,4,3}};
     //private int tab[][]={{13,4,25,6,2,68 107,-12,11,216},{22,-5,0,2,31,54,37,3,24,11},{7,6,0,2,1,1},{4,4,5,0,1,2},{0,1,0,1,0,0},{0,3,2,2,2,0}};
     //private int tab[][]={{3,4,5,6,2,1},{3,0,1,2,3,4},{7,6,0,2,1,1},{4,4,5,0,1,2},{0,1,0,1,0,0},{0,3,2,2,2,0}};
     //private int tab[][]={{14,5,8,7},{2,12,6,5},{7,8,3,9},{2,4,6,10}};
@@ -53,18 +53,20 @@ public class Algo implements AlgoInterface{
         markRow = new boolean[taille];
         arbre = new ArbreNAire<Integer>();
         arbre.initRacine(Integer.MIN_VALUE, Integer.MIN_VALUE);
-        for(int i=0;i<tabMarkedZero.length;i++)
-        {
-            for(int j=0;j<tabMarkedZero.length;j++)
-            {
-                tabMarkedZero[i][j]=false;
-            }
-        }
+        init(tab, preference, taille);
     }
 
     public final void init(int[][] tab, boolean preference, int taille) {
         this.tab = tab;
         this.minimize = preference;
+        if(!minimize)
+        {
+            for(int row=0;row<tab.length;row++)
+            {
+                for(int col=0; col<tab.length;col++)
+                    this.tab[row][col]= -1*this.tab[row][col];
+            }
+        }
         this.tabMarkedZero=new boolean[taille][taille];
         markCol = new boolean[taille];
         markRow = new boolean[taille];
@@ -197,15 +199,15 @@ public class Algo implements AlgoInterface{
         int valueToSobstract;
         /*si la "meilleur valeurs" est la plus petite, on recherche le mini
          sinon le maxi*/
-        if(this.minimize){
+//        if(this.minimize){
             valueToSobstract=chercheMinRow(row,tab);
-        }else{
-            valueToSobstract=chercheMaxRow(row,tab);
-        }
+//        }else{
+//            valueToSobstract=chercheMaxRow(row,tab);
+//        }
         /*on soustrait ensuite cette valeur à chaque élément de la ligne*/
         for(int i=0;i<this.tab[row].length;i++)
         {
-            tab[row][i]=tab[row][i]-valueToSobstract;
+            tab[row][i]=tab[row][i]- valueToSobstract;
         }
     }
 
@@ -221,12 +223,12 @@ public class Algo implements AlgoInterface{
         int valueToSobstract;
         /*si la "meilleur valeurs" est la plus petite, on recherche le mini
          sinon le maxi*/
-        if(this.minimize){
+//        if(this.minimize){
             valueToSobstract=chercheMinCol(col, tab);
-
-        }else{
-            valueToSobstract=chercheMaxCol(col, tab);
-        }
+//
+//        }else{
+//            valueToSobstract=chercheMaxCol(col, tab);
+//        }
         /*on soustrait ensuite cette valeur à chaque élément de la ligne*/
         for(int i=0;i<this.tab[col].length;i++)
         {
@@ -481,6 +483,8 @@ public class Algo implements AlgoInterface{
 
     public void resolveMatrix()
     {
+        System.out.println("tab init");
+        affiche(getTab());
         step1SubstractAllRow();
         System.out.println("soustraction ligne");
         affiche(getTab());
@@ -865,7 +869,7 @@ public class Algo implements AlgoInterface{
     }
 
     public static void main(String[] args) {
-        Algo algo = new Algo(true,5);
+        Algo algo = new Algo(false,5);
         
         algo.resolveMatrix();
         
