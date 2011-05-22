@@ -249,33 +249,31 @@ public class Algo implements AlgoInterface {
             return true;
 
         step10Affect0Mark();
+        Vector<Integer> vectNbMarkedZero = new Vector<Integer>();
+        for(int nbPartielSoluce=0;nbPartielSoluce<partialSoluce.size();nbPartielSoluce++)
         {
-            Vector<Integer> vectNbMarkedZero = new Vector<Integer>();
-            for(int nbPartielSoluce=0;nbPartielSoluce<partialSoluce.size();nbPartielSoluce++)
+            int nbMarkedZero=0;
+            for(int i=0;i<partialSoluce.get(nbPartielSoluce).length;i++)
             {
-                int nbMarkedZero=0;
-                for(int i=0;i<partialSoluce.get(nbPartielSoluce).length;i++)
-                {
-                    if(isMarkedZeroRow(partialSoluce.get(nbPartielSoluce), i))
-                        nbMarkedZero++;
-                }
-                vectNbMarkedZero.add(nbMarkedZero);
+                if(isMarkedZeroRow(partialSoluce.get(nbPartielSoluce), i))
+                    nbMarkedZero++;
             }
-            int maxZero = 0;
-            for(int i=0;i<vectNbMarkedZero.size();i++)
-            {
-                if(maxZero<vectNbMarkedZero.get(i))
-                {
-                    maxZero= vectNbMarkedZero.get(i);
-                }
-            }
-            for(int i=0; i<vectNbMarkedZero.size();i++)
-            {
-                if(vectNbMarkedZero.get(i)==maxZero)
-                    tabMarkedZero=partialSoluce.get(i);
-            }
-            
+            vectNbMarkedZero.add(nbMarkedZero);
         }
+        int maxZero = 0;
+        for(int i=0;i<vectNbMarkedZero.size();i++)
+        {
+            if(maxZero<vectNbMarkedZero.get(i))
+            {
+                maxZero= vectNbMarkedZero.get(i);
+            }
+        }
+        for(int i=0; i<vectNbMarkedZero.size();i++)
+        {
+            if(vectNbMarkedZero.get(i)==maxZero)
+                tabMarkedZero=partialSoluce.get(i);
+        }
+
         return false;
     }
 
