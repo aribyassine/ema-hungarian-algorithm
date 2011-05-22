@@ -87,16 +87,15 @@ public class AlgoTest {
      * This is the main test of the Algo class
      */
     @Test
-    public void testGetResolvedMatrix()
+    public void testGetResolvedMatrix1()
     {
         System.out.println("getResolvedMatrix");
         /*
-    //private int tab[][]={{4,5,3,2,3},{3,2,4,3,4},{3,3,4,4,3},{2,4,3,2,4},{2,1,3,4,3}};
     //private int tab[][]={{13,4,25,6,2,68 107,-12,11,216},{22,-5,0,2,31,54,37,3,24,11},{7,6,0,2,1,1},{4,4,5,0,1,2},{0,1,0,1,0,0},{0,3,2,2,2,0}};
     //private int tab[][]={{3,4,5,6,2,1},{3,0,1,2,3,4},{7,6,0,2,1,1},{4,4,5,0,1,2},{0,1,0,1,0,0},{0,3,2,2,2,0}};
     //private int tab[][]={{14,5,8,7},{2,12,6,5},{7,8,3,9},{2,4,6,10}};
     //private int tab[][]={{0,0,0,1,0},{0,0,2,0,3},{4,5,0,0,6},{0,7,0,8,0},{9,0,10,0,0}};
-    
+
          */
         int matrix1[][] = {{1,2,3,4,5},{1,4,2,5,3},{3,2,1,5,4},{1,2,3,5,4},{2,1,4,3,5}};
         Algo algorithm = new Algo(matrix1, true, matrix1.length);
@@ -122,11 +121,90 @@ public class AlgoTest {
         expectedResolvedMatrices.add(resolvedMatrix1);
         expectedResolvedMatrices.add(resolvedMatrix2);
         expectedResolvedMatrices.add(resolvedMatrix3);
-        
+
         Vector<boolean[][]> result = algorithm.getResolvedMatrix();
         for(int i=0; i<result.size(); i++)
         {
-            assertArrayEquals(expectedResolvedMatrices.get(i), result.get(i));
+            // System.out.println("Matrix: " + (i+1));
+            // algorithm.affiche(result.get(i));
+            assertArrayEquals(result.get(i), expectedResolvedMatrices.get(i));
+        }
+    }
+
+    /**
+     * Test of getResolvedMatrix method, of class Algo.
+     * This is the main test of the Algo class
+     */
+    @Test
+    public void testGetResolvedMatrix2()
+    {
+        System.out.println("getResolvedMatrix");
+        /*
+    //private int tab[][]={{13,4,25,6,2,68 107,-12,11,216},{22,-5,0,2,31,54,37,3,24,11},{7,6,0,2,1,1},{4,4,5,0,1,2},{0,1,0,1,0,0},{0,3,2,2,2,0}};
+    //private int tab[][]={{3,4,5,6,2,1},{3,0,1,2,3,4},{7,6,0,2,1,1},{4,4,5,0,1,2},{0,1,0,1,0,0},{0,3,2,2,2,0}};
+    //private int tab[][]={{14,5,8,7},{2,12,6,5},{7,8,3,9},{2,4,6,10}};
+    //private int tab[][]={{0,0,0,1,0},{0,0,2,0,3},{4,5,0,0,6},{0,7,0,8,0},{9,0,10,0,0}};
+
+         */
+        int matrix2[][] = {{4,5,3,2,3},{3,2,4,3,4},{3,3,4,4,3},{2,4,3,2,4},{2,1,3,4,3}};
+        Algo algorithm = new Algo(matrix2, true, matrix2.length);
+        Vector<boolean[][]> expectedResolvedMatrices = new Vector<boolean[][]>();
+        boolean resolvedMatrix1[][] = {
+            {false, false, true, false, false},
+            {true, false, false, false, false},
+            {false, false, false, false, true},
+            {false, false, false, true, false},
+            {false, true, false, false, false}};
+        boolean resolvedMatrix2[][] = {
+            {false, false, true, false, false},
+            {false, true, false, false, false},
+            {false, false, false, false, true},
+            {false, false, false, true, false},
+            {true, false, false, false, false}};
+        boolean resolvedMatrix3[][] = {
+            {false, false, true, false, false},
+            {false, false, false, true, false},
+            {false, false, false, false, true},
+            {true, false, false, false, false},
+            {false, true, false, false, false}};
+        boolean resolvedMatrix4[][] = {
+            {false, false, false, true, false},
+            {true, false, false, false, false},
+            {false, false, false, false, true},
+            {false, false, true, false, false},
+            {false, true, false, false, false}};
+        boolean resolvedMatrix5[][] = {
+            {false, false, false, true, false},
+            {false, true, false, false, false},
+            {false, false, false, false, true},
+            {true, false, false, false, false},
+            {false, false, true, false, false}};
+        boolean resolvedMatrix6[][] = {
+            {false, false, false, true, false},
+            {false, true, false, false, false},
+            {false, false, false, false, true},
+            {false, false, true, false, false},
+            {true, false, false, false, false}};
+        boolean resolvedMatrix7[][] = {
+            {false, false, false, true, false},
+            {false, false, true, false, false},
+            {false, false, false, false, true},
+            {true, false, false, false, false},
+            {false, true, false, false, false}};
+        expectedResolvedMatrices.add(resolvedMatrix1);
+        expectedResolvedMatrices.add(resolvedMatrix2);
+        expectedResolvedMatrices.add(resolvedMatrix3);
+        expectedResolvedMatrices.add(resolvedMatrix4);
+        expectedResolvedMatrices.add(resolvedMatrix5);
+        expectedResolvedMatrices.add(resolvedMatrix6);
+        expectedResolvedMatrices.add(resolvedMatrix7);
+
+        Vector<boolean[][]> result = algorithm.getResolvedMatrix();
+        for(int i=0; i<result.size(); i++)
+        {
+            // System.out.println("Matrix: " + (i+1));
+            // algorithm.affiche(result.get(i));
+            assertArrayEquals(result.get(i), expectedResolvedMatrices.get(i));
         }
     }
 
