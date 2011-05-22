@@ -38,15 +38,20 @@ public class Algo implements AlgoInterface
     private int tabTemp[][];
     private String[] stepsShortDescription =
     {
-        "tab init",
-        "soustraction ligne",
-        "soustraction colonne",
-        "zeros encadre",
-        "marquage ligne",
-        "marqage colonne",
-        "marquage ligne/colonne",
-        "nouveau tableau"
+        "tab init",                 // step0
+        "soustraction ligne",       // step1
+        "soustraction colonne",     // step2
+        "zeros encadre",            // step3
+        "marquage ligne",           // step4
+        "marquage colonne",          // step5
+        "marquage ligne/colonne",   // step6
+        "nouveau tableau",          // step7
+        "step8StrikeRowCol",        // step8
+        "step9SubstractNoMark",     // step9
+        "FIXME nothing to do",      // step10
+        "step11Affect0Soluce",      // step11
     };
+    
     private ArbreNAire<Integer> arbre;
     /*
      * used for notifying algo changes to the view
@@ -535,7 +540,7 @@ public class Algo implements AlgoInterface
                 affiche(getMarkRow());
                 //algo.affiche(algo.getTabMarkedZero());
                 step5MarkCol();
-                System.out.println("marqage colonne");
+                System.out.println("marquage colonne");
                 affiche(getMarkCol());
                 //algo.affiche(algo.getTabMarkedZero());
                 step6MarkRowCol();
@@ -563,19 +568,28 @@ public class Algo implements AlgoInterface
         {
             case 0:
                 System.out.println("tab init");
+                step++;
                 break;
             case 1:
                 step1SubstractAllRow();
                 System.out.println("soustraction ligne");
                 affiche(getTab());
+                step++;
                 break;
             case 2:
                 step2SubstractAllCol();
                 System.out.println("soustraction colonne");
                 affiche(getTab());
+                step++;
                 break;
             case 3:
-                step3SelectMarkZero();
+                if (!step3SelectMarkZero())
+                {
+                    step++;
+                } else
+                {
+                    step=11;
+                }
                 System.out.println("zeros encadre");
                 affiche(getTabMarkedZero());
                 break;
@@ -584,10 +598,11 @@ public class Algo implements AlgoInterface
                 System.out.println("marquage ligne");
                 affiche(getMarkRow());
                 //algo.affiche(algo.getTabMarkedZero());
+                step++;
                 break;
             case 5:
                 step5MarkCol();
-                System.out.println("marqage colonne");
+                System.out.println("marquage colonne");
                 affiche(getMarkCol());
                 //algo.affiche(algo.getTabMarkedZero());
                 break;
@@ -601,24 +616,41 @@ public class Algo implements AlgoInterface
                 step7Iterate();
                 affiche(getTab());
                 System.out.println("nouveau tableau");
+                step++;
                 break;
             case 8:
                 step8StrikeRowCol();
                 affiche(getTabTemp());
+                step++;
                 break;
             case 9:
                 step9SubstractNoMark();
                 affiche(getTab());
-                while (!step11Affect0Soluce())
+                step++;
+                break;
+            case 10:
+                // TODO: nothing to do, where the hell is the step 10?
+                step++;
+                break;
+            case 11:
+                if (!step11Affect0Soluce())
                 {
-                    resolveMatrix();
+                    /*
+                     * if still has zero to affect go back to step 3
+                     */
+                    step=3;
+                } else
+                {
+                    /*
+                     * otherwise finish
+                     */
+                    step++;
                 }
                 break;
             default:
-            // doSomethingElse();
+                System.out.println("Finished");
         }
-
-        step++;
+        
         /*
          * Notify listeners for the changes
          */
