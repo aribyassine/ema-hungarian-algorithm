@@ -2,7 +2,6 @@
  * To change this template, choose Tools ?5| Templates
  * and open the template in the editor.?3
  */
-
 package model;
 
 import java.util.ArrayList;
@@ -13,16 +12,16 @@ import java.util.Vector;
  *
  * @author laurent
  */
-public class Algo implements AlgoInterface {
+public class Algo implements AlgoInterface
+{
 
-    
     private int tab[][]; // ={{1,2,3,4,5},{1,4,2,5,3},{3,2,1,5,4},{1,2,3,5,4},{2,1,4,3,5}};
     //private int tab[][]={{4,5,3,2,3},{3,2,4,3,4},{3,3,4,4,3},{2,4,3,2,4},{2,1,3,4,3}};
     //private int tab[][]={{13,4,25,6,2,68 107,-12,11,216},{22,-5,0,2,31,54,37,3,24,11},{7,6,0,2,1,1},{4,4,5,0,1,2},{0,1,0,1,0,0},{0,3,2,2,2,0}};
     //private int tab[][]={{3,4,5,6,2,1},{3,0,1,2,3,4},{7,6,0,2,1,1},{4,4,5,0,1,2},{0,1,0,1,0,0},{0,3,2,2,2,0}};
     //private int tab[][]={{14,5,8,7},{2,12,6,5},{7,8,3,9},{2,4,6,10}};
     //private int tab[][]={{0,0,0,1,0},{0,0,2,0,3},{4,5,0,0,6},{0,7,0,8,0},{9,0,10,0,0}};
-    private boolean  tabMarkedZero[][];
+    private boolean tabMarkedZero[][];
 
     /*
      * Garde en memoire l'etape de l'algorithme
@@ -34,46 +33,47 @@ public class Algo implements AlgoInterface {
      * minimise ou maximise
      */
     private boolean minimize;
-    private boolean  markRow[];
-    private boolean  markCol[];
+    private boolean markRow[];
+    private boolean markCol[];
     private int tabTemp[][];
-
-    private String[] stepsShortDescription = {"tab init",
-            "soustraction ligne",
-            "soustraction colonne",
-            "zeros encadre",
-            "marquage ligne",
-            "marqage colonne",
-            "marquage ligne/colonne",
-            "nouveau tableau"};
-
+    private String[] stepsShortDescription =
+    {
+        "tab init",
+        "soustraction ligne",
+        "soustraction colonne",
+        "zeros encadre",
+        "marquage ligne",
+        "marqage colonne",
+        "marquage ligne/colonne",
+        "nouveau tableau"
+    };
     private ArbreNAire<Integer> arbre;
-
-
     /*
      * used for notifying algo changes to the view
      * we might move that down to a common abstract class later on.
      */
-    private final List <AlgoModelListener> algoModelListeners;
-    
+    private final List<AlgoModelListener> algoModelListeners;
     // vecteur de solutions
     private Vector<boolean[][]> soluce = new Vector<boolean[][]>();
     private Vector<boolean[][]> partialSoluce = new Vector<boolean[][]>();
     boolean oneSoluce[][];
 
-    public Algo(int[][] tab, boolean preference, int taille) {
-        this.algoModelListeners = new ArrayList <AlgoModelListener> ();
+    public Algo(int[][] tab, boolean preference, int taille)
+    {
+        this.algoModelListeners = new ArrayList<AlgoModelListener>();
         init(tab, preference, taille);
     }
 
-    public Algo(boolean preference, int taille) {
+    public Algo(boolean preference, int taille)
+    {
         this(
                 null, // default test tabs passed if none were given
                 preference,
                 taille);
     }
 
-    public final void init(int[][] tab, boolean preference, int taille) {
+    public final void init(int[][] tab, boolean preference, int taille)
+    {
         /*
          * this is for testing purpose only, if no tab were passed
          * take the class-defined one
@@ -93,31 +93,34 @@ public class Algo implements AlgoInterface {
         /*
          * Multiply the tab by -1
          */
-        if(!minimize)
+        if (!minimize)
         {
-            for(int row=0;row<tab.length;row++)
+            for (int row = 0; row < tab.length; row++)
             {
-                for(int col=0; col<tab.length;col++)
-                    this.tab[row][col]= -1*this.tab[row][col];
+                for (int col = 0; col < tab.length; col++)
+                {
+                    this.tab[row][col] = -1 * this.tab[row][col];
+                }
             }
         }
         initTab(false, this.tabMarkedZero);
     }
 
-    private void initTab(boolean b, boolean[] markRow) {
-        for(int j=0;j<tab.length;j++)
+    private void initTab(boolean b, boolean[] markRow)
+    {
+        for (int j = 0; j < tab.length; j++)
         {
-            markRow[j]=b;
+            markRow[j] = b;
         }
     }
-    
+
     private void initTab(boolean marked, boolean tab[][])
     {
-        for(int i=0;i<tab.length;i++)
+        for (int i = 0; i < tab.length; i++)
         {
-            for(int j=0;j<tab.length;j++)
+            for (int j = 0; j < tab.length; j++)
             {
-                tab[i][j]=marked;
+                tab[i][j] = marked;
             }
         }
     }
@@ -130,81 +133,88 @@ public class Algo implements AlgoInterface {
     /*
      * selection de zeros encadres par ligne
      */
-    private void step10AffectZeroByRow(){
-        Integer nbZero=0, xZero=null, yZero=null;
+    private void step10AffectZeroByRow()
+    {
+        Integer nbZero = 0, xZero = null, yZero = null;
 
-        for(int row=0;row<tab.length;row++)
+        for (int row = 0; row < tab.length; row++)
         {
-            for(int col=0;col<tab.length;col++)
+            for (int col = 0; col < tab.length; col++)
             {
-                if(tab[row][col]==0)
+                if (tab[row][col] == 0)
                 {
-                    xZero=row;
-                    yZero=col;
+                    xZero = row;
+                    yZero = col;
                     nbZero++;
                 }
             }
             /* on selectionne si il n'y a qu'un seul zero sur la ligne et
-             si il n'y a pas de zeros encadres sur la colonne*/
-            if(nbZero==1 && !isMarkedZeroCol(yZero)){
-                tabMarkedZero[xZero][yZero]=true;
+            si il n'y a pas de zeros encadres sur la colonne*/
+            if (nbZero == 1 && !isMarkedZeroCol(yZero))
+            {
+                tabMarkedZero[xZero][yZero] = true;
             }
-            nbZero=0;
+            nbZero = 0;
         }
     }
 
 //L'accummulation de l'information ne fait pas plus de connaissance que l'acummulation de brique ne fait un mur
 
     /*on creer un zero par ligne par soustraction*/
-    private void step1SubstractAllRow() {
-        for(int i=0;i<this.tab[0].length; i++)
+    private void step1SubstractAllRow()
+    {
+        for (int i = 0; i < this.tab[0].length; i++)
         {
             step1SubstractRow(i);
         }
     }
 
-    private void step1SubstractRow(int row) {
+    private void step1SubstractRow(int row)
+    {
         int valueToSobstract;
         /*si la "meilleur valeurs" est la plus petite, on recherche le mini
-         sinon le maxi*/
+        sinon le maxi*/
 //        if(this.minimize){
-            valueToSobstract=chercheMinRow(row,tab);
+        valueToSobstract = chercheMinRow(row, tab);
 //        }else{
 //            valueToSobstract=chercheMaxRow(row,tab);
 //        }
         /*on soustrait ensuite cette valeur à chaque élément de la ligne*/
-        for(int i=0;i<this.tab[row].length;i++)
+        for (int i = 0; i < this.tab[row].length; i++)
         {
-            tab[row][i]=tab[row][i]- valueToSobstract;
+            tab[row][i] = tab[row][i] - valueToSobstract;
         }
     }
 
     /*pour chaque colonne, on creer un zero par soustraction*/
-    private void step2SubstractAllCol() {
-        for(int i=0;i<this.tab[0].length; i++)
+    private void step2SubstractAllCol()
+    {
+        for (int i = 0; i < this.tab[0].length; i++)
         {
             step2SubstractCol(i);
         }
     }
 
-    private void step2SubstractCol(int col) {
+    private void step2SubstractCol(int col)
+    {
         int valueToSobstract;
         /*si la "meilleur valeurs" est la plus petite, on recherche le mini
-         sinon le maxi*/
+        sinon le maxi*/
 //        if(this.minimize){
-            valueToSobstract=chercheMinCol(col, tab);
+        valueToSobstract = chercheMinCol(col, tab);
 //
 //        }else{
 //            valueToSobstract=chercheMaxCol(col, tab);
 //        }
         /*on soustrait ensuite cette valeur à chaque élément de la ligne*/
-        for(int i=0;i<this.tab[col].length;i++)
+        for (int i = 0; i < this.tab[col].length; i++)
         {
-            tab[i][col]=tab[i][col]-valueToSobstract;
+            tab[i][col] = tab[i][col] - valueToSobstract;
         }
     }
 
-    private boolean step3SelectMarkZero() {
+    private boolean step3SelectMarkZero()
+    {
 //        Integer nbZero=0, xZero=null, yZero=null;
 //
 //        for(int col=0;col<tab.length;col++)
@@ -245,178 +255,202 @@ public class Algo implements AlgoInterface {
 //            }
 //            nbZero=0;
 //        }
-        if(step11Affect0Soluce())
+        if (step11Affect0Soluce())
+        {
             return true;
+        }
 
         step10Affect0Mark();
         Vector<Integer> vectNbMarkedZero = new Vector<Integer>();
-        for(int nbPartielSoluce=0;nbPartielSoluce<partialSoluce.size();nbPartielSoluce++)
+        for (int nbPartielSoluce = 0; nbPartielSoluce < partialSoluce.size(); nbPartielSoluce++)
         {
-            int nbMarkedZero=0;
-            for(int i=0;i<partialSoluce.get(nbPartielSoluce).length;i++)
+            int nbMarkedZero = 0;
+            for (int i = 0; i < partialSoluce.get(nbPartielSoluce).length; i++)
             {
-                if(isMarkedZeroRow(partialSoluce.get(nbPartielSoluce), i))
+                if (isMarkedZeroRow(partialSoluce.get(nbPartielSoluce), i))
+                {
                     nbMarkedZero++;
+                }
             }
             vectNbMarkedZero.add(nbMarkedZero);
         }
         int maxZero = 0;
-        for(int i=0;i<vectNbMarkedZero.size();i++)
+        for (int i = 0; i < vectNbMarkedZero.size(); i++)
         {
-            if(maxZero<vectNbMarkedZero.get(i))
+            if (maxZero < vectNbMarkedZero.get(i))
             {
-                maxZero= vectNbMarkedZero.get(i);
+                maxZero = vectNbMarkedZero.get(i);
             }
         }
-        for(int i=0; i<vectNbMarkedZero.size();i++)
+        for (int i = 0; i < vectNbMarkedZero.size(); i++)
         {
-            if(vectNbMarkedZero.get(i)==maxZero)
-                tabMarkedZero=partialSoluce.get(i);
+            if (vectNbMarkedZero.get(i) == maxZero)
+            {
+                tabMarkedZero = partialSoluce.get(i);
+            }
         }
 
         return false;
     }
 
     /*on marque toute ligne n'ayant pas de zero encadrer*/
-    private void step4MarkRow() {
+    private void step4MarkRow()
+    {
         initTab(false, markRow);
-        for(int row=0;row<tabMarkedZero.length;row++)
+        for (int row = 0; row < tabMarkedZero.length; row++)
         {
-            if(!isMarkedZeroRow(tabMarkedZero, row))
-                markRow[row]=true;
+            if (!isMarkedZeroRow(tabMarkedZero, row))
+            {
+                markRow[row] = true;
+            }
         }
     }
 
     /*on marque toute colonne ayant un 0 barré sur une ligne marqué*/
-    private void step5MarkCol() {
+    private void step5MarkCol()
+    {
         initTab(false, markCol);
         //recherche de ligne marqué
-        for(int row=0;row<tab.length;row++)
+        for (int row = 0; row < tab.length; row++)
         {
-            if(markRow[row]==true)
+            if (markRow[row] == true)
             {
-                for(int col=0;col<tab.length;col++)
+                for (int col = 0; col < tab.length; col++)
                 {
-                    if(tabMarkedZero[row][col]==false && tab[row][col]==0)
+                    if (tabMarkedZero[row][col] == false && tab[row][col] == 0)
                     {
-                        markCol[col]=true;
+                        markCol[col] = true;
                     }
                 }
                 //ATTENTION, IL FAUDRAIT RECHERCHER UN ZERO NON ENCADRER
             }
-                //si on trouve une marqué,
+            //si on trouve une marqué,
         }
     }
 
     /*on marque toute ligne ayant un 0 encadré sur une colonne marqué*/
-    private void step6MarkRowCol() {
-        for(int col=0;col<tab.length;col++)
+    private void step6MarkRowCol()
+    {
+        for (int col = 0; col < tab.length; col++)
         {
-            if(markCol[col])
+            if (markCol[col])
             {
-                if(isMarkedZeroCol(col))
+                if (isMarkedZeroCol(col))
                 {
-                    for(int row=0;row<tabMarkedZero.length;row++)
+                    for (int row = 0; row < tabMarkedZero.length; row++)
                     {
-                        if(tabMarkedZero[row][col])
-                            markRow[row]=true;
+                        if (tabMarkedZero[row][col])
+                        {
+                            markRow[row] = true;
+                        }
                     }
                 }
             }
         }
     }
 
-    private void step7Iterate() {
-        int nbMarkedRowAfter=-1, nbMarkedRowBefore=nbMarkedRow();
-        int nbMarkedColAfter=-1, nbMarkedColBefore=nbMarkedCol();
-        do{
+    private void step7Iterate()
+    {
+        int nbMarkedRowAfter = -1, nbMarkedRowBefore = nbMarkedRow();
+        int nbMarkedColAfter = -1, nbMarkedColBefore = nbMarkedCol();
+        do
+        {
             step5MarkCol();
             step6MarkRowCol();
-            nbMarkedColAfter=nbMarkedCol();
-            nbMarkedRowAfter=nbMarkedRow();
-            if(nbMarkedColAfter!=nbMarkedColBefore)
+            nbMarkedColAfter = nbMarkedCol();
+            nbMarkedRowAfter = nbMarkedRow();
+            if (nbMarkedColAfter != nbMarkedColBefore)
             {
-                nbMarkedColBefore=nbMarkedColAfter;
-                nbMarkedColAfter=-1;
+                nbMarkedColBefore = nbMarkedColAfter;
+                nbMarkedColAfter = -1;
             }
-            if(nbMarkedRowAfter!=nbMarkedRowBefore)
+            if (nbMarkedRowAfter != nbMarkedRowBefore)
             {
-                nbMarkedRowBefore=nbMarkedRowAfter;
-                nbMarkedRowAfter=-1;
+                nbMarkedRowBefore = nbMarkedRowAfter;
+                nbMarkedRowAfter = -1;
             }
-        }while(nbMarkedColAfter!=nbMarkedColBefore && nbMarkedRowAfter!=nbMarkedRowBefore);
+        } while (nbMarkedColAfter != nbMarkedColBefore && nbMarkedRowAfter != nbMarkedRowBefore);
     }
 
-    private void step8StrikeRowCol() {
-        tabTemp=new int[nbMarkedRow()][tab.length-nbMarkedCol()];
-        int rowTabTemp=0, colTabTemp=0;
-        for(int row=0;row<tab.length;row++)
+    private void step8StrikeRowCol()
+    {
+        tabTemp = new int[nbMarkedRow()][tab.length - nbMarkedCol()];
+        int rowTabTemp = 0, colTabTemp = 0;
+        for (int row = 0; row < tab.length; row++)
         {
-            for(int col=0;col<tab.length;col++)
+            for (int col = 0; col < tab.length; col++)
             {
-                if(markCol[col]==false && markRow[row]==true)
+                if (markCol[col] == false && markRow[row] == true)
                 {
-                    tabTemp[rowTabTemp][colTabTemp]=tab[row][col];
+                    tabTemp[rowTabTemp][colTabTemp] = tab[row][col];
                     colTabTemp++;
                 }
             }
-            if(colTabTemp==tabTemp[0].length){
+            if (colTabTemp == tabTemp[0].length)
+            {
                 rowTabTemp++;
             }
-            colTabTemp=0;
+            colTabTemp = 0;
         }
     }
 
-    private void step9SubstractNoMark() {
+    private void step9SubstractNoMark()
+    {
         int value;
-        if(minimize)
+        if (minimize)
         {
-             value = chercheMinTab(tabTemp);
-        }else{
+            value = chercheMinTab(tabTemp);
+        } else
+        {
             value = chercheMaxTab(tabTemp);
         }
-        for(int row=0; row<tab.length;row++)
+        for (int row = 0; row < tab.length; row++)
         {
-            for(int col=0;col<tab.length;col++)
+            for (int col = 0; col < tab.length; col++)
             {
                 //si element rayé deux fois
-                if(this.markRow[row]==false && markCol[col]==true)
+                if (this.markRow[row] == false && markCol[col] == true)
                 {
-                    tab[row][col]+=value;
+                    tab[row][col] += value;
                 }
                 //si element non rayé
-                if(this.markRow[row]==true && markCol[col]==false)
+                if (this.markRow[row] == true && markCol[col] == false)
                 {
-                    tab[row][col]-=value;
+                    tab[row][col] -= value;
                 }
             }
         }
     }
 
-    private boolean step10Affect0Mark() {
+    private boolean step10Affect0Mark()
+    {
         arbre = new ArbreNAire<Integer>();
         arbre.initRacine(Integer.MIN_VALUE, Integer.MIN_VALUE);
         buildArbreZero(0, 0);
         soluce.clear();
         initTab(false, oneSoluce);
         searchSoluce(arbre, oneSoluce);
-        if(soluce.isEmpty())
+        if (soluce.isEmpty())
+        {
             return false;
-        else
+        } else
+        {
             return true;
+        }
     }
 
-    private boolean  step11Affect0Soluce() {
+    private boolean step11Affect0Soluce()
+    {
         /* avant utilisatin d'un arbre
-         initTabTemp(false, this.tabMarkedZero);
+        initTabTemp(false, this.tabMarkedZero);
         step3SelectMarkZero();
         for(int row=0; row<tab.length;row++)
         {
-            for(int col=0;col<tab.length;col++)
-            {
-                if(tab[row][col]==0 && !isMarkedZeroRow(row) && !isMarkedZeroCol(col))
-                    tabMarkedZero[row][col]=true;
-            }
+        for(int col=0;col<tab.length;col++)
+        {
+        if(tab[row][col]==0 && !isMarkedZeroRow(row) && !isMarkedZeroCol(col))
+        tabMarkedZero[row][col]=true;
+        }
         }*/
         arbre = new ArbreNAire<Integer>();
         arbre.initRacine(Integer.MIN_VALUE, Integer.MIN_VALUE);
@@ -424,28 +458,34 @@ public class Algo implements AlgoInterface {
         soluce.clear();
         initTab(false, oneSoluce);
         searchSoluce(arbre, oneSoluce);
-        if(soluce.isEmpty())
+        if (soluce.isEmpty())
+        {
             return false;
-        else
+        } else
+        {
             return true;
+        }
     }
 
-    public boolean isPreference() {
-            return minimize;
+    public boolean isPreference()
+    {
+        return minimize;
     }
 
-    public void setPreference(boolean preference) {
-            this.minimize = preference;
+    public void setPreference(boolean preference)
+    {
+        this.minimize = preference;
     }
 
-    public int[][] getTab() {
-            return tab;
+    public int[][] getTab()
+    {
+        return tab;
     }
 
-    public void setTab(int[][] tab) {
-            this.tab = tab;
+    public void setTab(int[][] tab)
+    {
+        this.tab = tab;
     }
-
 
     // TODO[DRY]: code to be merged with goToNextStep
     public void resolveMatrix()
@@ -458,7 +498,7 @@ public class Algo implements AlgoInterface {
         step2SubstractAllCol();
         System.out.println("soustraction colonne");
         affiche(getTab());
-        if(!step3SelectMarkZero())
+        if (!step3SelectMarkZero())
         {
             System.out.println("zeros encadre");
             affiche(getTabMarkedZero());
@@ -481,7 +521,8 @@ public class Algo implements AlgoInterface {
             affiche(getTabTemp());
             step9SubstractNoMark();
             affiche(getTab());
-            while(!step11Affect0Soluce()){
+            while (!step11Affect0Soluce())
+            {
                 resolveMatrix();
             }
         }
@@ -495,59 +536,60 @@ public class Algo implements AlgoInterface {
     {
         switch (this.step)
         {
-         case 0:
-            System.out.println("tab init");
-            break;
-          case 1:
-            step1SubstractAllRow();
-            System.out.println("soustraction ligne");
-            affiche(getTab());
-            break;
-          case 2:
-            step2SubstractAllCol();
-            System.out.println("soustraction colonne");
-            affiche(getTab());
-            break;
-          case 3:
-            step3SelectMarkZero();
-            System.out.println("zeros encadre");
-            affiche(getTabMarkedZero());
-            break;
-          case 4:
-            step4MarkRow();
-            System.out.println("marquage ligne");
-            affiche(getMarkRow());
-            //algo.affiche(algo.getTabMarkedZero());
-            break;
-          case 5:
-            step5MarkCol();
-            System.out.println("marqage colonne");
-            affiche(getMarkCol());
-            //algo.affiche(algo.getTabMarkedZero());
-            break;
-          case 6:
-            step6MarkRowCol();
-            System.out.println("marquage ligne/colonne");
-            affiche(getMarkRow());
-            affiche(getMarkCol());
-            break;
-          case 7:
-            step7Iterate();
-            affiche(getTab());
-            System.out.println("nouveau tableau");
-            break;
-          case 8:
-            step8StrikeRowCol();
-            affiche(getTabTemp());
-            break;
-          case 9:
-            step9SubstractNoMark();
-            affiche(getTab());
-            while(!step11Affect0Soluce()){
-                resolveMatrix();
-            }
-            break;
-          default:
+            case 0:
+                System.out.println("tab init");
+                break;
+            case 1:
+                step1SubstractAllRow();
+                System.out.println("soustraction ligne");
+                affiche(getTab());
+                break;
+            case 2:
+                step2SubstractAllCol();
+                System.out.println("soustraction colonne");
+                affiche(getTab());
+                break;
+            case 3:
+                step3SelectMarkZero();
+                System.out.println("zeros encadre");
+                affiche(getTabMarkedZero());
+                break;
+            case 4:
+                step4MarkRow();
+                System.out.println("marquage ligne");
+                affiche(getMarkRow());
+                //algo.affiche(algo.getTabMarkedZero());
+                break;
+            case 5:
+                step5MarkCol();
+                System.out.println("marqage colonne");
+                affiche(getMarkCol());
+                //algo.affiche(algo.getTabMarkedZero());
+                break;
+            case 6:
+                step6MarkRowCol();
+                System.out.println("marquage ligne/colonne");
+                affiche(getMarkRow());
+                affiche(getMarkCol());
+                break;
+            case 7:
+                step7Iterate();
+                affiche(getTab());
+                System.out.println("nouveau tableau");
+                break;
+            case 8:
+                step8StrikeRowCol();
+                affiche(getTabTemp());
+                break;
+            case 9:
+                step9SubstractNoMark();
+                affiche(getTab());
+                while (!step11Affect0Soluce())
+                {
+                    resolveMatrix();
+                }
+                break;
+            default:
             // doSomethingElse();
         }
 
@@ -555,7 +597,7 @@ public class Algo implements AlgoInterface {
         /*
          * Notify listeners for the changes
          */
-        notifyAlgoModelListeners ();
+        notifyAlgoModelListeners();
     }
 
     /*
@@ -563,235 +605,269 @@ public class Algo implements AlgoInterface {
      */
     public Vector<boolean[][]> getResolvedMatrix()
     {
-       if ((soluce == null) || (soluce.isEmpty()))
-       {
-           resolveMatrix();
-       }
+        if ((soluce == null) || (soluce.isEmpty()))
+        {
+            resolveMatrix();
+        }
         return soluce;
     }
-    private int chercheMinRow(int row, int [][]tab)
+
+    private int chercheMinRow(int row, int[][] tab)
     {
-        int min=Integer.MAX_VALUE;
-        for(int i=0;i<tab[0].length;i++)
+        int min = Integer.MAX_VALUE;
+        for (int i = 0; i < tab[0].length; i++)
         {
-            if(tab[row][i]<min)
-            min=tab[row][i];
+            if (tab[row][i] < min)
+            {
+                min = tab[row][i];
+            }
         }
         return min;
     }
 
-    private int chercheMaxRow(int row, int [][]tab)
+    private int chercheMaxRow(int row, int[][] tab)
     {
-        int max=Integer.MIN_VALUE;
-        for(int i=0;i<tab[0].length;i++)
+        int max = Integer.MIN_VALUE;
+        for (int i = 0; i < tab[0].length; i++)
         {
-            if(tab[row][i]>max)
-                max=tab[row][i];
+            if (tab[row][i] > max)
+            {
+                max = tab[row][i];
+            }
         }
         return max;
     }
 
-    private int chercheMinCol(int col,int [][]tab) {
-        int min=Integer.MAX_VALUE;
-        for(int i=0;i<tab[0].length;i++)
+    private int chercheMinCol(int col, int[][] tab)
+    {
+        int min = Integer.MAX_VALUE;
+        for (int i = 0; i < tab[0].length; i++)
         {
-            if(tab[i][col]<min)
-                min=tab[i][col];
+            if (tab[i][col] < min)
+            {
+                min = tab[i][col];
+            }
         }
         return min;
     }
 
-    private int chercheMaxCol(int col,int [][]tab) {
-        int max=Integer.MIN_VALUE;
-        for(int i=0;i<tab[0].length;i++)
+    private int chercheMaxCol(int col, int[][] tab)
+    {
+        int max = Integer.MIN_VALUE;
+        for (int i = 0; i < tab[0].length; i++)
         {
-            if(tab[i][col]>max)
-                max=tab[i][col];
+            if (tab[i][col] > max)
+            {
+                max = tab[i][col];
+            }
         }
         return max;
     }
 
-    private int chercheMaxTab(int [][]tab)
+    private int chercheMaxTab(int[][] tab)
     {
-        Integer max= Integer.MIN_VALUE;
+        Integer max = Integer.MIN_VALUE;
         int temp;
-        for(int row=0;row<tab.length;row++)
+        for (int row = 0; row < tab.length; row++)
         {
             temp = chercheMaxRow(row, tab);
-            if(temp>max)
-                max=temp;
+            if (temp > max)
+            {
+                max = temp;
+            }
         }
         return max;
     }
 
-    private int chercheMinTab(int [][]tab)
+    private int chercheMinTab(int[][] tab)
     {
-        Integer min= Integer.MAX_VALUE;
+        Integer min = Integer.MAX_VALUE;
         int temp;
-        for(int row=0;row<tab.length;row++)
+        for (int row = 0; row < tab.length; row++)
         {
             temp = chercheMinRow(row, tab);
-            if(temp<min)
-                min=temp;
+            if (temp < min)
+            {
+                min = temp;
+            }
         }
         return min;
     }
 
-    private boolean isMarkedZeroRow(boolean [][]tab, int row)
+    private boolean isMarkedZeroRow(boolean[][] tab, int row)
     {
-        boolean retour=false;
-        for(int i=0;i<tab.length;i++)
+        boolean retour = false;
+        for (int i = 0; i < tab.length; i++)
         {
-            if(tab[row][i])
-                retour=true;
+            if (tab[row][i])
+            {
+                retour = true;
+            }
         }
         return retour;
     }
 
     private boolean isMarkedZeroCol(int col)
     {
-        boolean retour=false;
-        for(int i=0;i<tabMarkedZero.length;i++)
+        boolean retour = false;
+        for (int i = 0; i < tabMarkedZero.length; i++)
         {
-            if(tabMarkedZero[i][col])
-                retour=true;
+            if (tabMarkedZero[i][col])
+            {
+                retour = true;
+            }
         }
         return retour;
     }
 
-    private int nbZeroRow(int row){
-        int nbZero=0;
-        for(int col=0;col<tab.length;col++)
+    private int nbZeroRow(int row)
+    {
+        int nbZero = 0;
+        for (int col = 0; col < tab.length; col++)
         {
-            if(tab[row][col]==0)
+            if (tab[row][col] == 0)
+            {
                 nbZero++;
+            }
         }
         return nbZero;
     }
 
-    private int nbZeroCol(int col){
-        int nbZero=0;
-        for(int row=0;row<tab.length;row++)
+    private int nbZeroCol(int col)
+    {
+        int nbZero = 0;
+        for (int row = 0; row < tab.length; row++)
         {
-            if(tab[row][col]==0)
+            if (tab[row][col] == 0)
+            {
                 nbZero++;
+            }
         }
         return nbZero;
     }
 
-
-    public boolean[][] getTabMarkedZero() {
+    public boolean[][] getTabMarkedZero()
+    {
         return tabMarkedZero;
     }
 
-    private void affiche(boolean  []tab)
+    private void affiche(boolean[] tab)
     {
         String sortie = new String();
-        for(int row=0;row<tab.length;row++)
+        for (int row = 0; row < tab.length; row++)
         {
-            sortie +=tab[row]+" ";
+            sortie += tab[row] + " ";
         }
         System.out.println(sortie);
     }
 
-    public boolean[] getMarkCol() {
+    public boolean[] getMarkCol()
+    {
         return markCol;
     }
 
-    public boolean[] getMarkRow() {
+    public boolean[] getMarkRow()
+    {
         return markRow;
     }
 
     private int nbMarkedCol()
     {
-        int nbMarkedCol=0;
-        for(int i=0;i<markCol.length;i++)
+        int nbMarkedCol = 0;
+        for (int i = 0; i < markCol.length; i++)
         {
-            if(markCol[i])
+            if (markCol[i])
+            {
                 nbMarkedCol++;
+            }
         }
         return nbMarkedCol;
     }
 
     private int nbMarkedRow()
     {
-        int nbMarkedRow=0;
-        for(int i=0;i<markRow.length;i++)
+        int nbMarkedRow = 0;
+        for (int i = 0; i < markRow.length; i++)
         {
-            if(markRow[i])
+            if (markRow[i])
+            {
                 nbMarkedRow++;
+            }
         }
         return nbMarkedRow;
     }
 
-    public void affiche(boolean  [][]tab)
+    public void affiche(boolean[][] tab)
     {
         String sortie = new String();
-        for(int row=0;row<tab.length;row++)
+        for (int row = 0; row < tab.length; row++)
         {
-            for(int col=0;col<tab[row].length;col++)
+            for (int col = 0; col < tab[row].length; col++)
             {
-                sortie +=tab[row][col]+" ";
+                sortie += tab[row][col] + " ";
             }
-            sortie+="\n";
+            sortie += "\n";
         }
         System.out.println(sortie);
     }
 
-    private void affiche(int [][]tab)
+    private void affiche(int[][] tab)
     {
         String sortie = new String();
-        for(int row=0;row<tab.length;row++)
+        for (int row = 0; row < tab.length; row++)
         {
-            for(int col=0;col<tab[row].length;col++)
+            for (int col = 0; col < tab[row].length; col++)
             {
-                sortie +=tab[row][col]+" ";
+                sortie += tab[row][col] + " ";
             }
-            sortie+="\n";
+            sortie += "\n";
         }
         System.out.println(sortie);
     }
+
     private void afficheSoluce()
     {
-        for(int i=0; i<soluce.size();i++)
+        for (int i = 0; i < soluce.size(); i++)
         {
             affiche(soluce.get(i));
         }
     }
 
-
-    public int[][] getTabTemp() {
+    public int[][] getTabTemp()
+    {
         return tabTemp;
     }
 
-    public ArbreNAire<Integer> getArbre() {
+    public ArbreNAire<Integer> getArbre()
+    {
         return arbre;
     }
 
-    public Vector<boolean[][]> getSoluce() {
+    public Vector<boolean[][]> getSoluce()
+    {
         return soluce;
     }
 
-    public boolean[][] getOneSoluce() {
+    public boolean[][] getOneSoluce()
+    {
         return oneSoluce;
     }
 
-
-    private boolean searchSoluce(ArbreNAire arbre, boolean oneSoluce[][]){
-        if(!arbre.isNoeudFeuille())
+    private boolean searchSoluce(ArbreNAire arbre, boolean oneSoluce[][])
+    {
+        if (!arbre.isNoeudFeuille())
         {
-            for(int i=0; i<arbre.getNbFils(); i++)
+            for (int i = 0; i < arbre.getNbFils(); i++)
             {
-                if(!arbre.isRacine())
+                if (!arbre.isRacine())
                 {
-                    for(int k=0;k<tab.length;k++)
+                    for (int k = 0; k < tab.length; k++)
                     {
-                        oneSoluce[(Integer)(arbre.getVue().getRow())][k]=false;
+                        oneSoluce[(Integer) (arbre.getVue().getRow())][k] = false;
                     }
-                    oneSoluce[(Integer)(arbre.getVue().getRow())][(Integer)(arbre.getVue().getCol())]=true;
-                }
-                else{
-
+                    oneSoluce[(Integer) (arbre.getVue().getRow())][(Integer) (arbre.getVue().getCol())] = true;
+                } else
+                {
                 }
                 arbre.goToFils(i);
                 searchSoluce(arbre, oneSoluce);
@@ -799,23 +875,23 @@ public class Algo implements AlgoInterface {
             }
 
         }
-        if(arbre.isNoeudFeuille())
+        if (arbre.isNoeudFeuille())
         {
-            for(int k=0;k<tab.length;k++)
+            for (int k = 0; k < tab.length; k++)
             {
-                oneSoluce[(Integer)(arbre.getVue().getRow())][k]=false;
+                oneSoluce[(Integer) (arbre.getVue().getRow())][k] = false;
             }
-            oneSoluce[(Integer)(arbre.getVue().getRow())][(Integer)(arbre.getVue().getCol())]=true;
+            oneSoluce[(Integer) (arbre.getVue().getRow())][(Integer) (arbre.getVue().getCol())] = true;
             boolean tmp[][] = new boolean[tab.length][tab.length];
-            for(int i=0;i<tab.length;i++)
+            for (int i = 0; i < tab.length; i++)
             {
-                for(int j=0;j<tab.length;j++)
+                for (int j = 0; j < tab.length; j++)
                 {
-                    tmp[i][j]=oneSoluce[i][j];
+                    tmp[i][j] = oneSoluce[i][j];
                 }
             }
             this.partialSoluce.add(tmp);
-            if((Integer)(arbre.getVue().getRow())==(tab.length-1))
+            if ((Integer) (arbre.getVue().getRow()) == (tab.length - 1))
             {
                 this.soluce.add(tmp);
             }
@@ -823,15 +899,16 @@ public class Algo implements AlgoInterface {
         return true;
     }
 
-    private void buildArbreSoluce(int row, int col){
-        if(row<tab.length)
+    private void buildArbreSoluce(int row, int col)
+    {
+        if (row < tab.length)
         {
-            for(int i=col;i<tab.length;i++)
+            for (int i = col; i < tab.length; i++)
             {
-                if(tab[row][i]==0)
+                if (tab[row][i] == 0)
                 {
                     Noeud<Integer> vue = arbre.getVue();
-                    if(isPossibleToCreate(arbre, row, i))
+                    if (isPossibleToCreate(arbre, row, i))
                     {
                         arbre.setVue(vue);
                         int fils = arbre.addFils(row, i);
@@ -840,7 +917,8 @@ public class Algo implements AlgoInterface {
                         buildArbreSoluce(row, 0);
                         row--;
                         arbre.goToPere();
-                    }else{
+                    } else
+                    {
                         arbre.setVue(vue);
                     }
                 }
@@ -848,29 +926,32 @@ public class Algo implements AlgoInterface {
         }
     }
 
-    private void buildArbreZero(int row, int col){
+    private void buildArbreZero(int row, int col)
+    {
         int fils;
         Noeud<Integer> vue;
         boolean temp = false;
-        if(row<tab.length)
+        if (row < tab.length)
         {
-            for(int i=col;i<tab.length;i++)
+            for (int i = col; i < tab.length; i++)
             {
-                if(arbre.getNbFils()>0)
+                if (arbre.getNbFils() > 0)
                 {
-                    for(int k=0;k<arbre.getNbFils();k++)
+                    for (int k = 0; k < arbre.getNbFils(); k++)
                     {
-                        if(!arbre.getVue().getFils().get(k).getCol().equals(k))
-                            temp=true;
+                        if (!arbre.getVue().getFils().get(k).getCol().equals(k))
+                        {
+                            temp = true;
+                        }
 
                     }
 
                 }
-                if(tab[row][i]==0 && !temp)
+                if (tab[row][i] == 0 && !temp)
                 {
                     // Save de la vue pour ne pas la perdre pendant le parcours
                     vue = arbre.getVue();
-                    if(isPossibleToCreate(arbre, row, i))
+                    if (isPossibleToCreate(arbre, row, i))
                     {
                         arbre.setVue(vue);
                         // equivalent a un marquage ligne/colonne
@@ -880,7 +961,8 @@ public class Algo implements AlgoInterface {
                         buildArbreZero(row, 0);
                         row--;
                         arbre.goToPere();
-                    }else{
+                    } else
+                    {
                         // restore la vue a la sauvegarde
                         arbre.setVue(vue);
                     }
@@ -893,29 +975,31 @@ public class Algo implements AlgoInterface {
 
     private boolean isPossibleToCreate(ArbreNAire<Integer> arbre, Integer row, Integer col)
     {
-        boolean result=true;
-        if(arbre.getVue().getRow()!=row && arbre.getVue().getCol()!=col && !arbre.isRacine() && result==true)
+        boolean result = true;
+        if (arbre.getVue().getRow() != row && arbre.getVue().getCol() != col && !arbre.isRacine() && result == true)
         {
             arbre.goToPere();
-            result=isPossibleToCreate(arbre, row, col);
-        }else if(arbre.isRacine()){
-            result=true;
-        }else{
+            result = isPossibleToCreate(arbre, row, col);
+        } else if (arbre.isRacine())
+        {
+            result = true;
+        } else
+        {
             return false;
         }
         return result;
     }
 
-    public static void main(String[] args) {
-        Algo algo = new Algo(false,5);
-        
+    public static void main(String[] args)
+    {
+        Algo algo = new Algo(false, 5);
+
         algo.resolveMatrix();
-        
+
         System.out.println("solutions");
         algo.afficheSoluce();
         System.out.println("");
     }
-
 
     // TODO[cleaning]: this could really get part of an abstract class Algo
     public boolean isFirstStep()
@@ -928,7 +1012,7 @@ public class Algo implements AlgoInterface {
         return step == 9;
     }
 
-    public void addAlgoModelListener (final AlgoModelListener algoModelListener)
+    public void addAlgoModelListener(final AlgoModelListener algoModelListener)
     {
         if (!this.algoModelListeners.contains(algoModelListener))
         {
@@ -936,7 +1020,7 @@ public class Algo implements AlgoInterface {
             notifyAlgoModelListener(algoModelListener);
         }
     }
-    
+
     public void removeAlgoModelListener(final AlgoModelListener algoModelListener)
     {
         this.algoModelListeners.remove(algoModelListener);
@@ -954,5 +1038,4 @@ public class Algo implements AlgoInterface {
     {
         algoModelListener.algoModelChanged(this);
     }
-
 }
