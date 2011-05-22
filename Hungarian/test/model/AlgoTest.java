@@ -90,11 +90,7 @@ public class AlgoTest {
     public void testGetResolvedMatrix1()
     {
         System.out.println("getResolvedMatrix");
-        /*
-    //private int tab[][]={{14,5,8,7},{2,12,6,5},{7,8,3,9},{2,4,6,10}};
-    //private int tab[][]={{0,0,0,1,0},{0,0,2,0,3},{4,5,0,0,6},{0,7,0,8,0},{9,0,10,0,0}};
 
-         */
         int matrix1[][] = {{1,2,3,4,5},{1,4,2,5,3},{3,2,1,5,4},{1,2,3,5,4},{2,1,4,3,5}};
         Algo algorithm = new Algo(matrix1, true, matrix1.length);
         Vector<boolean[][]> expectedResolvedMatrices = new Vector<boolean[][]>();
@@ -137,11 +133,7 @@ public class AlgoTest {
     public void testGetResolvedMatrix2()
     {
         System.out.println("getResolvedMatrix");
-        /*
-    //private int tab[][]={{14,5,8,7},{2,12,6,5},{7,8,3,9},{2,4,6,10}};
-    //private int tab[][]={{0,0,0,1,0},{0,0,2,0,3},{4,5,0,0,6},{0,7,0,8,0},{9,0,10,0,0}};
 
-         */
         int matrix2[][] = {{4,5,3,2,3},{3,2,4,3,4},{3,3,4,4,3},{2,4,3,2,4},{2,1,3,4,3}};
         Algo algorithm = new Algo(matrix2, true, matrix2.length);
         Vector<boolean[][]> expectedResolvedMatrices = new Vector<boolean[][]>();
@@ -212,11 +204,7 @@ public class AlgoTest {
     public void testGetResolvedMatrix3()
     {
         System.out.println("getResolvedMatrix");
-        /*
-    //private int tab[][]={{14,5,8,7},{2,12,6,5},{7,8,3,9},{2,4,6,10}};
-    //private int tab[][]={{0,0,0,1,0},{0,0,2,0,3},{4,5,0,0,6},{0,7,0,8,0},{9,0,10,0,0}};
-
-         */
+        
         int matrix3[][] = {{3,4,5,6,2,1},{3,0,1,2,3,4},{7,6,0,2,1,1},{4,4,5,0,1,2},{0,1,0,1,0,0},{0,3,2,2,2,0}};
         Algo algorithm = new Algo(matrix3, true, matrix3.length);
         Vector<boolean[][]> expectedResolvedMatrices = new Vector<boolean[][]>();
@@ -232,12 +220,41 @@ public class AlgoTest {
         Vector<boolean[][]> result = algorithm.getResolvedMatrix();
         for(int i=0; i<result.size(); i++)
         {
+            // System.out.println("Matrix: " + (i+1));
+            // algorithm.affiche(result.get(i));
+            assertArrayEquals(result.get(i), expectedResolvedMatrices.get(i));
+        }
+    }
+
+    /**
+     * Test of getResolvedMatrix method, of class Algo.
+     * This is the main test of the Algo class
+     */
+    @Test
+    public void testGetResolvedMatrix4()
+    {
+        System.out.println("getResolvedMatrix");
+        /*
+
+         */
+        int matrix4[][] = {{14,5,8,7},{2,12,6,5},{7,8,3,9},{2,4,6,10}};
+        Algo algorithm = new Algo(matrix4, true, matrix4.length);
+        Vector<boolean[][]> expectedResolvedMatrices = new Vector<boolean[][]>();
+        boolean resolvedMatrix1[][] = {
+            {false, false, false, false},
+            {false, false, false, true},
+            {false, false, false, false},
+            {false, false, false, false}};
+        expectedResolvedMatrices.add(resolvedMatrix1);
+
+        Vector<boolean[][]> result = algorithm.getResolvedMatrix();
+        for(int i=0; i<result.size(); i++)
+        {
             System.out.println("Matrix: " + (i+1));
             algorithm.affiche(result.get(i));
             assertArrayEquals(result.get(i), expectedResolvedMatrices.get(i));
         }
     }
-
 
     /**
      * Test of getArbre method, of class Algo.
