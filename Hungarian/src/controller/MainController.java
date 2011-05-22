@@ -9,7 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import model.Algo;
 import model.AlgoInterface;
-import model.SimpleHungarianAlgo;
 import view.MatrixPanel;
 import view.SolutionPanel;
 
@@ -24,6 +23,11 @@ public class MainController
     private MatrixController matrixController;
     private SolutionController solutionxController;
     private AlgoInterface algorithm;
+
+    /*
+     * keeping a copy of the original matrix
+     */
+    private int matrixToResolve[][];
 
     public MainController(HungarianView hungarianView)
     {
@@ -85,9 +89,12 @@ public class MainController
             int matrix[][];
 
 
-            // si l'algorithm n'a pas encore ete initialise (step 0)
+            /*
+             * si l'algorithm n'a pas encore ete initialise (step 0)
+             */
             if (algorithm == null)
             {
+                matrixToResolve = matrixController.getIntMatrix();
                 matrix = matrixController.getIntMatrix();
                 algorithm = new Algo(matrix,
                     true, // TODO: hardcoded value
@@ -102,12 +109,9 @@ public class MainController
 
                 /*
                  * After resolving the matrix[][] had been altered by the Algorithm
-                 * Reinit one.
                  */
-                matrix = matrixController.getIntMatrix();
-
                 solutionxController.setTasks(matrixController.getTasks());
-                solutionxController.setCostMatrix(matrix);
+                solutionxController.setCostMatrix(matrixToResolve);
                 solutionxController.setSolutionMatrix(resolvedMatrix);
             }
             else
