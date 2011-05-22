@@ -524,34 +524,33 @@ public class Algo implements AlgoInterface
         step2SubstractAllCol();
         System.out.println("soustraction colonne");
         affiche(getTab());
-        if (!step3SelectMarkZero())
+        do
         {
-            System.out.println("zeros encadre");
-            affiche(getTabMarkedZero());
-            step4MarkRow();
-            System.out.println("marquage ligne");
-            affiche(getMarkRow());
-            //algo.affiche(algo.getTabMarkedZero());
-            step5MarkCol();
-            System.out.println("marqage colonne");
-            affiche(getMarkCol());
-            //algo.affiche(algo.getTabMarkedZero());
-            step6MarkRowCol();
-            System.out.println("marquage ligne/colonne");
-            affiche(getMarkRow());
-            affiche(getMarkCol());
-            step7Iterate();
-            affiche(getTab());
-            System.out.println("nouveau tableau");
-            step8StrikeRowCol();
-            affiche(getTabTemp());
-            step9SubstractNoMark();
-            affiche(getTab());
-            while (!step11Affect0Soluce())
+            if (!step3SelectMarkZero())
             {
-                resolveMatrix();
+                System.out.println("zeros encadre");
+                affiche(getTabMarkedZero());
+                step4MarkRow();
+                System.out.println("marquage ligne");
+                affiche(getMarkRow());
+                //algo.affiche(algo.getTabMarkedZero());
+                step5MarkCol();
+                System.out.println("marqage colonne");
+                affiche(getMarkCol());
+                //algo.affiche(algo.getTabMarkedZero());
+                step6MarkRowCol();
+                System.out.println("marquage ligne/colonne");
+                affiche(getMarkRow());
+                affiche(getMarkCol());
+                step7Iterate();
+                affiche(getTab());
+                System.out.println("nouveau tableau");
+                step8StrikeRowCol();
+                affiche(getTabTemp());
+                step9SubstractNoMark();
+                affiche(getTab());
             }
-        }
+        } while (!step11Affect0Soluce());
     }
 
 
@@ -626,9 +625,7 @@ public class Algo implements AlgoInterface
         notifyAlgoModelListeners();
     }
 
-    /*
-     * TODO: finish this up
-     */
+
     public Vector<boolean[][]> getResolvedMatrix()
     {
         if ((soluce == null) || (soluce.isEmpty()))
