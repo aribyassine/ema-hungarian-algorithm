@@ -62,7 +62,7 @@ public class SimpleHungarianAlgo implements AlgoInterface{
     }
 
     //selection de zeros encadres par ligne
-    public void step10AffectZeroByRow(){
+    private void step10AffectZeroByRow(){
         Integer nbZero=0, xZero=null, yZero=null;
 
         for(int row=0;row<tab.length;row++)
@@ -88,14 +88,14 @@ public class SimpleHungarianAlgo implements AlgoInterface{
 //L'accummulation de l'information ne fait pas plus de connaissance que l'acummulation de brique ne fait un mur
 
     /*on creer un zero par ligne par soustraction*/
-    public void step1SubstractAllRow() {
+    private void step1SubstractAllRow() {
         for(int i=0;i<this.tab[0].length; i++)
         {
             step1SubstractRow(i);
         }
     }
 
-    public void step1SubstractRow(int row) {
+    private void step1SubstractRow(int row) {
         int valueToSobstract;
         /*si la "meilleur valeurs" est la plus petite, on recherche le mini
          sinon le maxi*/
@@ -112,14 +112,14 @@ public class SimpleHungarianAlgo implements AlgoInterface{
     }
 
     /*pour chaque colonne, on creer un zero par soustraction*/
-    public void step2SubstractAllCol() {
+    private void step2SubstractAllCol() {
         for(int i=0;i<this.tab[0].length; i++)
         {
             step2SubstractCol(i);
         }
     }
 
-    public void step2SubstractCol(int col) {
+    private void step2SubstractCol(int col) {
         int valueToSobstract;
         /*si la "meilleur valeurs" est la plus petite, on recherche le mini
          sinon le maxi*/
@@ -136,7 +136,7 @@ public class SimpleHungarianAlgo implements AlgoInterface{
         }
     }
 
-    public boolean step3SelectMarkZero() {
+    private boolean step3SelectMarkZero() {
         Integer nbZero=0, xZero=null, yZero=null;
 
         for(int col=0;col<tab.length;col++)
@@ -182,7 +182,7 @@ public class SimpleHungarianAlgo implements AlgoInterface{
     }
 
     /*on marque toute ligne n'ayant pas de zero encadrer*/
-    public void step4MarkRow() {
+    private void step4MarkRow() {
         for(int row=0;row<tabMarkedZero.length;row++)
         {
             if(!isMarkedZeroRow(row))
@@ -191,7 +191,7 @@ public class SimpleHungarianAlgo implements AlgoInterface{
     }
 
     /*on marque toute colonne ayant un 0 barré sur une ligne marqué*/
-    public void step5MarkCol() {
+    private void step5MarkCol() {
         //recherche de ligne marqué
         for(int row=0;row<tab.length;row++)
         {
@@ -211,7 +211,7 @@ public class SimpleHungarianAlgo implements AlgoInterface{
     }
 
     /*on marque toute ligne ayant un 0 encadré sur une colonne marqué*/
-    public void step6MarkRowCol() {
+    private void step6MarkRowCol() {
         for(int col=0;col<tab.length;col++)
         {
             if(markCol[col]==true)
@@ -228,7 +228,7 @@ public class SimpleHungarianAlgo implements AlgoInterface{
         }
     }
 
-    public void step7Iterate() {
+    private void step7Iterate() {
         int nbMarkedRowAfter=-1, nbMarkedRowBefore=nbMarkedRow();
         int nbMarkedColAfter=-1, nbMarkedColBefore=nbMarkedCol();
         do{
@@ -249,7 +249,7 @@ public class SimpleHungarianAlgo implements AlgoInterface{
         }while(nbMarkedColAfter!=nbMarkedColBefore && nbMarkedRowAfter!=nbMarkedRowBefore);
     }
 
-    public void step8StrikeRowCol() {
+    private void step8StrikeRowCol() {
         tabTemp=new int[nbMarkedRow()][tab.length-nbMarkedCol()];
         int rowTabTemp=0, colTabTemp=0;
         for(int row=0;row<tab.length;row++)
@@ -269,7 +269,7 @@ public class SimpleHungarianAlgo implements AlgoInterface{
         }
     }
 
-    public void step9SubstractNoMark() {
+    private void step9SubstractNoMark() {
         int value;
         if(preference==true)
         {
@@ -295,11 +295,11 @@ public class SimpleHungarianAlgo implements AlgoInterface{
         }
     }
 
-    public void step10AddMarkTwice() {
+    private void step10AddMarkTwice() {
             throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public boolean step11Affect0()
+    private boolean step11Affect0()
     {
         boolean zeroAffected = false;
         initTabTemp(false);
@@ -571,12 +571,12 @@ public class SimpleHungarianAlgo implements AlgoInterface{
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public boolean step10Affect0Mark()
+    private boolean step10Affect0Mark()
     {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public boolean step11Affect0Soluce()
+    private boolean step11Affect0Soluce()
     {
         throw new UnsupportedOperationException("Not supported yet.");
     }
