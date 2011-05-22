@@ -524,8 +524,8 @@ public class Algo implements AlgoInterface
         this.tab = tab;
     }
 
-    // TODO[DRY]: code to be merged with goToNextStep
-    public void resolveMatrix()
+    // the code is now refactored with goToNextStep in resolveMatrix()
+    public void resolveMatrixDisabled()
     {
         System.out.println("tab init");
         affiche(getTab());
@@ -564,6 +564,14 @@ public class Algo implements AlgoInterface
         } while (!step11Affect0Soluce());
     }
 
+    public void resolveMatrix()
+    {
+        while (!isLastStep())
+        {
+            goToNextStep();
+        }
+
+    }
 
     /*
      * Execute l'operation suivante et incremente l'attribut step
