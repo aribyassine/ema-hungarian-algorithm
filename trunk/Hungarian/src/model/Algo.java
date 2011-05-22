@@ -897,7 +897,7 @@ public class Algo implements AlgoInterface
             }
 
         }
-        if (arbre.isNoeudFeuille())
+        else // (arbre.isNoeudFeuille())
         {
             for (int k = 0; k < tab.length; k++)
             {
