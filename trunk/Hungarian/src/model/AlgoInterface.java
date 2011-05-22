@@ -18,6 +18,7 @@ public interface AlgoInterface {
         public boolean isFirstStep();
         public boolean isLastStep();
         public String getStepShortDescription();
+        public int getStepNum();
         
         public void addAlgoModelListener (final AlgoModelListener algoModelListener);
         public void removeAlgoModelListener(final AlgoModelListener algoModelListener);

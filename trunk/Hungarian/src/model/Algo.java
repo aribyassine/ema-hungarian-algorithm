@@ -50,6 +50,7 @@ public class Algo implements AlgoInterface
         "step9SubstractNoMark",     // step9
         "FIXME nothing to do",      // step10
         "step11Affect0Soluce",      // step11
+        "End",                      // step12
     };
     
     private ArbreNAire<Integer> arbre;
@@ -139,6 +140,11 @@ public class Algo implements AlgoInterface
     public String getStepShortDescription()
     {
         return stepsShortDescription[step];
+    }
+
+    public int getStepNum()
+    {
+        return step;
     }
 
     /*
@@ -605,12 +611,14 @@ public class Algo implements AlgoInterface
                 System.out.println("marquage colonne");
                 affiche(getMarkCol());
                 //algo.affiche(algo.getTabMarkedZero());
+                step++;
                 break;
             case 6:
                 step6MarkRowCol();
                 System.out.println("marquage ligne/colonne");
                 affiche(getMarkRow());
                 affiche(getMarkCol());
+                step++;
                 break;
             case 7:
                 step7Iterate();
@@ -1060,7 +1068,7 @@ public class Algo implements AlgoInterface
 
     public boolean isLastStep()
     {
-        return step == 9;
+        return step == (stepsShortDescription.length-1);
     }
 
     public void addAlgoModelListener(final AlgoModelListener algoModelListener)

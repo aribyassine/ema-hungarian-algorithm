@@ -601,4 +601,9 @@ public class SimpleHungarianAlgo implements AlgoInterface{
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    public int getStepNum()
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }

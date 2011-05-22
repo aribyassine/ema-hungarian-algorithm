@@ -108,6 +108,9 @@ public class HungarianView extends FrameView {
     private void onModelChange()
     {
         System.out.println("Model changes");
+        stepNumLabel.setText("Step" +
+                String.valueOf(algo.getStepNum()) +
+                ":");
         stepDescLabel.setText(algo.getStepShortDescription());
         matrixPanel1.setTableModel(algo.getTab());
     }
@@ -169,6 +172,7 @@ public class HungarianView extends FrameView {
         solutionPanel1 = new view.SolutionPanel();
         nextStepButton = new javax.swing.JButton();
         stepDescLabel = new javax.swing.JLabel();
+        stepNumLabel = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
@@ -196,6 +200,9 @@ public class HungarianView extends FrameView {
         stepDescLabel.setText(resourceMap.getString("stepDescLabel.text")); // NOI18N
         stepDescLabel.setName("stepDescLabel"); // NOI18N
 
+        stepNumLabel.setText(resourceMap.getString("stepNumLabel.text")); // NOI18N
+        stepNumLabel.setName("stepNumLabel"); // NOI18N
+
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
@@ -206,16 +213,19 @@ public class HungarianView extends FrameView {
                     .addComponent(matrixPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(solutionPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
-                .addGap(70, 70, 70)
-                .addComponent(nextStepButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
-                .addComponent(resolveButton)
-                .addGap(83, 83, 83))
             .addGroup(mainPanelLayout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addComponent(stepDescLabel)
-                .addContainerGap(324, Short.MAX_VALUE))
+                .addGap(70, 70, 70)
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(mainPanelLayout.createSequentialGroup()
+                        .addComponent(stepNumLabel)
+                        .addGap(18, 18, 18)
+                        .addComponent(stepDescLabel)
+                        .addContainerGap())
+                    .addGroup(mainPanelLayout.createSequentialGroup()
+                        .addComponent(nextStepButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                        .addComponent(resolveButton)
+                        .addGap(83, 83, 83))))
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -225,7 +235,9 @@ public class HungarianView extends FrameView {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(solutionPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(stepDescLabel)
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(stepNumLabel)
+                    .addComponent(stepDescLabel))
                 .addGap(43, 43, 43)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(resolveButton)
@@ -308,6 +320,7 @@ public class HungarianView extends FrameView {
     private javax.swing.JLabel statusMessageLabel;
     private javax.swing.JPanel statusPanel;
     private javax.swing.JLabel stepDescLabel;
+    private javax.swing.JLabel stepNumLabel;
     // End of variables declaration//GEN-END:variables
 
     private final Timer messageTimer;
