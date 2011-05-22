@@ -259,21 +259,11 @@ public class MatrixPanel extends javax.swing.JPanel {
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_deleteButtonActionPerformed
     {//GEN-HEADEREND:event_deleteButtonActionPerformed
-        /*
-         * TODO: we could later use an observer that will automatically update
-         * the table by calling setTableModel
-         * 
-         */
         setMatrixOrder(matrixOrder-1);
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_addButtonActionPerformed
     {//GEN-HEADEREND:event_addButtonActionPerformed
-        /*
-         * TODO: we could later use an observer that will automatically update
-         * the table by calling setTableModel
-         *
-         */
         setMatrixOrder(matrixOrder+1);
     }//GEN-LAST:event_addButtonActionPerformed
 
