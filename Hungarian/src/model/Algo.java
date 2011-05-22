@@ -726,7 +726,7 @@ public class Algo implements AlgoInterface {
         return nbMarkedRow;
     }
 
-    private void affiche(boolean  [][]tab)
+    public void affiche(boolean  [][]tab)
     {
         String sortie = new String();
         for(int row=0;row<tab.length;row++)

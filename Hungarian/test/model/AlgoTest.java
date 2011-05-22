@@ -43,7 +43,7 @@ public class AlgoTest {
     /**
      * Test of init method, of class Algo.
      */
-    @Test
+    // DISABLED @Test
     public void testInit()
     {
         System.out.println("init");
@@ -84,32 +84,34 @@ public class AlgoTest {
 
     /**
      * Test of getResolvedMatrix method, of class Algo.
+     * This is the main test of the Algo class
      */
     @Test
     public void testGetResolvedMatrix()
     {
         System.out.println("getResolvedMatrix");
-        Algo instance = null;
-        Vector expResult = null;
-        Vector result = instance.getResolvedMatrix();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getTabMarkedZero method, of class Algo.
-     */
-    @Test
-    public void testGetTabMarkedZero()
-    {
-        System.out.println("getTabMarkedZero");
-        Algo instance = null;
-        boolean[][] expResult = null;
-        boolean[][] result = instance.getTabMarkedZero();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        /*
+    //private int tab[][]={{4,5,3,2,3},{3,2,4,3,4},{3,3,4,4,3},{2,4,3,2,4},{2,1,3,4,3}};
+    //private int tab[][]={{13,4,25,6,2,68 107,-12,11,216},{22,-5,0,2,31,54,37,3,24,11},{7,6,0,2,1,1},{4,4,5,0,1,2},{0,1,0,1,0,0},{0,3,2,2,2,0}};
+    //private int tab[][]={{3,4,5,6,2,1},{3,0,1,2,3,4},{7,6,0,2,1,1},{4,4,5,0,1,2},{0,1,0,1,0,0},{0,3,2,2,2,0}};
+    //private int tab[][]={{14,5,8,7},{2,12,6,5},{7,8,3,9},{2,4,6,10}};
+    //private int tab[][]={{0,0,0,1,0},{0,0,2,0,3},{4,5,0,0,6},{0,7,0,8,0},{9,0,10,0,0}};
+    
+         */
+        int matrix1[][] = {{1,2,3,4,5},{1,4,2,5,3},{3,2,1,5,4},{1,2,3,5,4},{2,1,4,3,5}};
+        Algo algorithm = new Algo(matrix1, true, matrix1.length);
+        Vector<boolean[][]> expectedResolvedMatrices = new Vector<boolean[][]>();
+        boolean resolvedMatrix1[][] = {
+            {true, false, false, false, false},
+            {false, false, false, false, true},
+            {false, false, true, false, false},
+            {false, true, false, false, false},
+            {false, false, false, true, false}};
+        expectedResolvedMatrices.add(resolvedMatrix1);
+        
+        Vector<boolean[][]> result = algorithm.getResolvedMatrix();
+        algorithm.affiche(result.get(0));
+        assertArrayEquals(expectedResolvedMatrices.get(0), result.get(0));
     }
 
 
