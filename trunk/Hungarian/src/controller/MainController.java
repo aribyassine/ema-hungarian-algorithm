@@ -60,7 +60,6 @@ public class MainController
         {
             int matrix[][] = matrixController.getIntMatrix();
 
-            // algorithm = new SimpleHungarianAlgo(matrix, true, matrix.length); // TODO: fix hardcoded value
             algorithm = new Algo(matrix, true, matrix.length);
             // Getting the first solution for testing
             boolean resolvedMatrix[][] =
@@ -78,9 +77,7 @@ public class MainController
         }
     }
 
-    /*
-     * TODO: last step handling
-     */
+    
     class NextStepListener implements ActionListener
     {
 
