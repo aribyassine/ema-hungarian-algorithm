@@ -722,28 +722,24 @@ public class Algo implements AlgoInterface
 
     private boolean isMarkedZeroRow(boolean[][] tab, int row)
     {
-        boolean retour = false;
-        for (int i = 0; i < tab.length; i++)
+        int col = 0;
+        
+        while (col < tab.length-1 && !(tab[row][col]))
         {
-            if (tab[row][i])
-            {
-                retour = true;
-            }
+            col++;
         }
-        return retour;
+        return (tab[row][col]);
     }
 
     private boolean isMarkedZeroCol(int col)
     {
-        boolean retour = false;
-        for (int i = 0; i < tabMarkedZero.length; i++)
+        int row = 0;
+        
+        while (row < tabMarkedZero.length-1 && !(tabMarkedZero[row][col]))
         {
-            if (tabMarkedZero[i][col])
-            {
-                retour = true;
-            }
+            row++;
         }
-        return retour;
+        return (tabMarkedZero[row][col]);
     }
 
     private int nbZeroRow(int row)
