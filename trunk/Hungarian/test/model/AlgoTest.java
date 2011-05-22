@@ -107,11 +107,27 @@ public class AlgoTest {
             {false, false, true, false, false},
             {false, true, false, false, false},
             {false, false, false, true, false}};
+        boolean resolvedMatrix2[][] = {
+            {false, true, false, false, false},
+            {false, false, false, false, true},
+            {false, false, true, false, false},
+            {true, false, false, false, false},
+            {false, false, false, true, false}};
+        boolean resolvedMatrix3[][] = {
+            {false, false, false, true, false},
+            {false, false, false, false, true},
+            {false, false, true, false, false},
+            {true, false, false, false, false},
+            {false, true, false, false, false}};
         expectedResolvedMatrices.add(resolvedMatrix1);
+        expectedResolvedMatrices.add(resolvedMatrix2);
+        expectedResolvedMatrices.add(resolvedMatrix3);
         
         Vector<boolean[][]> result = algorithm.getResolvedMatrix();
-        algorithm.affiche(result.get(0));
-        assertArrayEquals(expectedResolvedMatrices.get(0), result.get(0));
+        for(int i=0; i<result.size(); i++)
+        {
+            assertArrayEquals(expectedResolvedMatrices.get(i), result.get(i));
+        }
     }
 
 
