@@ -106,6 +106,9 @@ public class Algo implements AlgoInterface
         initTab(false, this.tabMarkedZero);
     }
 
+    /*
+     * Helper function, set the arraw to b
+     */
     private void initTab(boolean b, boolean[] markRow)
     {
         for (int j = 0; j < tab.length; j++)
@@ -114,6 +117,9 @@ public class Algo implements AlgoInterface
         }
     }
 
+    /*
+     * Helper function, set the matrix to marked
+     */
     private void initTab(boolean marked, boolean tab[][])
     {
         for (int i = 0; i < tab.length; i++)
@@ -158,9 +164,9 @@ public class Algo implements AlgoInterface
         }
     }
 
-//L'accummulation de l'information ne fait pas plus de connaissance que l'acummulation de brique ne fait un mur
-
-    /*on creer un zero par ligne par soustraction*/
+    /*
+     * on creer un zero par ligne par soustraction
+     */
     private void step1SubstractAllRow()
     {
         for (int i = 0; i < this.tab[0].length; i++)
@@ -172,8 +178,12 @@ public class Algo implements AlgoInterface
     private void step1SubstractRow(int row)
     {
         int valueToSobstract;
-        /*si la "meilleur valeurs" est la plus petite, on recherche le mini
-        sinon le maxi*/
+        /*
+         * si la "meilleur valeur" est la plus petite, on recherche le mini
+         * sinon le maxi
+         * ceci n'est plus d'actualite depuis que l'on multiplie juste la
+         * matrice par -1 en fonction de la recherche maximisation/minimisation
+         */
 //        if(this.minimize){
         valueToSobstract = chercheMinRow(row, tab);
 //        }else{
@@ -186,7 +196,9 @@ public class Algo implements AlgoInterface
         }
     }
 
-    /*pour chaque colonne, on creer un zero par soustraction*/
+    /*
+     * pour chaque colonne, on cree un zero par soustraction
+     */
     private void step2SubstractAllCol()
     {
         for (int i = 0; i < this.tab[0].length; i++)
@@ -198,8 +210,12 @@ public class Algo implements AlgoInterface
     private void step2SubstractCol(int col)
     {
         int valueToSobstract;
-        /*si la "meilleur valeurs" est la plus petite, on recherche le mini
-        sinon le maxi*/
+        /*
+         * si la "meilleur valeur" est la plus petite, on recherche le mini
+         * sinon le maxi
+         * ceci n'est plus d'actualite depuis que l'on multiplie juste la
+         * matrice par -1 en fonction de la recherche maximisation/minimisation
+         */
 //        if(this.minimize){
         valueToSobstract = chercheMinCol(col, tab);
 //
@@ -262,9 +278,10 @@ public class Algo implements AlgoInterface
 
         step10Affect0Mark();
         Vector<Integer> vectNbMarkedZero = new Vector<Integer>();
+        int nbMarkedZero = 0;
         for (int nbPartielSoluce = 0; nbPartielSoluce < partialSoluce.size(); nbPartielSoluce++)
         {
-            int nbMarkedZero = 0;
+            nbMarkedZero = 0;
             for (int i = 0; i < partialSoluce.get(nbPartielSoluce).length; i++)
             {
                 if (isMarkedZeroRow(partialSoluce.get(nbPartielSoluce), i))
@@ -293,7 +310,9 @@ public class Algo implements AlgoInterface
         return false;
     }
 
-    /*on marque toute ligne n'ayant pas de zero encadrer*/
+    /*
+     * on marque toute ligne n'ayant pas de zero encadre
+     */
     private void step4MarkRow()
     {
         initTab(false, markRow);
@@ -306,11 +325,16 @@ public class Algo implements AlgoInterface
         }
     }
 
-    /*on marque toute colonne ayant un 0 barré sur une ligne marqué*/
+    /*
+     * on marque toute colonne ayant un 0 barré sur une ligne marquée
+     */
     private void step5MarkCol()
     {
         initTab(false, markCol);
-        //recherche de ligne marqué
+
+        /*
+         * recherche de ligne marquée
+         */
         for (int row = 0; row < tab.length; row++)
         {
             if (markRow[row] == true)
@@ -322,13 +346,15 @@ public class Algo implements AlgoInterface
                         markCol[col] = true;
                     }
                 }
-                //ATTENTION, IL FAUDRAIT RECHERCHER UN ZERO NON ENCADRER
+                //ATTENTION, IL FAUDRAIT RECHERCHER UN ZERO NON ENCADRE
             }
-            //si on trouve une marqué,
+            //si on trouve une marquée,
         }
     }
 
-    /*on marque toute ligne ayant un 0 encadré sur une colonne marqué*/
+    /*
+     * on marque toute ligne ayant un 0 encadré sur une colonne marquée
+     */
     private void step6MarkRowCol()
     {
         for (int col = 0; col < tab.length; col++)
@@ -467,14 +493,14 @@ public class Algo implements AlgoInterface
         }
     }
 
-    public boolean isPreference()
+    public boolean isMinimize()
     {
         return minimize;
     }
 
-    public void setPreference(boolean preference)
+    public void setMinimize(boolean minimize)
     {
-        this.minimize = preference;
+        this.minimize = minimize;
     }
 
     public int[][] getTab()
