@@ -63,16 +63,10 @@ public class SolutionPanel extends javax.swing.JPanel
             solutionMatrixForDisplay[i][1] = "task-?";
             solutionMatrixForDisplay[i][2] = "?";
         }
-        /*
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            solutionMatrix,
-            new String [solutionMatrix.length]
-        ));
-         *
-         */
+        
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             solutionMatrixForDisplay,
-            new String [3]
+            new String[] {"Resources", "Tasks", "Costs"}
         ));
     }
     
@@ -104,16 +98,10 @@ public class SolutionPanel extends javax.swing.JPanel
               }
           }
         }
-        /*
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            solutionMatrix,
-            new String [solutionMatrix.length]
-        ));
-         * 
-         */
+        
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             solutionMatrixForDisplay,
-            new String [3]
+            new String[] {"Resources", "Tasks", "Costs"}
         ));
     }
 
