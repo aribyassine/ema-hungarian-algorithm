@@ -15,6 +15,8 @@ import javax.swing.Timer;
 import javax.swing.Icon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import model.AlgoInterface;
 import model.AlgoModelListener;
 import view.MatrixPanel;
@@ -36,6 +38,7 @@ public class HungarianView extends FrameView {
         super(app);
 
         initComponents();
+        addListeners();
 
         // status bar initialization - message timeout, idle icon and busy animation, etc
         ResourceMap resourceMap = getResourceMap();
@@ -113,6 +116,39 @@ public class HungarianView extends FrameView {
                 ":");
         stepDescLabel.setText(algo.getStepShortDescription());
         matrixPanel1.setTableModel(algo.getTab());
+    }
+
+    private void addListeners()
+    {
+        matrixPanel1.addValueTextFieldListener(new MatrixSizeTextFieldListener());
+    }
+
+    class MatrixSizeTextFieldListener implements DocumentListener
+    {
+
+        public void actionPerformed(DocumentEvent de)
+        {
+            solutionPanel1.setResourcesNumber(
+                    matrixPanel1.getResources().length);
+            int[] foo = new int[5];
+            System.out.println("foo: " + foo);
+        }
+
+        public void changedUpdate(DocumentEvent de)
+        {
+            actionPerformed(de);
+        }
+
+        public void insertUpdate(DocumentEvent de)
+        {
+            actionPerformed(de);
+        }
+
+        public void removeUpdate(DocumentEvent de)
+        {
+            // actionPerformed(de);
+        }
+
     }
 
 
