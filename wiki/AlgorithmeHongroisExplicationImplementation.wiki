@@ -3,8 +3,8 @@
 = Principe =
 
 Par soustraction, on créer des zéro dans la matrice. Le but est d'obtenir le plus rapidement une configuration de zéro qui respecte les contraintes suivantes :
-* il n'y a qu'un seul zéro sélectionné par ligne
-* il n'y a qu'un seul zéro sélectionné par colonne
+  * il n'y a qu'un seul zéro sélectionné par ligne
+  * il n'y a qu'un seul zéro sélectionné par colonne
 
 = Première étape =
 
