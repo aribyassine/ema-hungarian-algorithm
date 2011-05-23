@@ -114,13 +114,17 @@ public class MatrixPanel extends javax.swing.JPanel {
             new String [matrixOrder]
         ));
         // clearTableMatrix(jTable1);
+
+        /*
+         * Update related views
+         */
+        setMatrixOrder(matrixOrder, false);
     }
 
     /*
      * Set jTable a partir de la matrice passee en param et update les vues concernees
      * TODO: give task-n as header
      */
-
     public void setTableModel(Integer[][] matrix)
     {
         tasks = new String[matrix.length];
@@ -141,6 +145,11 @@ public class MatrixPanel extends javax.swing.JPanel {
             matrix,
             tasks
         ));
+
+        /*
+         * Update related views
+         */
+        setMatrixOrder(matrixOrder, false);
     }
 
     /*
@@ -165,8 +174,20 @@ public class MatrixPanel extends javax.swing.JPanel {
      */
     private void setMatrixOrder(int matrixOrder)
     {
+        setMatrixOrder(matrixOrder, true);
+    }
+
+    /*
+     * Set matrixOrder et update les vues concernees
+     */
+    private void setMatrixOrder(int matrixOrder, boolean updateTable)
+    {
         this.matrixOrder = matrixOrder;
-        setTableModel(matrixOrder);
+        valueTextField.setText(String.valueOf(matrixOrder));
+        if (updateTable)
+        {
+            setTableModel(matrixOrder);
+        }
     }
 
     public String[] getTasks()
@@ -192,6 +213,7 @@ public class MatrixPanel extends javax.swing.JPanel {
         jTable1 = new javax.swing.JTable();
         addButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
+        valueTextField = new javax.swing.JTextField();
 
         setName("Form"); // NOI18N
 
@@ -228,29 +250,35 @@ public class MatrixPanel extends javax.swing.JPanel {
             }
         });
 
+        valueTextField.setText(resourceMap.getString("valueTextField.text")); // NOI18N
+        valueTextField.setName("valueTextField"); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(addButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(deleteButton))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(deleteButton, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+                    .addComponent(addButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(valueTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(deleteButton)
-                    .addComponent(addButton))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(valueTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -271,6 +299,7 @@ public class MatrixPanel extends javax.swing.JPanel {
     private javax.swing.JButton deleteButton;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField valueTextField;
     // End of variables declaration//GEN-END:variables
 
 }
