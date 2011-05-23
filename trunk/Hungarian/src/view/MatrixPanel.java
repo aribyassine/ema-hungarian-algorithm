@@ -252,6 +252,11 @@ public class MatrixPanel extends javax.swing.JPanel {
 
         valueTextField.setText(resourceMap.getString("valueTextField.text")); // NOI18N
         valueTextField.setName("valueTextField"); // NOI18N
+        valueTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                valueTextFieldActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -292,6 +297,11 @@ public class MatrixPanel extends javax.swing.JPanel {
     {//GEN-HEADEREND:event_addButtonActionPerformed
         setMatrixOrder(matrixOrder+1);
     }//GEN-LAST:event_addButtonActionPerformed
+
+    private void valueTextFieldActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_valueTextFieldActionPerformed
+    {//GEN-HEADEREND:event_valueTextFieldActionPerformed
+        setMatrixOrder(Integer.parseInt(valueTextField.getText()));
+    }//GEN-LAST:event_valueTextFieldActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
