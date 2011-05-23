@@ -961,6 +961,10 @@ public class Algo implements AlgoInterface
             if ((Integer) (arbre.getVue().getRow()) == (tab.length - 1))
             {
                 this.soluce.add(tmp);
+                /*
+                 * Notify listeners for the changes
+                 */
+                notifyAlgoModelListeners();
             }
         }
         return true;
