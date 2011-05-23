@@ -1,0 +1,12 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+Explication de l'algorithme hongrois et de son implémentation
+
+
+= Details =
+
+Principe de l'algorithme
+Détail étape par éthape de l'algorithme
+Arbre de solution
