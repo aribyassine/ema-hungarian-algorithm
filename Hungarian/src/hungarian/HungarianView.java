@@ -39,6 +39,7 @@ public class HungarianView extends FrameView {
 
         initComponents();
         addListeners();
+        widgetSetup();
 
         // status bar initialization - message timeout, idle icon and busy animation, etc
         ResourceMap resourceMap = getResourceMap();
@@ -122,6 +123,12 @@ public class HungarianView extends FrameView {
     {
         matrixPanel1.addValueTextFieldListener(new MatrixSizeTextFieldListener());
     }
+    
+    private void widgetSetup()
+    {
+        solutionPanel1.setResourcesNumber(
+                    matrixPanel1.getMatrixOrder());
+    }
 
     class MatrixSizeTextFieldListener implements DocumentListener
     {
@@ -129,9 +136,7 @@ public class HungarianView extends FrameView {
         public void actionPerformed(DocumentEvent de)
         {
             solutionPanel1.setResourcesNumber(
-                    matrixPanel1.getResources().length);
-            int[] foo = new int[5];
-            System.out.println("foo: " + foo);
+                    matrixPanel1.getMatrixOrder());
         }
 
         public void changedUpdate(DocumentEvent de)
