@@ -34,7 +34,7 @@ public class MatrixPanel extends javax.swing.JPanel {
     /*
      * Liste des ressources
      */
-    String resources[];
+    private String resources[];
 
     /* default matrix for tests */
     private Integer[][] DEFAULT_MATRIX = {
@@ -109,14 +109,22 @@ public class MatrixPanel extends javax.swing.JPanel {
             }
         }
     }
-    
+
     private void setTableModel(int matrixOrder)
     {
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Integer [matrixOrder][matrixOrder],
             new String [matrixOrder]
         ));
-        // clearTableMatrix(jTable1);
+
+
+        /*
+         * Adds-up row headers
+         */
+        javax.swing.JTable rowTable = new RowNumberTable(jTable1);
+        jScrollPane1.setRowHeaderView(rowTable);
+        jScrollPane1.setCorner(JScrollPane.UPPER_LEFT_CORNER,
+            rowTable.getTableHeader());
 
         /*
          * Update related views
@@ -138,11 +146,6 @@ public class MatrixPanel extends javax.swing.JPanel {
             tasks[i] = "Task-" + (i+1);
             resources[i] = String.valueOf(i+1);
         }
-
-        javax.swing.JTable rowTable = new RowNumberTable(jTable1);
-        jScrollPane1.setRowHeaderView(rowTable);
-        jScrollPane1.setCorner(JScrollPane.UPPER_LEFT_CORNER,
-            rowTable.getTableHeader());
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             matrix,
