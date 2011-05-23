@@ -1,5 +1,5 @@
 #summary One-sentence summary of this page.
-
+<wiki:toc max_depth="3" />
 = Principe =
 
 Par soustraction, on créer des zéro dans la matrice. Le but est d'obtenir le plus rapidement une configuration de zéro qui respecte les contraintes suivantes :
