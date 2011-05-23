@@ -20,7 +20,7 @@ import javax.swing.event.DocumentListener;
  *
  * @author andre
  */
-public class MatrixPanel extends javax.swing.JPanel {
+public final class MatrixPanel extends javax.swing.JPanel {
 
     /* ordre de la matrice */
     private static final int DEFAULT_MATRIX_ORDER = 5;
@@ -52,7 +52,19 @@ public class MatrixPanel extends javax.swing.JPanel {
 
         // setTableModel(matrixOrder);
 
+        addTableRowHeader();
         setTableModel(DEFAULT_MATRIX); // this is for testing purpose only
+    }
+
+    /*
+     * Adds-up row headers
+     */
+    private void addTableRowHeader()
+    {
+        javax.swing.JTable rowTable = new RowNumberTable(jTable1);
+        jScrollPane1.setRowHeaderView(rowTable);
+        jScrollPane1.setCorner(JScrollPane.UPPER_LEFT_CORNER,
+                rowTable.getTableHeader());
     }
 
     /*
@@ -110,52 +122,23 @@ public class MatrixPanel extends javax.swing.JPanel {
         }
     }
 
-    private void setTableModel(int matrixOrder)
-    {
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Integer [matrixOrder][matrixOrder],
-            new String [matrixOrder]
-        ));
-
-
-        /*
-         * Adds-up row headers
-         */
-        javax.swing.JTable rowTable = new RowNumberTable(jTable1);
-        jScrollPane1.setRowHeaderView(rowTable);
-        jScrollPane1.setCorner(JScrollPane.UPPER_LEFT_CORNER,
-            rowTable.getTableHeader());
-
-        /*
-         * Update related views
-         */
-        setMatrixOrder(matrixOrder, false);
-    }
 
     /*
      * Set jTable a partir de la matrice passee en param et update les vues concernees
      * TODO: give task-n as header
+     * TODO: merge, DRY
      */
     public void setTableModel(Integer[][] matrix)
     {
-        tasks = new String[matrix.length];
-        resources = new String[matrix.length];
-
-        for(int i=0; i<matrix.length; i++)
-        {
-            tasks[i] = "Task-" + (i+1);
-            resources[i] = String.valueOf(i+1);
-        }
-
+        /*
+         * Sets default tasks/resources values and update related views
+         */
+        setMatrixOrder(matrix.length, false);
+        
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             matrix,
             tasks
         ));
-
-        /*
-         * Update related views
-         */
-        setMatrixOrder(matrixOrder, false);
     }
 
     /*
@@ -189,11 +172,28 @@ public class MatrixPanel extends javax.swing.JPanel {
     private void setMatrixOrder(int matrixOrder, boolean updateTable)
     {
         this.matrixOrder = matrixOrder;
-        valueTextField.setText(String.valueOf(matrixOrder));
+        this.tasks = new String[matrixOrder];
+        this.resources = new String[matrixOrder];
+
+        /*
+         * filling-up some default resources/tasks values
+         */
+        for(int i=0; i<matrixOrder; i++)
+        {
+            tasks[i] = "Task-" + (i+1);
+            resources[i] = String.valueOf(i+1);
+        }
+        
         if (updateTable)
         {
-            setTableModel(matrixOrder);
+            setTableModel(new Integer [matrixOrder][matrixOrder]);
         }
+
+        /*
+         * This will also trigger the valueTextField update event
+         * so all the observer views can update
+         */
+        valueTextField.setText(String.valueOf(matrixOrder));
     }
 
     public String[] getTasks()
@@ -204,6 +204,11 @@ public class MatrixPanel extends javax.swing.JPanel {
     public String[] getResources()
     {
         return resources;
+    }
+
+    public int getMatrixOrder()
+    {
+        return matrixOrder;
     }
 
     /*
