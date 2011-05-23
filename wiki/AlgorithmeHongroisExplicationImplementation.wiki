@@ -19,34 +19,34 @@ Pour chaque colonne, on recherche le minimum qu'on soustrait à la colonne, ce q
 On essaie de sélectionné le maximum de zéro possible (qu'on appellera zéro encadré), qui ne soit pas en conflits avec les contraintes décrites précédemment.
 On gardera la configuration qui a le plus de zéro encadré.
 Si on a autant de zéro que la taille de la matrice, on a trouvé une solution et il est inutile de poursuivre l'algorithme.
-5 Marquage
-5.1 Étape 1
+= Marquage =
+== Étape 1 ==
 On marque toute ligne n'ayant pas de zéro « encadré ».
-5.2 Étape 2
+== Étape 2 ==
 On marque toute colonne ayant un zéro non encadré sur une ligne marqué.
-5.3 Étape 3
+== Étape 3 ==
 On marque toute ligne ayant un zéro encadré sur une colonne marqué.
-5.4 Itération
+== Itération ==
 On répète les étapes 2 et 3 jusqu'à ce que ça ne soit plus possible. On détecte cette impossibilité en dès que le nombre de ligne et de colonne marqué entre deux itérations ne change pas.
-6 Rayage
+= Rayage =
 On raie les lignes non marquées et les colonnes marquées.
 On obtient alors une sous-matrice composé des éléments qui ne sont pas rayés.
-7 Traitement de la sous-matrice
+= Traitement de la sous-matrice =
 On recherche le plus petit nombre dans la sous-matrice.
 Dans la matrice principale :
-on retranche ce nombre aux éléments qui ne sont pas rayés.
-on ajoute ce nombre aux éléments qui sont rayés deux fois (éléments sur une ligne rayé et sur une colonne rayé)
-8 Recherche de solution(s)
+  * on retranche ce nombre aux éléments qui ne sont pas rayés.
+  * on ajoute ce nombre aux éléments qui sont rayés deux fois (éléments sur une ligne rayé et sur une colonne rayé)
+= Recherche de solution(s) =
 On recherche la/les solutions possibles. Si aucune solution existe, on reprend l'algorithme à l'étape de sélection de zéro encadrés
-8.1 Structure de l'arbre
+== Structure de l'arbre ==
 La racine de l'arbre est un point de départ qui ne contient en lui-même aucune donnée. Son utilité est purement technique.
 Chaque nœud de l'arbre correspond à un zéro qui n'est pas en conflit avec ses nœuds parents ou fils.
 Le zéro est représenté par les coordonnées qui lui correspondent dans la matrices.
-8.2 Création de l'arbre
+== Création de l'arbre ==
 On parcours la matrice par ligne puis pour chaque ligne par colonne. Dès qu'on trouve un zéro :
 s'il n'existe pas un zéro dans l'arbre qui serait en conflit avec celui trouvé (cf contraintes de la section principe), alors on ajoute ce zéro dans l'arbre, on passe à la ligne suivante et on rappelle la fonction.
-8.3 Arbre de zéro encadré
+== Arbre de zéro encadré ==
 Dans le cas de l'affectation de zéro encadré, on continue la construction de l'arbre même si une ligne n'a pas de zéro qui respecte les contraintes.
-8.4 Parcours de l'arbre à la recherche de solution
+== Parcours de l'arbre à la recherche de solution ==
 On fait un parcours récursif de l'arbre en profondeur. Si on atteint une profondeur égale à la taille de la matrice, c'est qu'on a trouvé une solution.
 Pour l'arbre de zéro encadré, le fait d'avoir poursuivi sa construction même si on ne trouvait pas un zéro à chaque ligne n'est pas gênant car le nœud feuille aura une profondeur inférieur à la taille de la matrice. C'est pour cette raison qu'on se base sur la profondeur de la matrice et non pas sur la valeur de l'attribut row porté par les nœuds de l'arbre.
