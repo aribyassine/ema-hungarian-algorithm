@@ -11,7 +11,10 @@
 
 package view;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JScrollPane;
+import javax.swing.event.DocumentListener;
 
 /**
  *
@@ -198,6 +201,19 @@ public class MatrixPanel extends javax.swing.JPanel {
     public String[] getResources()
     {
         return resources;
+    }
+
+    /*
+     * So other views can be notified when the TextField has changed
+     */
+    public void addValueTextFieldListener(ActionListener al)
+    {
+        valueTextField.addActionListener(al);
+    }
+    
+    public void addValueTextFieldListener(DocumentListener dl)
+    {
+        valueTextField.getDocument().addDocumentListener(dl);
     }
 
     /** This method is called from within the constructor to

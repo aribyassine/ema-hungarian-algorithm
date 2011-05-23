@@ -39,6 +39,42 @@ public class SolutionPanel extends javax.swing.JPanel
         this();
         this.tasks = tasks;
     }
+
+    /*
+     * Init (size) an table to accept the given resources/tasks number
+     * TODO: code cleaning, merging with displaySolutionFromBooleanSolutionMatrix()
+     */
+    public void initTable(int numResources)
+    {
+        // 3 pour ressource, tache, cout total
+        String[][] solutionMatrixForDisplay =
+                new String[numResources][3];
+
+        javax.swing.JTable rowTable = new RowNumberTable(jTable1);
+        jScrollPane1.setRowHeaderView(rowTable);
+        jScrollPane1.setCorner(javax.swing.JScrollPane.UPPER_LEFT_CORNER,
+            rowTable.getTableHeader());
+
+
+        // TODO: add total cost
+        for(int i=0; i<numResources; i++)
+        {
+            solutionMatrixForDisplay[i][0] = "ressource" + (i+1);
+            solutionMatrixForDisplay[i][1] = "task-?";
+            solutionMatrixForDisplay[i][2] = "?";
+        }
+        /*
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            solutionMatrix,
+            new String [solutionMatrix.length]
+        ));
+         *
+         */
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            solutionMatrixForDisplay,
+            new String [3]
+        ));
+    }
     
 
     // TODO: setup some tasks/resources by default if none where specified
@@ -91,6 +127,17 @@ public class SolutionPanel extends javax.swing.JPanel
 
 
 
+    public void setTasksNumber(int number)
+    {
+        this.resources = new String[number];
+        initTable(number);
+    }
+
+    public void setResourcesNumber(int number)
+    {
+        setTasksNumber(number);
+    }
+    
     public void setResources(String[] resources)
     {
         this.resources = resources;
