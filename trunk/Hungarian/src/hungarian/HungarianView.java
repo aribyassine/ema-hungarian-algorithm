@@ -172,7 +172,6 @@ public class HungarianView extends FrameView {
         nextStepButton = new javax.swing.JButton();
         stepDescLabel = new javax.swing.JLabel();
         stepNumLabel = new javax.swing.JLabel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
         solutionPanel1 = new view.SolutionPanel();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
@@ -186,6 +185,7 @@ public class HungarianView extends FrameView {
         progressBar = new javax.swing.JProgressBar();
 
         mainPanel.setName("mainPanel"); // NOI18N
+        mainPanel.setPreferredSize(new java.awt.Dimension(473, 410));
 
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(hungarian.HungarianApp.class).getContext().getResourceMap(HungarianView.class);
         resolveButton.setText(resourceMap.getString("resolveButton.text")); // NOI18N
@@ -202,10 +202,7 @@ public class HungarianView extends FrameView {
         stepNumLabel.setText(resourceMap.getString("stepNumLabel.text")); // NOI18N
         stepNumLabel.setName("stepNumLabel"); // NOI18N
 
-        jTabbedPane1.setName("jTabbedPane1"); // NOI18N
-
         solutionPanel1.setName("solutionPanel1"); // NOI18N
-        jTabbedPane1.addTab("tab1", solutionPanel1);
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
@@ -215,42 +212,35 @@ public class HungarianView extends FrameView {
                 .addContainerGap()
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addComponent(matrixPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(mainPanelLayout.createSequentialGroup()
-                                .addGap(46, 46, 46)
-                                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(mainPanelLayout.createSequentialGroup()
-                                        .addComponent(stepNumLabel)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(stepDescLabel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(mainPanelLayout.createSequentialGroup()
-                                        .addComponent(nextStepButton)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 128, Short.MAX_VALUE)
-                                        .addComponent(resolveButton)))
-                                .addGap(71, 71, 71))
-                            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE))
-                        .addGap(24, 24, 24))))
+                        .addGap(12, 12, 12)
+                        .addComponent(stepNumLabel)
+                        .addGap(18, 18, 18)
+                        .addComponent(stepDescLabel))
+                    .addComponent(matrixPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(mainPanelLayout.createSequentialGroup()
+                            .addComponent(nextStepButton)
+                            .addGap(18, 18, 18)
+                            .addComponent(resolveButton))
+                        .addComponent(solutionPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(matrixPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(solutionPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(stepNumLabel)
                     .addComponent(stepDescLabel))
-                .addGap(43, 43, 43)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(resolveButton)
-                    .addComponent(nextStepButton))
-                .addGap(170, 170, 170))
+                    .addComponent(nextStepButton)
+                    .addComponent(resolveButton))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         menuBar.setName("menuBar"); // NOI18N
@@ -317,7 +307,6 @@ public class HungarianView extends FrameView {
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel mainPanel;
     private view.MatrixPanel matrixPanel1;
     private javax.swing.JMenuBar menuBar;

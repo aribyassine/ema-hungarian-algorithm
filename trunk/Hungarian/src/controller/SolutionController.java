@@ -22,7 +22,7 @@ class SolutionController
         /*
          * Ne pas afficher le widget de solution tant qu'il n'y a pas de solution
          */
-        solutionPanel.setVisible(false);
+        // solutionPanel.setVisible(false);
     }
 
     public void setSolutionMatrix(Boolean[][] solutionMatrix)
