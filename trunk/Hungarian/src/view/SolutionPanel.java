@@ -34,17 +34,23 @@ public class SolutionPanel extends javax.swing.JPanel
         initComponents();
     }
 
+    public SolutionPanel(Integer[][] costMatrix)
+    {
+        this(costMatrix, null);
+    }
+
     public SolutionPanel(Integer[][] costMatrix, String tasks[])
     {
         this();
         this.tasks = tasks;
+        initTable(tasks.length);
     }
 
     /*
      * Init (size) an table to accept the given resources/tasks number
      * TODO: code cleaning, merging with displaySolutionFromBooleanSolutionMatrix()
      */
-    public void initTable(int numResources)
+    public final void initTable(int numResources)
     {
         // 3 pour ressource, tache, cout total
         String[][] solutionMatrixForDisplay =
