@@ -64,21 +64,21 @@ public class Algo implements AlgoInterface
     private Vector<boolean[][]> partialSoluce = new Vector<boolean[][]>();
     boolean oneSoluce[][];
 
-    public Algo(int[][] tab, boolean preference, int taille)
+    public Algo(int[][] tab, boolean minimize, int taille)
     {
         this.algoModelListeners = new ArrayList<AlgoModelListener>();
-        init(tab, preference, taille);
+        init(tab, minimize, taille);
     }
 
-    public Algo(boolean preference, int taille)
+    public Algo(boolean minimize, int taille)
     {
         this(
                 null, // default test tabs passed if none were given
-                preference,
+                minimize,
                 taille);
     }
 
-    public final void init(int[][] tab, boolean preference, int taille)
+    public final void init(int[][] tab, boolean minimize, int taille)
     {
         /*
          * this is for testing purpose only, if no tab were passed
@@ -88,7 +88,7 @@ public class Algo implements AlgoInterface
         {
             this.tab = tab;
         }
-        this.minimize = preference;
+        this.minimize = minimize;
         this.tabMarkedZero = new boolean[taille][taille];
         this.markCol = new boolean[taille];
         this.markRow = new boolean[taille];

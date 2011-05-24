@@ -63,7 +63,7 @@ public class MainController
         {
             int matrix[][] = matrixController.getIntMatrix();
 
-            algorithm = new Algo(matrix, true, matrix.length);
+            algorithm = new Algo(matrix, hungarianView.minimize(), matrix.length);
             // Getting the first solution for testing
             boolean resolvedMatrix[][] =
                     algorithm.getResolvedMatrix().firstElement();
@@ -99,7 +99,7 @@ public class MainController
                 matrixToResolve = matrixController.getIntMatrix();
                 matrix = matrixController.getIntMatrix();
                 algorithm = new Algo(matrix,
-                    true, // TODO: hardcoded value
+                    hungarianView.minimize(),
                     matrix.length);
                 hungarianView.setAlgo(algorithm);
             }
