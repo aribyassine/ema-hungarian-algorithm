@@ -11,7 +11,7 @@ package model;
  */
 public interface ExampleMatrix {
 
-    public static final int[][] matrix1 =
+    public static final int[][] MATRIX1 =
     {
         {1,2,3,4,5},
         {1,4,2,5,3},
@@ -20,7 +20,7 @@ public interface ExampleMatrix {
         {2,1,4,3,5}
     };
     
-    public static final int[][] matrix2 =
+    public static final int[][] MATRIX2 =
     {
         {4,5,3,2,3},
         {3,2,4,3,4},
@@ -29,7 +29,7 @@ public interface ExampleMatrix {
         {2,1,3,4,3}
     };
 
-    public static final int[][] matrix3 =
+    public static final int[][] MATRIX3 =
     {
         {3,4,5,6,2,1},
         {3,0,1,2,3,4},

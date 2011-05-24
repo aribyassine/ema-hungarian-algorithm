@@ -49,7 +49,7 @@ public class AlgoTest {
     {
         System.out.println("getResolvedMatrix");
 
-        int matrix1[][] = {{1,2,3,4,5},{1,4,2,5,3},{3,2,1,5,4},{1,2,3,5,4},{2,1,4,3,5}};
+        int matrix1[][] = ExampleMatrix.MATRIX1;
         Algo algorithm = new Algo(matrix1, true, matrix1.length);
         Vector<boolean[][]> expectedResolvedMatrices = new Vector<boolean[][]>();
         boolean resolvedMatrix1[][] = {
@@ -92,7 +92,7 @@ public class AlgoTest {
     {
         System.out.println("getResolvedMatrix");
 
-        int matrix2[][] = {{4,5,3,2,3},{3,2,4,3,4},{3,3,4,4,3},{2,4,3,2,4},{2,1,3,4,3}};
+        int matrix2[][] = ExampleMatrix.MATRIX2;
         Algo algorithm = new Algo(matrix2, true, matrix2.length);
         Vector<boolean[][]> expectedResolvedMatrices = new Vector<boolean[][]>();
         boolean resolvedMatrix1[][] = {
@@ -163,7 +163,7 @@ public class AlgoTest {
     {
         System.out.println("getResolvedMatrix");
         
-        int matrix3[][] = {{3,4,5,6,2,1},{3,0,1,2,3,4},{7,6,0,2,1,1},{4,4,5,0,1,2},{0,1,0,1,0,0},{0,3,2,2,2,0}};
+        int matrix3[][] = ExampleMatrix.MATRIX3;
         Algo algorithm = new Algo(matrix3, true, matrix3.length);
         Vector<boolean[][]> expectedResolvedMatrices = new Vector<boolean[][]>();
         boolean resolvedMatrix1[][] = {
