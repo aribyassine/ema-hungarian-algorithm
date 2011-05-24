@@ -33,6 +33,8 @@ class MultipleSolutionController
 
         /*
          * N'afficher le widget que lorsque la solution a ete trouvee
+         * FIXME: we actually want to display an empty panel even
+         * when the solution wasn't found yet
          */
         multipleSolutionPanel.setVisible(true);
     }
@@ -43,13 +45,13 @@ class MultipleSolutionController
      */
     public void setSolutionMatrix(Vector<boolean[][]> solutionMatrices)
     {
-        // converts boolean[][] to Boolean[][]
-        Boolean[][] solutionMatrixBoolean =
-                new Boolean[solutionMatrices.get(0).length][solutionMatrices.get(0)[0].length];
+        Boolean[][] solutionMatrixBoolean;
         Vector<Boolean[][]> solutionMatricesBoolean = new Vector<Boolean[][]>();
         
         for(int k=0; k<solutionMatrices.size(); k++)
         {
+            solutionMatrixBoolean =
+                new Boolean[solutionMatrices.get(0).length][solutionMatrices.get(0)[0].length];
             for(int i=0; i<solutionMatrices.get(k).length; i++)
             {
                 for(int j=0; j<solutionMatrices.get(k)[i].length; j++)

@@ -12,7 +12,6 @@ import model.Algo;
 import model.AlgoInterface;
 import view.MatrixPanel;
 import view.MultipleSolutionPanel;
-import view.SolutionPanel;
 
 /**
  *
