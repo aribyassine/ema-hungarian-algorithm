@@ -7,9 +7,11 @@ package controller;
 import hungarian.HungarianView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 import model.Algo;
 import model.AlgoInterface;
 import view.MatrixPanel;
+import view.MultipleSolutionPanel;
 import view.SolutionPanel;
 
 /**
@@ -21,7 +23,7 @@ public class MainController
 
     private HungarianView hungarianView;
     private MatrixController matrixController;
-    private SolutionController solutionxController;
+    private MultipleSolutionController multipleSolutionController;
     private AlgoInterface algorithm;
 
     /*
@@ -39,8 +41,10 @@ public class MainController
         MatrixPanel matrixPanel = hungarianView.getMatrixPanel();
         this.matrixController = new MatrixController(matrixPanel);
 
-        SolutionPanel solutionPanel = hungarianView.getSolutionPanel();
-        this.solutionxController = new SolutionController(solutionPanel);
+        MultipleSolutionPanel multipleSolutionPanel =
+                hungarianView.getMultipleSolutionPanel();
+        this.multipleSolutionController =
+                new MultipleSolutionController(multipleSolutionPanel);
         
         addListeners();
     }
@@ -64,6 +68,8 @@ public class MainController
             // Getting the first solution for testing
             boolean resolvedMatrix[][] =
                     algorithm.getResolvedMatrix().firstElement();
+            Vector<boolean[][]> resolvedMatrices =
+                    algorithm.getResolvedMatrix();
 
             /*
              * After resolving the matrix[][] had been altered by the Algorithm
@@ -71,9 +77,9 @@ public class MainController
              */
             matrix = matrixController.getIntMatrix();
 
-            solutionxController.setTasks(matrixController.getTasks());
-            solutionxController.setCostMatrix(matrix);
-            solutionxController.setSolutionMatrix(resolvedMatrix);
+            multipleSolutionController.setTasks(matrixController.getTasks());
+            multipleSolutionController.setCostMatrix(matrix);
+            multipleSolutionController.setSolutionMatrix(resolvedMatrices);
         }
     }
 
@@ -103,13 +109,15 @@ public class MainController
                 // Getting the first solution for testing
                 boolean resolvedMatrix[][] =
                     algorithm.getResolvedMatrix().firstElement();
+                Vector<boolean[][]> resolvedMatrices =
+                    algorithm.getResolvedMatrix();
 
                 /*
                  * After resolving the matrix[][] had been altered by the Algorithm
                  */
-                solutionxController.setTasks(matrixController.getTasks());
-                solutionxController.setCostMatrix(matrixToResolve);
-                solutionxController.setSolutionMatrix(resolvedMatrix);
+                multipleSolutionController.setTasks(matrixController.getTasks());
+                multipleSolutionController.setCostMatrix(matrixToResolve);
+                multipleSolutionController.setSolutionMatrix(resolvedMatrices);
             }
             else
             {

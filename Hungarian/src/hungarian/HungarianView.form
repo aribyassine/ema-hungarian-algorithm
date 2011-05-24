@@ -13,7 +13,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
@@ -23,14 +23,13 @@
                           <Component id="stepDescLabel" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="matrixPanel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="nextStepButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="resolveButton" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="solutionPanel1" alignment="1" min="-2" pref="432" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="222" max="-2" attributes="0"/>
+                          <Component id="nextStepButton" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="resolveButton" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <Component id="multipleSolutionPanel1" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -41,9 +40,9 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="matrixPanel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="solutionPanel1" min="-2" pref="166" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
+                  <Component id="multipleSolutionPanel1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="stepNumLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="stepDescLabel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -88,9 +87,9 @@
             <Property name="name" type="java.lang.String" value="stepNumLabel" noResource="true"/>
           </Properties>
         </Component>
-        <Component class="view.SolutionPanel" name="solutionPanel1">
+        <Component class="view.MultipleSolutionPanel" name="multipleSolutionPanel1">
           <Properties>
-            <Property name="name" type="java.lang.String" value="solutionPanel1" noResource="true"/>
+            <Property name="name" type="java.lang.String" value="multipleSolutionPanel1" noResource="true"/>
           </Properties>
         </Component>
       </SubComponents>
