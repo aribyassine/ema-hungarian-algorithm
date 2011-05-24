@@ -178,6 +178,11 @@ public class HungarianView extends FrameView {
         nextStepButton.addActionListener(al);
     }
 
+    public void addResetButtonListener(ActionListener al)
+    {
+        resetButton.addActionListener(al);
+    }
+
     public void setAlgo(AlgoInterface algo)
     {
         this.algo = algo;
@@ -235,6 +240,7 @@ public class HungarianView extends FrameView {
         stepNumLabel = new javax.swing.JLabel();
         multipleSolutionPanel1 = new view.MultipleSolutionPanel();
         miniMaxiComboBox = new javax.swing.JComboBox();
+        resetButton = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
@@ -269,29 +275,35 @@ public class HungarianView extends FrameView {
         miniMaxiComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Minimize", "Maximize" }));
         miniMaxiComboBox.setName("miniMaxiComboBox"); // NOI18N
 
+        resetButton.setText(resourceMap.getString("resetButton.text")); // NOI18N
+        resetButton.setName("resetButton"); // NOI18N
+
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainPanelLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(matrixPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(multipleSolutionPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addGap(76, 76, 76)
+                        .addContainerGap()
                         .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(matrixPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(multipleSolutionPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(mainPanelLayout.createSequentialGroup()
+                                .addGap(76, 76, 76)
                                 .addComponent(stepNumLabel)
                                 .addGap(18, 18, 18)
-                                .addComponent(stepDescLabel))
-                            .addGroup(mainPanelLayout.createSequentialGroup()
-                                .addComponent(miniMaxiComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(nextStepButton)
-                                .addGap(18, 18, 18)
-                                .addComponent(resolveButton)))))
-                .addContainerGap(12, Short.MAX_VALUE))
+                                .addComponent(stepDescLabel))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(resetButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(miniMaxiComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(nextStepButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(resolveButton)))
+                .addContainerGap())
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -304,12 +316,13 @@ public class HungarianView extends FrameView {
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(stepNumLabel)
                     .addComponent(stepDescLabel))
-                .addGap(15, 15, 15)
+                .addGap(18, 18, 18)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(resolveButton)
                     .addComponent(nextStepButton)
-                    .addComponent(miniMaxiComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                    .addComponent(miniMaxiComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(resetButton))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         menuBar.setName("menuBar"); // NOI18N
@@ -383,6 +396,7 @@ public class HungarianView extends FrameView {
     private view.MultipleSolutionPanel multipleSolutionPanel1;
     private javax.swing.JButton nextStepButton;
     private javax.swing.JProgressBar progressBar;
+    private javax.swing.JButton resetButton;
     private javax.swing.JButton resolveButton;
     private javax.swing.JLabel statusAnimationLabel;
     private javax.swing.JLabel statusMessageLabel;

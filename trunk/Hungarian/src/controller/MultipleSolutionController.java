@@ -78,4 +78,9 @@ class MultipleSolutionController
     {
         multipleSolutionPanel.setCostMatrix(costMatrix);
     }
+
+    public void clearSolutions()
+    {
+        multipleSolutionPanel.clearSolutions();
+    }
 }

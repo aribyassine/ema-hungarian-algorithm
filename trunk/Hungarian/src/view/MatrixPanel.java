@@ -108,16 +108,16 @@ public final class MatrixPanel extends javax.swing.JPanel {
     /*
      * Set la matrice a zero
      */
-    private void clearTableMatrix(javax.swing.JTable jTableMatrix)
+    public void clearTableMatrix()
     {
-        int rowCount = jTableMatrix.getModel().getRowCount();
-        int columnCount = jTableMatrix.getModel().getColumnCount();
+        int rowCount = jTable1.getModel().getRowCount();
+        int columnCount = jTable1.getModel().getColumnCount();
         
         for(int row_index=0; row_index<rowCount; row_index++)
         {
             for(int col_index=0; col_index<columnCount; col_index++)
             {
-                jTableMatrix.getModel().setValueAt(0, row_index, col_index);
+                jTable1.getModel().setValueAt(0, row_index, col_index);
             }
         }
     }
