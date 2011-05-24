@@ -11,10 +11,10 @@
 
 package view;
 
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JScrollPane;
 import javax.swing.event.DocumentListener;
+import model.ExampleMatrix;
 
 /**
  *
@@ -37,13 +37,7 @@ public final class MatrixPanel extends javax.swing.JPanel {
     private String resources[];
 
     /* default matrix for tests */
-    private Integer[][] DEFAULT_MATRIX = {
-        {1, 2, 3, 4, 5},
-        {1, 4, 2, 5, 3},
-        {3, 2, 1, 5, 4},
-        {1, 2, 3, 5, 4},
-        {2, 1, 4, 3, 5}
-    };
+    private int[][] DEFAULT_MATRIX = ExampleMatrix.MATRIX1;
 
 
     /** Creates new form MatrixPanel */
