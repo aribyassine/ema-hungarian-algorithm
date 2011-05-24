@@ -104,6 +104,11 @@ public class MainController
                     hungarianView.minimize(),
                     matrix.length);
                 hungarianView.setAlgo(algorithm);
+
+
+                multipleSolutionController.setCostMatrix(matrixToResolve);
+                multipleSolutionController.setTasks(matrixController.getTasks());
+                multipleSolutionController.setAlgo(algorithm);
             }
             else if (algorithm.isLastStep())
             {

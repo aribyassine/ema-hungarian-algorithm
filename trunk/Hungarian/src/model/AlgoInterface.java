@@ -31,9 +31,12 @@ public interface AlgoInterface {
 
         /*
          * Return the resolved matrix
-         * TODO: not too sure about the signature
          */
         public Vector<boolean[][]> getResolvedMatrix();
+        /*
+         * Return the solution at its current state
+         */
+        public Vector<boolean[][]> getSoluce();
 
         public int[][] getTab();
 }

@@ -6,8 +6,9 @@
 package controller;
 
 import java.util.Vector;
+import model.AlgoInterface;
+import model.AlgoModelListener;
 import view.MultipleSolutionPanel;
-import view.SolutionPanel;
 
 /**
  *
@@ -17,26 +18,26 @@ class MultipleSolutionController
 {
     private MultipleSolutionPanel multipleSolutionPanel;
 
+    /*
+     * To get notified of model changes
+     */
+    private AlgoInterface algo;
+
     public MultipleSolutionController(MultipleSolutionPanel multipleSolutionPanel)
     {
-        this.multipleSolutionPanel = multipleSolutionPanel;
+        this(multipleSolutionPanel, null);
+    }
 
-        /*
-         * Ne pas afficher le widget de solution tant qu'il n'y a pas de solution
-         */
-        // solutionPanel.setVisible(false);
+    public MultipleSolutionController(MultipleSolutionPanel multipleSolutionPanel,
+            AlgoInterface algo)
+    {
+        this.multipleSolutionPanel = multipleSolutionPanel;
+        setAlgo(algo);
     }
 
     public void setSolutionMatrix2(Vector<Boolean[][]> solutionMatrices)
     {
         multipleSolutionPanel.displaySolutionFromBooleanSolutionMatrices(solutionMatrices);
-
-        /*
-         * N'afficher le widget que lorsque la solution a ete trouvee
-         * FIXME: we actually want to display an empty panel even
-         * when the solution wasn't found yet
-         */
-        multipleSolutionPanel.setVisible(true);
     }
 
 
@@ -64,6 +65,32 @@ class MultipleSolutionController
         setSolutionMatrix2(solutionMatricesBoolean);
     }
 
+    // TODO: some code redundancy (see addAlgoModelListener HungarianView)
+    private void addAlgoModelListener(AlgoInterface algo)
+    {
+        if (algo != null)
+        {
+            algo.addAlgoModelListener(new AlgoModelListener()
+            {
+                public void algoModelChanged(final AlgoInterface algo)
+                {
+                    onModelChange();
+                }
+            });
+        }
+    }
+
+    private void onModelChange()
+    {
+        System.out.println("Model changes");
+        Vector<boolean[][]> tmpSolutions = algo.getSoluce();
+        
+        if(!tmpSolutions.isEmpty())
+        {
+            setSolutionMatrix(tmpSolutions);
+        }
+    }
+
     public void setResources(String[] resources)
     {
         multipleSolutionPanel.setResources(resources);
@@ -77,6 +104,12 @@ class MultipleSolutionController
     public void setCostMatrix(int[][] costMatrix)
     {
         multipleSolutionPanel.setCostMatrix(costMatrix);
+    }
+
+    public final void setAlgo(AlgoInterface algo)
+    {
+        this.algo = algo;
+        addAlgoModelListener(algo);
     }
 
     public void clearSolutions()
