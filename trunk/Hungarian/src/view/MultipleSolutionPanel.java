@@ -28,6 +28,8 @@ public class MultipleSolutionPanel extends javax.swing.JPanel {
     /** Creates new form MultipleSolutionPanel */
     public MultipleSolutionPanel() {
         initComponents();
+
+        clearSolutions();
     }
 
 
@@ -40,12 +42,20 @@ public class MultipleSolutionPanel extends javax.swing.JPanel {
         /*
          * Testing jTabbedPane addition
          */
-        SolutionPanel solutionPanel = new SolutionPanel();
-        // TODO: cleaning, the way of handling tasks/resources name is aweful
-        solutionPanel.setTasks(tasks);
-        // TODO: same uglyness here
-        solutionPanel.setCostMatrix(costMatrix);
-        solutionPanel.displaySolutionFromBooleanSolutionMatrix(solutionMatrix);
+        SolutionPanel solutionPanel = new SolutionPanel();;
+
+        if (solutionMatrix != null)
+        {
+            // TODO: cleaning, the way of handling tasks/resources name is aweful
+            solutionPanel.setTasks(tasks);
+            // TODO: same uglyness here
+            solutionPanel.setCostMatrix(costMatrix);
+            solutionPanel.displaySolutionFromBooleanSolutionMatrix(solutionMatrix);
+        }
+        else
+        {
+            solutionPanel.initTable(resourcesNumber);
+        }
         jTabbedPane1.add("Solution " + (jTabbedPane1.getTabCount()+1),
                 solutionPanel);
     }
@@ -57,6 +67,11 @@ public class MultipleSolutionPanel extends javax.swing.JPanel {
 
     public void displaySolutionFromBooleanSolutionMatrices(Vector<Boolean[][]> solutionMatrices)
     {
+        /*
+         * Remove all the previous solutions before re-setting some more.
+         */
+        jTabbedPane1.removeAll();
+        
         for(int i=0; i<solutionMatrices.size(); i++)
         {
             addSolutionTab(solutionMatrices.get(i));
@@ -118,9 +133,13 @@ public class MultipleSolutionPanel extends javax.swing.JPanel {
         this.costMatrix = costMatrix;
     }
 
-    public void clearSolutions()
+    /*
+     * Remove all the added tabs and leave one with an empty solution
+     */
+    public final void clearSolutions()
     {
         jTabbedPane1.removeAll();
+        addSolutionTab(null);
     }
 
 
