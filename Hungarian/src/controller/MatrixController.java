@@ -35,4 +35,9 @@ public class MatrixController
     {
         return matrixPanel.getResources();
     }
+
+    public void clearMatrix()
+    {
+        matrixPanel.clearTableMatrix();
+    }
 }

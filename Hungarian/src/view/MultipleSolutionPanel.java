@@ -118,5 +118,10 @@ public class MultipleSolutionPanel extends javax.swing.JPanel {
         this.costMatrix = costMatrix;
     }
 
+    public void clearSolutions()
+    {
+        jTabbedPane1.removeAll();
+    }
+
 
 }

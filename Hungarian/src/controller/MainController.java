@@ -54,6 +54,8 @@ public class MainController
                 new ResolveButtonListener());
         hungarianView.addNextStepButtonListener(
                 new NextStepListener());
+        hungarianView.addResetButtonListener(
+                new ResetButtonListener());
     }
 
     class ResolveButtonListener implements ActionListener
@@ -122,6 +124,17 @@ public class MainController
             {
                 algorithm.goToNextStep();
             }
+        }
+    }
+
+    class ResetButtonListener implements ActionListener
+    {
+
+        public void actionPerformed(ActionEvent e)
+        {
+            algorithm = null;
+            matrixController.clearMatrix();
+            multipleSolutionController.clearSolutions();
         }
     }
 }
