@@ -434,13 +434,7 @@ public class Algo implements AlgoInterface
     private void step9SubstractNoMark()
     {
         int value;
-        if (minimize)
-        {
-            value = chercheMinTab(tabTemp);
-        } else
-        {
-            value = chercheMaxTab(tabTemp);
-        }
+        value = chercheMinTab(tabTemp);
         for (int row = 0; row < tab.length; row++)
         {
             for (int col = 0; col < tab.length; col++)
@@ -696,18 +690,18 @@ public class Algo implements AlgoInterface
         return min;
     }
 
-    private int chercheMaxRow(int row, int[][] tab)
-    {
-        int max = Integer.MIN_VALUE;
-        for (int i = 0; i < tab[0].length; i++)
-        {
-            if (tab[row][i] > max)
-            {
-                max = tab[row][i];
-            }
-        }
-        return max;
-    }
+//    private int chercheMaxRow(int row, int[][] tab)
+//    {
+//        int max = Integer.MIN_VALUE;
+//        for (int i = 0; i < tab[0].length; i++)
+//        {
+//            if (tab[row][i] > max)
+//            {
+//                max = tab[row][i];
+//            }
+//        }
+//        return max;
+//    }
 
     private int chercheMinCol(int col, int[][] tab)
     {
@@ -735,20 +729,20 @@ public class Algo implements AlgoInterface
         return max;
     }
 
-    private int chercheMaxTab(int[][] tab)
-    {
-        Integer max = Integer.MIN_VALUE;
-        int temp;
-        for (int row = 0; row < tab.length; row++)
-        {
-            temp = chercheMaxRow(row, tab);
-            if (temp > max)
-            {
-                max = temp;
-            }
-        }
-        return max;
-    }
+//    private int chercheMaxTab(int[][] tab)
+//    {
+//        Integer max = Integer.MIN_VALUE;
+//        int temp;
+//        for (int row = 0; row < tab.length; row++)
+//        {
+//            temp = chercheMaxRow(row, tab);
+//            if (temp > max)
+//            {
+//                max = temp;
+//            }
+//        }
+//        return max;
+//    }
 
     private int chercheMinTab(int[][] tab)
     {
@@ -938,6 +932,10 @@ public class Algo implements AlgoInterface
                 }
                 arbre.goToFils(i);
                 searchSoluce(arbre, oneSoluce);
+                for (int k = 0; k < tab.length; k++)
+                {
+                    oneSoluce[(Integer) (arbre.getVue().getRow())][k] = false;
+                }
                 arbre.goToPere();
             }
 
@@ -1039,8 +1037,10 @@ public class Algo implements AlgoInterface
                     }
                 }
             }
-            row++;
+            if(row!=tab.length)
+                    row++;
             buildArbreZero(row, 0);
+            
         }
     }
 
@@ -1063,7 +1063,8 @@ public class Algo implements AlgoInterface
 
     public static void main(String[] args)
     {
-        Algo algo = new Algo(false, 5);
+        int tab[][]={{14,5,8,7},{2,12,6,5},{7,8,3,9},{2,4,6,10}};
+        Algo algo = new Algo(tab, true, 5);
 
         algo.resolveMatrix();
 

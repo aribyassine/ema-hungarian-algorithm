@@ -188,7 +188,7 @@ public class AlgoTest {
      * Test of getResolvedMatrix method, of class Algo.
      * This is the main test of the Algo class
      */
-    // DISABLED broken @Test
+    @Test
     public void testGetResolvedMatrix4()
     {
         System.out.println("getResolvedMatrix");
@@ -199,10 +199,10 @@ public class AlgoTest {
         Algo algorithm = new Algo(matrix4, true, matrix4.length);
         Vector<boolean[][]> expectedResolvedMatrices = new Vector<boolean[][]>();
         boolean resolvedMatrix1[][] = {
-            {false, false, false, false},
+            {false, true, false, false},
             {false, false, false, true},
-            {false, false, false, false},
-            {false, false, false, false}};
+            {false, false, true, false},
+            {true, false, false, false}};
         expectedResolvedMatrices.add(resolvedMatrix1);
 
         Vector<boolean[][]> result = algorithm.getResolvedMatrix();
