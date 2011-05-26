@@ -12,8 +12,7 @@ EMA Hungarian Algorithm est un programme Java permettant de résoudre des probl�
 
 == Description de l'interface graphique ==
 
-Screenshot TODO
-Description de chaque élément
+https://ema-hungarian-algorithm.googlecode.com/svn/wiki/images/ema-hungarian-algorithm.png
 
 
 == Résolution simple ==
