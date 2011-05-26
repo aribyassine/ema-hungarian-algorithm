@@ -39,4 +39,12 @@ public interface ExampleMatrix {
         {0,3,2,2,2,0}
     };
 
+    public static final int[][] MATRIX4 =
+    {
+        {14,5,8,7},
+        {2,12,6,5},
+        {7,8,3,9},
+        {2,4,6,10}
+    };
+
 }
