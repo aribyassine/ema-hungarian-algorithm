@@ -233,7 +233,7 @@ public final class MatrixPanel extends javax.swing.JPanel {
         deleteButton = new javax.swing.JButton();
         valueTextField = new javax.swing.JTextField();
 
-        setName("Form"); // NOI18N
+        setName("MatrixPanelForm"); // NOI18N
 
         jScrollPane1.setName("jScrollPane1"); // NOI18N
 

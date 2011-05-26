@@ -91,7 +91,7 @@ public class MultipleSolutionPanel extends javax.swing.JPanel {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
 
-        setName("Form"); // NOI18N
+        setName("MultipleSolutionPanelForm"); // NOI18N
 
         jTabbedPane1.setName("jTabbedPane1"); // NOI18N
 

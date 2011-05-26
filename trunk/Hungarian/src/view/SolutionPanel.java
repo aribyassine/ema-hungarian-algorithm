@@ -160,7 +160,7 @@ public class SolutionPanel extends javax.swing.JPanel
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
-        setName("Form"); // NOI18N
+        setName("SolutionPanelForm"); // NOI18N
 
         jScrollPane1.setName("jScrollPane1"); // NOI18N
 
