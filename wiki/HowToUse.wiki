@@ -25,7 +25,8 @@ https://ema-hungarian-algorithm.googlecode.com/svn/wiki/images/ema-hungarian-alg
 
 == Interprétation des résultats ==
 
-TODO
+Les onglets solutions, présentent toutes les affectations optimales trouvées.
+Les taches sont présentées ... les ressources ... TODO
 
 
 == Résolution simple ==
