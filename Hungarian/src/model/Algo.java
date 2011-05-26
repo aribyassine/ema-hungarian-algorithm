@@ -15,12 +15,7 @@ import java.util.Vector;
 public class Algo implements AlgoInterface
 {
 
-    private int tab[][]; // = ExampleMatrix.MATRIX1;
-    //private int tab[][] = ExampleMatrix.MATRIX2;
-    //private int tab[][] = {{13,4,25,6,2,68 107,-12,11,216},{22,-5,0,2,31,54,37,3,24,11},{7,6,0,2,1,1},{4,4,5,0,1,2},{0,1,0,1,0,0},{0,3,2,2,2,0}};
-    //private int tab[][] = ExampleMatrix.MATRIX3;
-    //private int tab[][] = {{14,5,8,7},{2,12,6,5},{7,8,3,9},{2,4,6,10}};
-    //private int tab[][] = {{0,0,0,1,0},{0,0,2,0,3},{4,5,0,0,6},{0,7,0,8,0},{9,0,10,0,0}};
+    private int matrix[][];
     private boolean tabMarkedZero[][];
 
     /*
@@ -82,24 +77,17 @@ public class Algo implements AlgoInterface
      *
      * @param tab: matrice d'affectation a resoudre
      * @param minimize: minimizer ou maximizer
-     * @param ordre: ordre de la matrice carree passee en parametre
+     * @param order: ordre de la matrice carree passee en parametre
      */
-    public final void init(int[][] tab, boolean minimize, int taille)
+    public final void init(int[][] matrix, boolean minimize, int order)
     {
-        /*
-         * this is for testing purpose only, if no tab were passed
-         * take the class-defined one
-         */
-        if (tab != null)
-        {
-            this.tab = tab;
-        }
+        this.matrix = matrix;
         this.minimize = minimize;
-        this.tabMarkedZero = new boolean[taille][taille];
-        this.markCol = new boolean[taille];
-        this.markRow = new boolean[taille];
+        this.tabMarkedZero = new boolean[order][order];
+        this.markCol = new boolean[order];
+        this.markRow = new boolean[order];
         this.arbre = new ArbreNAire<Integer>();
-        oneSoluce = new boolean[this.tab.length][this.tab.length];
+        oneSoluce = new boolean[order][order];
         this.arbre.initRacine(Integer.MIN_VALUE, Integer.MIN_VALUE);
 
         /*
@@ -107,11 +95,11 @@ public class Algo implements AlgoInterface
          */
         if (!minimize)
         {
-            for (int row = 0; row < tab.length; row++)
+            for (int row = 0; row < matrix.length; row++)
             {
-                for (int col = 0; col < tab.length; col++)
+                for (int col = 0; col < matrix.length; col++)
                 {
-                    this.tab[row][col] = -1 * this.tab[row][col];
+                    this.matrix[row][col] = -1 * this.matrix[row][col];
                 }
             }
         }
@@ -123,7 +111,7 @@ public class Algo implements AlgoInterface
      */
     private void initTab(boolean b, boolean[] markRow)
     {
-        for (int j = 0; j < tab.length; j++)
+        for (int j = 0; j < matrix.length; j++)
         {
             markRow[j] = b;
         }
@@ -160,11 +148,11 @@ public class Algo implements AlgoInterface
     {
         Integer nbZero = 0, xZero = null, yZero = null;
 
-        for (int row = 0; row < tab.length; row++)
+        for (int row = 0; row < matrix.length; row++)
         {
-            for (int col = 0; col < tab.length; col++)
+            for (int col = 0; col < matrix.length; col++)
             {
-                if (tab[row][col] == 0)
+                if (matrix[row][col] == 0)
                 {
                     xZero = row;
                     yZero = col;
@@ -186,7 +174,7 @@ public class Algo implements AlgoInterface
      */
     private void step1SubstractAllRow()
     {
-        for (int i = 0; i < this.tab[0].length; i++)
+        for (int i = 0; i < this.matrix[0].length; i++)
         {
             step1SubstractRow(i);
         }
@@ -202,14 +190,14 @@ public class Algo implements AlgoInterface
          * matrice par -1 en fonction de la recherche maximisation/minimisation
          */
 //        if(this.minimize){
-        valueToSobstract = chercheMinRow(row, tab);
+        valueToSobstract = chercheMinRow(row, matrix);
 //        }else{
 //            valueToSobstract=chercheMaxRow(row,tab);
 //        }
         /*on soustrait ensuite cette valeur à chaque élément de la ligne*/
-        for (int i = 0; i < this.tab[row].length; i++)
+        for (int i = 0; i < this.matrix[row].length; i++)
         {
-            tab[row][i] = tab[row][i] - valueToSobstract;
+            matrix[row][i] = matrix[row][i] - valueToSobstract;
         }
     }
 
@@ -218,7 +206,7 @@ public class Algo implements AlgoInterface
      */
     private void step2SubstractAllCol()
     {
-        for (int i = 0; i < this.tab[0].length; i++)
+        for (int i = 0; i < this.matrix[0].length; i++)
         {
             step2SubstractCol(i);
         }
@@ -234,15 +222,15 @@ public class Algo implements AlgoInterface
          * matrice par -1 en fonction de la recherche maximisation/minimisation
          */
 //        if(this.minimize){
-        valueToSobstract = chercheMinCol(col, tab);
+        valueToSobstract = chercheMinCol(col, matrix);
 //
 //        }else{
 //            valueToSobstract=chercheMaxCol(col, tab);
 //        }
         /*on soustrait ensuite cette valeur à chaque élément de la ligne*/
-        for (int i = 0; i < this.tab[col].length; i++)
+        for (int i = 0; i < this.matrix[col].length; i++)
         {
-            tab[i][col] = tab[i][col] - valueToSobstract;
+            matrix[i][col] = matrix[i][col] - valueToSobstract;
         }
     }
 
@@ -352,13 +340,13 @@ public class Algo implements AlgoInterface
         /*
          * recherche de ligne marquée
          */
-        for (int row = 0; row < tab.length; row++)
+        for (int row = 0; row < matrix.length; row++)
         {
             if (markRow[row] == true)
             {
-                for (int col = 0; col < tab.length; col++)
+                for (int col = 0; col < matrix.length; col++)
                 {
-                    if (tabMarkedZero[row][col] == false && tab[row][col] == 0)
+                    if (tabMarkedZero[row][col] == false && matrix[row][col] == 0)
                     {
                         markCol[col] = true;
                     }
@@ -374,7 +362,7 @@ public class Algo implements AlgoInterface
      */
     private void step6MarkRowCol()
     {
-        for (int col = 0; col < tab.length; col++)
+        for (int col = 0; col < matrix.length; col++)
         {
             if (markCol[col])
             {
@@ -417,15 +405,15 @@ public class Algo implements AlgoInterface
 
     private void step8StrikeRowCol()
     {
-        tabTemp = new int[nbMarkedRow()][tab.length - nbMarkedCol()];
+        tabTemp = new int[nbMarkedRow()][matrix.length - nbMarkedCol()];
         int rowTabTemp = 0, colTabTemp = 0;
-        for (int row = 0; row < tab.length; row++)
+        for (int row = 0; row < matrix.length; row++)
         {
-            for (int col = 0; col < tab.length; col++)
+            for (int col = 0; col < matrix.length; col++)
             {
                 if (markCol[col] == false && markRow[row] == true)
                 {
-                    tabTemp[rowTabTemp][colTabTemp] = tab[row][col];
+                    tabTemp[rowTabTemp][colTabTemp] = matrix[row][col];
                     colTabTemp++;
                 }
             }
@@ -441,19 +429,19 @@ public class Algo implements AlgoInterface
     {
         int value;
         value = chercheMinTab(tabTemp);
-        for (int row = 0; row < tab.length; row++)
+        for (int row = 0; row < matrix.length; row++)
         {
-            for (int col = 0; col < tab.length; col++)
+            for (int col = 0; col < matrix.length; col++)
             {
                 //si element rayé deux fois
                 if (this.markRow[row] == false && markCol[col] == true)
                 {
-                    tab[row][col] += value;
+                    matrix[row][col] += value;
                 }
                 //si element non rayé
                 if (this.markRow[row] == true && markCol[col] == false)
                 {
-                    tab[row][col] -= value;
+                    matrix[row][col] -= value;
                 }
             }
         }
@@ -516,12 +504,12 @@ public class Algo implements AlgoInterface
 
     public int[][] getTab()
     {
-        return tab;
+        return matrix;
     }
 
     public void setTab(int[][] tab)
     {
-        this.tab = tab;
+        this.matrix = tab;
     }
 
     // the code is now refactored with goToNextStep in resolveMatrix()
@@ -790,9 +778,9 @@ public class Algo implements AlgoInterface
     private int nbZeroRow(int row)
     {
         int nbZero = 0;
-        for (int col = 0; col < tab.length; col++)
+        for (int col = 0; col < matrix.length; col++)
         {
-            if (tab[row][col] == 0)
+            if (matrix[row][col] == 0)
             {
                 nbZero++;
             }
@@ -803,9 +791,9 @@ public class Algo implements AlgoInterface
     private int nbZeroCol(int col)
     {
         int nbZero = 0;
-        for (int row = 0; row < tab.length; row++)
+        for (int row = 0; row < matrix.length; row++)
         {
-            if (tab[row][col] == 0)
+            if (matrix[row][col] == 0)
             {
                 nbZero++;
             }
@@ -928,7 +916,7 @@ public class Algo implements AlgoInterface
             {
                 if (!arbre.isRacine())
                 {
-                    for (int k = 0; k < tab.length; k++)
+                    for (int k = 0; k < matrix.length; k++)
                     {
                         oneSoluce[(Integer) (arbre.getVue().getRow())][k] = false;
                     }
@@ -938,7 +926,7 @@ public class Algo implements AlgoInterface
                 }
                 arbre.goToFils(i);
                 searchSoluce(arbre, oneSoluce);
-                for (int k = 0; k < tab.length; k++)
+                for (int k = 0; k < matrix.length; k++)
                 {
                     oneSoluce[(Integer) (arbre.getVue().getRow())][k] = false;
                 }
@@ -948,21 +936,21 @@ public class Algo implements AlgoInterface
         }
         else // (arbre.isNoeudFeuille())
         {
-            for (int k = 0; k < tab.length; k++)
+            for (int k = 0; k < matrix.length; k++)
             {
                 oneSoluce[(Integer) (arbre.getVue().getRow())][k] = false;
             }
             oneSoluce[(Integer) (arbre.getVue().getRow())][(Integer) (arbre.getVue().getCol())] = true;
-            boolean tmp[][] = new boolean[tab.length][tab.length];
-            for (int i = 0; i < tab.length; i++)
+            boolean tmp[][] = new boolean[matrix.length][matrix.length];
+            for (int i = 0; i < matrix.length; i++)
             {
-                for (int j = 0; j < tab.length; j++)
+                for (int j = 0; j < matrix.length; j++)
                 {
                     tmp[i][j] = oneSoluce[i][j];
                 }
             }
             this.partialSoluce.add(tmp);
-            if ((Integer) (arbre.getVue().getRow()) == (tab.length - 1))
+            if ((Integer) (arbre.getVue().getRow()) == (matrix.length - 1))
             {
                 this.soluce.add(tmp);
                 /*
@@ -976,11 +964,11 @@ public class Algo implements AlgoInterface
 
     private void buildArbreSoluce(int row, int col)
     {
-        if (row < tab.length)
+        if (row < matrix.length)
         {
-            for (int i = col; i < tab.length; i++)
+            for (int i = col; i < matrix.length; i++)
             {
-                if (tab[row][i] == 0)
+                if (matrix[row][i] == 0)
                 {
                     Noeud<Integer> vue = arbre.getVue();
                     if (isPossibleToCreate(arbre, row, i))
@@ -1006,9 +994,9 @@ public class Algo implements AlgoInterface
         int fils;
         Noeud<Integer> vue;
         boolean temp = false;
-        if (row < tab.length)
+        if (row < matrix.length)
         {
-            for (int i = col; i < tab.length; i++)
+            for (int i = col; i < matrix.length; i++)
             {
                 if (arbre.getNbFils() > 0)
                 {
@@ -1022,7 +1010,7 @@ public class Algo implements AlgoInterface
                     }
 
                 }
-                if (tab[row][i] == 0 && !temp)
+                if (matrix[row][i] == 0 && !temp)
                 {
                     // Save de la vue pour ne pas la perdre pendant le parcours
                     vue = arbre.getVue();
@@ -1043,7 +1031,7 @@ public class Algo implements AlgoInterface
                     }
                 }
             }
-            if(row!=tab.length)
+            if(row!=matrix.length)
                     row++;
             buildArbreZero(row, 0);
             
