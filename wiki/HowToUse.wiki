@@ -1,7 +1,7 @@
 #summary A quick how to use the program.
 #labels utilisation
 
-<wiki:toc max_depth="1" />
+<wiki:toc max_depth="2" />
 
 = Manuel d'utilisation d'EMA Hungarian Algorithm =
 
