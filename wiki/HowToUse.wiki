@@ -44,4 +44,4 @@ Saisissez votre matrice des coûts puis cliquez sur le cliquez sur le bouton "Ne
 
 Il est possible de tester le programme avec des matrices d'exemple prédéfinies.
 Allez chercher ces matrices prédéfinies dans le menu "Help" :
-https://ema-hungarian-algorithm.googlecode.com/svn/wiki/images/ema-hungarian-algorithm-annotated.png
+https://ema-hungarian-algorithm.googlecode.com/svn/wiki/images/ema-hungarian-algorithm-help-menu-focused.png
