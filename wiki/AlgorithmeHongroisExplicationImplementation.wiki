@@ -2,7 +2,7 @@
 <wiki:toc max_depth="3" />
 = Principe =
 
-Par soustraction, on crée des zéro dans la matrice. Le but est d'obtenir le plus rapidement une configuration de zéro qui respecte les contraintes suivantes :
+Par soustraction, on crée des zéros dans la matrice. Le but est d'obtenir le plus rapidement une configuration de zéros qui respecte les contraintes suivantes :
   * il n'y a qu'un seul zéro sélectionné par ligne
   * il n'y a qu'un seul zéro sélectionné par colonne
 
@@ -16,16 +16,21 @@ Pour chaque ligne, on recherche le minimum qu'on soustrait à la ligne, ce qui p
 == Par colonnes ==
 Pour chaque colonne, on recherche le minimum qu'on soustrait à la colonne, ce qui permet d'avoir au moins un zéro par colonne.
 = Sélection de zéro encadré =
-On essaie de sélectionner le maximum de zéro possible (qu'on appellera zéro encadré), qui ne soit pas en conflits avec les contraintes décrites précédemment.
+On essaie de sélectionner le maximum de zéros possible (qu'on appellera zéro encadré), qui ne soient pas en conflits avec les contraintes décrites précédemment.
 On gardera la configuration qui a le plus de zéros encadrés.
-Si on a autant de zéros que la taille de la matrice, on a trouvé une solution et il est inutile de poursuivre l'algorithme.
+Si on a autant de zéros que la taille de la matrice, on a trouvé une solution, il est donc inutile de poursuivre l'algorithme.
+
 = Marquage =
+
 == Étape 1 ==
 On marque toute ligne n'ayant pas de zéro « encadré ».
+
 == Étape 2 ==
 On marque toute colonne ayant un zéro non encadré sur une ligne marquée.
+
 == Étape 3 ==
 On marque toute ligne ayant un zéro encadré sur une colonne marquée.
+
 == Itération ==
 On répète les étapes 2 et 3 jusqu'à ce que ça ne soit plus possible. On détecte cette impossibilité en dès que le nombre de lignes et de colonnes marquées entre deux itérations ne change pas.
 
