@@ -26,19 +26,20 @@ https://ema-hungarian-algorithm.googlecode.com/svn/wiki/images/ema-hungarian-alg
 == Interprétation des résultats ==
 
 Les onglets solutions, présentent toutes les affectations optimales trouvées.
-Pour chaque matrice solution apparaît les associations tâche-ressource optimal pour minimiser/maximiser les coûts.
+
+Pour chaque matrice solution apparaît les associations tâche-ressource optimal pour minimiser/maximiser le coût total.
 
 
 == Résolution simple ==
 
-Saisissez votre matrice des coûts.
-Cliquez sur résoudre.
-TODO finish up
+Saisissez votre matrice des coûts puis cliquez sur le bouton "Resolve".
 
 
 == Résolution pas à pas ==
-TODO
+
+Saisissez votre matrice des coûts puis cliquez sur le cliquez sur le bouton "Next Step" pour dérouler l'algorithme.
 
 
 == Matrices d'exemple ==
+
 TODO
