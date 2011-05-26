@@ -75,7 +75,7 @@ public class Algo implements AlgoInterface
 
     /**
      *
-     * @param tab: matrice d'affectation a resoudre
+     * @param matrix: matrice d'affectation a resoudre
      * @param minimize: minimizer ou maximizer
      * @param order: ordre de la matrice carree passee en parametre
      */

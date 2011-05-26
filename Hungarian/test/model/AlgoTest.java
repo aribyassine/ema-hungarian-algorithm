@@ -195,7 +195,7 @@ public class AlgoTest {
         /*
 
          */
-        int matrix4[][] = {{14,5,8,7},{2,12,6,5},{7,8,3,9},{2,4,6,10}};
+        int matrix4[][] = ExampleMatrix.MATRIX4;
         Algo algorithm = new Algo(matrix4, true, matrix4.length);
         Vector<boolean[][]> expectedResolvedMatrices = new Vector<boolean[][]>();
         boolean resolvedMatrix1[][] = {
@@ -208,8 +208,8 @@ public class AlgoTest {
         Vector<boolean[][]> result = algorithm.getResolvedMatrix();
         for(int i=0; i<result.size(); i++)
         {
-            System.out.println("Matrix: " + (i+1));
-            algorithm.affiche(result.get(i));
+            // System.out.println("Matrix: " + (i+1));
+            // algorithm.affiche(result.get(i));
             assertArrayEquals(result.get(i), expectedResolvedMatrices.get(i));
         }
     }
