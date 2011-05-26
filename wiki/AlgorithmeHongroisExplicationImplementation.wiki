@@ -54,7 +54,7 @@ Chaque nœud de l'arbre correspond à un zéro qui n'est pas en conflit avec ses
 Le zéro est représenté par les coordonnées qui lui correspondent dans la matrice.
 
 == Création de l'arbre ==
-On parcours la matrice par lignes puis pour chaque ligne par colonnes. Dès qu'on trouve un zéro :
+On parcourt la matrice par lignes puis pour chaque ligne par colonnes. Dès qu'on trouve un zéro :
 s'il n'existe pas un zéro dans l'arbre qui serait en conflit avec celui trouvé (cf contraintes de la section principe), alors on ajoute ce zéro dans l'arbre, on passe à la ligne suivante et on rappelle la fonction.
 
 == Arbre de zéro encadré ==
