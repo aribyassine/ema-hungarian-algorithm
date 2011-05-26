@@ -7,7 +7,7 @@
 
 == Introduction ==
 
-EMA Hungarian Algorithm est un programme Java permettant de résoudre des problèmes d'affectation via l'[http://fr.wikipedia.org/wiki/Algorithme_hongrois Algorithme Hongrois]
+EMA Hungarian Algorithm est un programme Java permettant de résoudre des problèmes d'affectation via l'[http://fr.wikipedia.org/wiki/Algorithme_hongrois algorithme hongrois]
 
 
 == Description de l'interface graphique ==
@@ -20,7 +20,7 @@ https://ema-hungarian-algorithm.googlecode.com/svn/wiki/images/ema-hungarian-alg
  # matrices de résultats
  # reset du programme
  # minimiser ou maximiser les coûts
- # résolution pas a pas
+ # résolution pas à pas
  # résolution simple
 
 == Interprétation des résultats ==
