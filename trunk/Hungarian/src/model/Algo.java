@@ -43,7 +43,7 @@ public class Algo implements AlgoInterface
         "nouveau tableau",          // step7
         "step8StrikeRowCol",        // step8
         "step9SubstractNoMark",     // step9
-        "FIXME nothing to do",      // step10
+        "step10",                   // step10
         "step11Affect0Soluce",      // step11
         "End",                      // step12
     };
