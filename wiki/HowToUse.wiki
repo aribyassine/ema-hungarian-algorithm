@@ -16,7 +16,16 @@ https://ema-hungarian-algorithm.googlecode.com/svn/wiki/images/ema-hungarian-alg
 
  # saisie de la matrice des coûts
  # agumenter la taille de la matrice
- # diminuer la taille de matrice 
+ # diminuer la taille de matrice
+ # matrices de résultats
+ # reset du programme
+ # minimiser ou maximiser les coûts
+ # résolution pas a pas
+ # résolution simple
+
+== Interprétation des résultats ==
+
+TODO
 
 
 == Résolution simple ==
