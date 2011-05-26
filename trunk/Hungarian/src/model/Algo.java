@@ -54,7 +54,7 @@ public class Algo implements AlgoInterface
     };
     
     private ArbreNAire<Integer> arbre;
-    /*
+    /**
      * used for notifying algo changes to the view
      * we might move that down to a common abstract class later on.
      */
@@ -78,6 +78,12 @@ public class Algo implements AlgoInterface
                 taille);
     }
 
+    /**
+     *
+     * @param tab: matrice d'affectation a resoudre
+     * @param minimize: minimizer ou maximizer
+     * @param ordre: ordre de la matrice carree passee en parametre
+     */
     public final void init(int[][] tab, boolean minimize, int taille)
     {
         /*
