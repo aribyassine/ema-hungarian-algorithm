@@ -1,0 +1,31 @@
+#summary A quick how to use the program.
+#labels utilisation
+
+<wiki:toc max_depth="1" />
+
+= Manuel d'utilisation d'EMA Hungarian Algorithm =
+
+== Introduction ==
+
+EMA Hungarian Algorithm est un programme Java permettant de résoudre des problèmes d'affectation via l'[http://fr.wikipedia.org/wiki/Algorithme_hongrois Algorithme Hongrois]
+
+
+== Description de l'interface graphique ==
+
+Screenshot TODO
+Description de chaque élément
+
+
+== Résolution simple ==
+
+Saisissez votre matrice des coûts.
+Cliquez sur résoudre.
+TODO finish up
+
+
+== Résolution pas à pas ==
+TODO
+
+
+== Matrices d'exemple ==
+TODO
