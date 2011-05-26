@@ -37,7 +37,8 @@ Dans la matrice principale :
   * on retranche ce nombre aux éléments qui ne sont pas rayés.
   * on ajoute ce nombre aux éléments qui sont rayés deux fois (éléments sur une ligne rayé et sur une colonne rayé)
 = Recherche de solution(s) =
-On recherche la/les solutions possibles. Si aucune solution existe, on reprend l'algorithme à l'étape de sélection de zéro encadrés
+On recherche la/les solutions possibles. Si aucune solution existe, on reprend l'algorithme à l'étape de sélection de zéro encadrés.
+La recherche de solution se fait à l'aide d'un arbre. Cela permet de ne pas s'arrêter à la première affectation acceptable mais d'obtenir toutes les solutions acceptables.
 == Structure de l'arbre ==
 La racine de l'arbre est un point de départ qui ne contient en lui-même aucune donnée. Son utilité est purement technique.
 Chaque nœud de l'arbre correspond à un zéro qui n'est pas en conflit avec ses nœuds parents ou fils.
