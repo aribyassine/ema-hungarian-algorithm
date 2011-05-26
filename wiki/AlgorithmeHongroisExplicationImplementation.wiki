@@ -6,7 +6,7 @@ Par soustraction, on créer des zéro dans la matrice. Le but est d'obtenir le p
   * il n'y a qu'un seul zéro sélectionné par ligne
   * il n'y a qu'un seul zéro sélectionné par colonne
 
-= Première étape =
+= Meilleur valeur : minimu/maximum =
 
 Si la meilleur valeur est la plus grande, on multiplie la matrice par -1 afin que la meilleur valeur devienne la plus petite, ce qui permet de conserver le même algorithme pour la suite.
 
