@@ -6,9 +6,9 @@ Par soustraction, on crée des zéro dans la matrice. Le but est d'obtenir le pl
   * il n'y a qu'un seul zéro sélectionné par ligne
   * il n'y a qu'un seul zéro sélectionné par colonne
 
-= Meilleur valeur : minimum/maximum =
+= Meilleure valeur : minimum/maximum =
 
-Si la meilleur valeur est la plus grande, on multiplie la matrice par -1 afin que la meilleur valeur devienne la plus petite, ce qui permet de conserver le même algorithme pour la suite.
+Si la meilleure valeur est la plus grande, on multiplie la matrice par -1 afin que la meilleure valeur devienne la plus petite, ce qui permet de conserver le même algorithme pour la suite.
 
 = Création de zéro =
 == Par lignes ==
